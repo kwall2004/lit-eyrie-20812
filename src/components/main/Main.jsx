@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/actionCreators';
@@ -9,25 +10,33 @@ const Main = React.createClass({
     render() {
         return (
             <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/home">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/one">Component 1</Link>
-                        </li>
-                        <li>
-                            <Link to="/two">Component 2</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <main>
+                <header>
+                    <Navbar>
+                        <Nav pullRight>
+                            <LinkContainer to="/home">
+                                <NavItem>
+                                    Home
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/one">
+                                <NavItem>
+                                    Component 1
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/two">
+                                <NavItem>
+                                    Component 2
+                                </NavItem>
+                            </LinkContainer>
+                        </Nav>
+                    </Navbar>
+                </header>
+                <section>
                     {React.cloneElement(this.props.children, {
                         counters: this.props.counters,
                         increment: this.props.increment
-                    })}
-                </main>
+                    }) }
+                </section>
             </div>
         );
     }

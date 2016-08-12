@@ -18,9 +18,9 @@ module.exports = {
     entry: {
         app: path.join(PATHS.src, 'components/main'),
         vendor: [
-            'react', 
-            'react-dom', 
-            'react-router', 
+            'react',
+            'react-dom',
+            'react-router',
             'react-redux',
             'react-bootstrap',
             'react-router-bootstrap',
@@ -41,21 +41,25 @@ module.exports = {
                 loaders: ['file?name=[name].css', 'extract', 'css'],
                 exclude: PATHS.src
             },
-            { 
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "file" 
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
             },
-            { 
-                test: /\.(woff|woff2)$/, 
-                loader: "url?prefix=font/&limit=5000" 
+            {
+                test: /\.(woff|woff2)$/,
+                loader: "url?prefix=font/&limit=5000"
             },
-            { 
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "url?limit=10000&mimetype=application/octet-stream" 
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
             },
-            { 
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "url?limit=10000&mimetype=image/svg+xml" 
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
+            },
+            {
+                test: /\.(jpg|png)$/,
+                loader: 'url?limit=25000',
             },
             {
                 test: /\.css$/,

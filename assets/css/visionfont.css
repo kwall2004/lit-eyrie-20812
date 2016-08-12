@@ -1,0 +1,97 @@
+/*
+  Icon Font: visionfont
+*/
+
+@font-face {
+  font-family: "visionfont";
+  src: url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.eot");
+  src: url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.woff") format("woff"),
+       url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.ttf") format("truetype"),
+       url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.svg#visionfont") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "visionfont";
+    src: url("../fonts/visionfont_2d12002b7d0c83bf349f843a34dbf0b6.svg#visionfont") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.icon-BulkUpload:before,
+.icon-ClientSetup:before,
+.icon-ConfigFileUpload:before,
+.icon-DeviceAction:before,
+.icon-DeviceSetup:before,
+.icon-FOTASetup:before,
+.icon-FileDownload:before,
+.icon-Geo-Fence:before,
+.icon-Time-Fence:before,
+.icon-TripDataParser:before,
+.icon-UVD_Mapping:before,
+.icon-UserAccess:before,
+.icon-UserSetup:before,
+.icon-VehicleSetup:before,
+.icon-bar-chart:before,
+.icon-battery:before,
+.icon-check:before,
+.icon-clock-o:before,
+.icon-cog:before,
+.icon-diagnostic:before,
+.icon-home:before,
+.icon-loc-fence:before,
+.icon-marker:before,
+.icon-popout:before,
+.icon-question-circle:before,
+.icon-random:before,
+.icon-report:before,
+.icon-tachometer:before,
+.icon-time-fence:before {
+  display: inline-block;
+  font-family: "visionfont";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.icon-BulkUpload:before { content: "\f10e"; }
+.icon-ClientSetup:before { content: "\f10f"; }
+.icon-ConfigFileUpload:before { content: "\f110"; }
+.icon-DeviceAction:before { content: "\f111"; }
+.icon-DeviceSetup:before { content: "\f112"; }
+.icon-FOTASetup:before { content: "\f113"; }
+.icon-FileDownload:before { content: "\f114"; }
+.icon-Geo-Fence:before { content: "\f115"; }
+.icon-Time-Fence:before { content: "\f116"; }
+.icon-TripDataParser:before { content: "\f117"; }
+.icon-UVD_Mapping:before { content: "\f118"; }
+.icon-UserAccess:before { content: "\f119"; }
+.icon-UserSetup:before { content: "\f11a"; }
+.icon-VehicleSetup:before { content: "\f11b"; }
+.icon-bar-chart:before { content: "\f11f"; }
+.icon-battery:before { content: "\f125"; }
+.icon-check:before { content: "\f123"; }
+.icon-clock-o:before { content: "\f11c"; }
+.icon-cog:before { content: "\f120"; }
+.icon-diagnostic:before { content: "\f126"; }
+.icon-home:before { content: "\f121"; }
+.icon-loc-fence:before { content: "\f127"; }
+.icon-marker:before { content: "\f124"; }
+.icon-popout:before { content: "\f128"; }
+.icon-question-circle:before { content: "\f122"; }
+.icon-random:before { content: "\f11d"; }
+.icon-report:before { content: "\f129"; }
+.icon-tachometer:before { content: "\f11e"; }
+.icon-time-fence:before { content: "\f12a"; }

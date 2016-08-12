@@ -1,44 +1,90 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/actionCreators';
-import styles from './main.css';
+import styles from './main.less';
 
 const Main = React.createClass({
     render() {
         return (
             <div>
                 <header>
-                    <Navbar inverse>
+                    <Navbar inverse className="rootnavbar">
                         <Navbar.Header>
                             <Navbar.Brand>
-                                Webpack Demo
+                                <Link to="/">
+                                    <i className="sprite sprite-logo-vts6"></i>
+                                </Link>
                             </Navbar.Brand>
+                            <Navbar.Toggle />
                         </Navbar.Header>
-                        <Nav pullRight>
-                            <LinkContainer to="/home">
-                                <NavItem>
-                                    Home
-                                </NavItem>
-                            </LinkContainer>
-                            <LinkContainer to="/one">
-                                <NavItem>
-                                    Component 1
-                                </NavItem>
-                            </LinkContainer>
-                            <LinkContainer to="/two">
-                                <NavItem>
-                                    Component 2
-                                </NavItem>
-                            </LinkContainer>
-                            <NavDropdown title="Component 3" id="component-3">
-                                <MenuItem>3a</MenuItem>
-                                <MenuItem>3b</MenuItem>
-                                <MenuItem>3c</MenuItem>
-                            </NavDropdown>
-                        </Nav>
+                        <Navbar.Collapse>
+                            <Nav pullRight className="navbar-router">
+                                <LinkContainer to="/home">
+                                    <NavItem>
+                                        <i className="icon-home"></i>
+                                        <span>
+                                            Home
+                                        </span>
+                                    </NavItem>
+                                </LinkContainer>
+                                <NavDropdown
+                                    noCaret
+                                    className="Admin"
+                                    title={
+                                        <div className="dropdown-label">
+                                            <i className="icon-UserSetup"></i>
+                                            <span>
+                                                Admin
+                                            </span>
+                                            <span className="caret"></span>
+                                        </div>
+                                    }
+                                    id="admin-menu">
+                                    <MenuItem>Client Setup</MenuItem>
+                                    <MenuItem>User Setup</MenuItem>
+                                    <MenuItem>Vehicle Setup</MenuItem>
+                                    <MenuItem>Device Setup</MenuItem>
+                                    <MenuItem>User-Vehicle-Device Mapping</MenuItem>
+                                    <MenuItem>FOTA Setup</MenuItem>
+                                    <MenuItem>Geo-Fence</MenuItem>
+                                    <MenuItem>Time-Fence</MenuItem>
+                                    <MenuItem>User Access Priveleges</MenuItem>
+                                    <MenuItem>Bulk Upload</MenuItem>
+                                    <MenuItem>Trip Data Parser</MenuItem>
+                                    <MenuItem>Device Action Settings</MenuItem>
+                                    <MenuItem>File Download</MenuItem>
+                                    <MenuItem>Config File Upload</MenuItem>
+                                </NavDropdown>
+                                <NavDropdown
+                                    noCaret
+                                    className="Reports"
+                                    title={
+                                        <div className="dropdown-label">
+                                            <i className="icon-bar-chart"></i>
+                                            <span>
+                                                Reports
+                                            </span>
+                                            <span className="caret"></span>
+                                        </div>
+                                    }
+                                    id="reports-menu">
+                                    <MenuItem>Device Allocations</MenuItem>
+                                    <MenuItem>Mapping</MenuItem>
+                                </NavDropdown>
+                                <LinkContainer to="/two">
+                                    <NavItem>
+                                        <i className="icon-cog"></i>
+                                        <span>
+                                            Settings
+                                        </span>
+                                    </NavItem>
+                                </LinkContainer>
+                            </Nav>
+                        </Navbar.Collapse>
                     </Navbar>
                 </header>
                 <section>

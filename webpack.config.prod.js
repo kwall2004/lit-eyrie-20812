@@ -39,22 +39,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['file?name=[name].css', 'extract', 'css'],
-                include: path.join(dirname, 'node_modules')
-            },
-            {
-                test: /\.css$/,
-                loaders: ['style/url', 'file?name=[name].css', 'extract', 'css'],
-                include: PATHS.src
-            },
-            {
-                test: /\.less$/,
-                loaders: ['style/url', 'file?name=[name].[hash].css', 'extract', 'css', 'less'],
-                include: PATHS.src
-            },
-            {
-                test: /\.(js|jsx)$/,
-                loaders: ['babel'],
-                include: PATHS.src
+                exclude: PATHS.src
             },
             { 
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
@@ -71,6 +56,21 @@ module.exports = {
             { 
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
                 loader: "url?limit=10000&mimetype=image/svg+xml" 
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style/url', 'file?name=[name].[hash].css', 'extract', 'css'],
+                include: PATHS.src
+            },
+            {
+                test: /\.less$/,
+                loaders: ['style/url', 'file?name=[name].[hash].css', 'extract', 'css', 'less'],
+                include: PATHS.src
+            },
+            {
+                test: /\.(js|jsx)$/,
+                loaders: ['babel'],
+                include: PATHS.src
             }
         ]
     },

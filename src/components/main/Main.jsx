@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,6 +12,11 @@ const Main = React.createClass({
             <div>
                 <header>
                     <Navbar inverse>
+                        <Navbar.Header>
+                            <Navbar.Brand>
+                                Webpack Demo
+                            </Navbar.Brand>
+                        </Navbar.Header>
                         <Nav pullRight>
                             <LinkContainer to="/home">
                                 <NavItem>
@@ -28,6 +33,11 @@ const Main = React.createClass({
                                     Component 2
                                 </NavItem>
                             </LinkContainer>
+                            <NavDropdown title="Component 3" id="component-3">
+                                <MenuItem>3a</MenuItem>
+                                <MenuItem>3b</MenuItem>
+                                <MenuItem>3c</MenuItem>
+                            </NavDropdown>
                         </Nav>
                     </Navbar>
                 </header>

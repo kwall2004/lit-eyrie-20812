@@ -2,6 +2,6 @@ body {
     background: cornsilk;
 }
 
-span {
+button + span {
     padding-left: 10px;
 }

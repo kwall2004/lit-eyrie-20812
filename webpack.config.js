@@ -17,7 +17,16 @@ module.exports = {
     },
     entry: {
         app: path.join(PATHS.src, 'components/main'),
-        vendor: ['react', 'react-dom', 'react-router']
+        vendor: [
+            'react', 
+            'react-dom', 
+            'react-router', 
+            'react-redux',
+            'react-bootstrap',
+            'react-router-bootstrap',
+            'redux',
+            'immutable'
+        ]
     },
     output: {
         path: PATHS.build,
@@ -29,7 +38,13 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loaders: ['style/url', 'file?name=[name].css', 'extract', 'css']
+                loaders: ['file?name=[name].css', 'extract', 'css'],
+                include: path.join(dirname, 'node_modules')
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style/url', 'file?name=[name].css', 'extract', 'css'],
+                include: PATHS.src
             },
             {
                 test: /\.less$/,

@@ -11,7 +11,7 @@ const Main = React.createClass({
         return (
             <div>
                 <header>
-                    <Navbar>
+                    <Navbar inverse>
                         <Nav pullRight>
                             <LinkContainer to="/home">
                                 <NavItem>

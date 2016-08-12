@@ -1,4 +1,4 @@
-import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
+import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';

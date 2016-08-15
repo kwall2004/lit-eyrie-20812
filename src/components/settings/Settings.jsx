@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './settings.less';
 
-const Two = React.createClass({
+const Settings = React.createClass({
     render() {
         return (
             <div className="settings">
@@ -22,4 +22,4 @@ const Two = React.createClass({
     }
 });
 
-module.exports = Two;
+module.exports = Settings;

@@ -1,9 +1,9 @@
 const route = {
-    path: 'one',
+    path: 'clientSetup',
 
     getComponent(location, cb) {
         require.ensure([], (require) => {
-            cb(null, require('./One'));
+            cb(null, require('./ClientSetup'));
         });
     },
     

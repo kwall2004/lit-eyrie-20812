@@ -1,9 +1,9 @@
 const route = {
-    path: 'two',
+    path: 'settings',
     
     getComponent(location, cb) {
         require.ensure([], (require) => {
-            cb(null, require('./Two'));
+            cb(null, require('./Settings'));
         });
     }
 };

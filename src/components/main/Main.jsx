@@ -44,7 +44,9 @@ const Main = React.createClass({
                                         </div>
                                     }
                                     id="admin-menu">
-                                    <MenuItem>Client Setup</MenuItem>
+                                    <LinkContainer to="/clientSetup">
+                                        <MenuItem>Client Setup</MenuItem>
+                                    </LinkContainer>
                                     <MenuItem>User Setup</MenuItem>
                                     <MenuItem>Vehicle Setup</MenuItem>
                                     <MenuItem>Device Setup</MenuItem>
@@ -75,7 +77,7 @@ const Main = React.createClass({
                                     <MenuItem>Device Allocations</MenuItem>
                                     <MenuItem>Mapping</MenuItem>
                                 </NavDropdown>
-                                <LinkContainer to="/two">
+                                <LinkContainer to="/settings">
                                     <NavItem>
                                         <i className="icon-cog"></i>
                                         <span>

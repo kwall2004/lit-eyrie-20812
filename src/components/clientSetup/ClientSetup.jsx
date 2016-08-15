@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import styles from './one.less';
+import styles from './clientSetup.less';
 
-const One = React.createClass({
+const ClientSetup = React.createClass({
     render() {
         var child;
         if (this.props.children) {
@@ -13,9 +13,9 @@ const One = React.createClass({
         } 
 
         return (
-            <div className="one">
+            <div className="client-setup">
                 <h1>
-                    Component 1
+                    Client Setup
                 </h1>
                 <button
                     onClick={() => this.props.increment('One')}>
@@ -29,7 +29,7 @@ const One = React.createClass({
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/one/a">Component 1a</Link>
+                            <Link to="/clientSetup/a">Component 1a</Link>
                         </li>
                     </ul>
                 </nav>
@@ -41,4 +41,4 @@ const One = React.createClass({
     }
 });
 
-module.exports = One;
+module.exports = ClientSetup;

@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './two.less';
+import styles from './settings.less';
 
 const Two = React.createClass({
     render() {
         return (
-            <div className="two">
+            <div className="settings">
                 <h1>
-                    Component 2
+                    Settings
                 </h1>
                 <button
                     onClick={() => this.props.increment('Two')}>

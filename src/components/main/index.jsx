@@ -17,8 +17,8 @@ const routes = {
     },
     childRoutes: [
         require('../home'),
-        require('../one'),
-        require('../two')
+        require('../clientSetup'),
+        require('../settings')
     ]
 };
 

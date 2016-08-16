@@ -58,6 +58,10 @@ module.exports = {
                 loader: "url?limit=10000&mimetype=image/svg+xml" 
             },
             {
+                test: /\.(jpg|png)$/,
+                loader: 'url?limit=25000',
+            },
+            {
                 test: /\.css$/,
                 loaders: ['style/url', 'file?name=[name].[hash].css', 'extract', 'css'],
                 include: PATHS.src

@@ -4,14 +4,6 @@ import styles from './clientSetup.less';
 
 const ClientSetup = React.createClass({
     render() {
-        var child;
-        if (this.props.children) {
-            child = React.cloneElement(this.props.children, {
-                counters: this.props.counters,
-                increment: this.props.increment
-            });
-        } 
-
         return (
             <div className="client-setup">
                 <h1>
@@ -22,7 +14,7 @@ const ClientSetup = React.createClass({
                     +
                 </button>
                 <span>
-                    {this.props.counters.find(function(counter) {
+                    {this.props.counters.find(counter => {
                         return counter.get('name') == 'One';
                     }).get('value')}
                 </span>
@@ -34,7 +26,10 @@ const ClientSetup = React.createClass({
                     </ul>
                 </nav>
                 <main>
-                    {child}
+                    {this.props.children && React.cloneElement(this.props.children, {
+                        counters: this.props.counters,
+                        increment: this.props.increment
+                    })}
                 </main>
             </div>
         )

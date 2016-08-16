@@ -2,10 +2,8 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/actionCreators';
-import styles from './main.less';
 
 const Main = React.createClass({
     render() {
@@ -100,19 +98,13 @@ const Main = React.createClass({
     }
 });
 
-function mapStateToProps(state) {
-    return {
-        counters: state.counters
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actionCreators, dispatch);
-}
-
 const Container = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => {
+        return {
+            counters: state.counters
+        };
+    },
+    actionCreators
 )(Main);
 
 module.exports = Container;

@@ -1,6 +1,5 @@
 import bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import bootstrapTheme from 'bootstrap/dist/css/bootstrap-theme.css';
-import site from '../../../assets/css/Site.css';
+import site from './Site.less';
 import visionfont from '../../../assets/css/visionfont.css';
 import visionsprite from '../../../assets/css/visionsprite.css';
 import React from 'react';

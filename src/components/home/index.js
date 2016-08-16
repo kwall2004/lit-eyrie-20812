@@ -5,6 +5,15 @@ const route = {
         require.ensure([], (require) => {
             cb(null, require('./Home'));
         });
+    },
+    
+    getChildRoutes(location, cb) {
+        require.ensure([], (require) => {
+            cb(null, [
+                require('./dashboard'),
+                require('./trips')
+            ]);
+        });
     }
 };
 

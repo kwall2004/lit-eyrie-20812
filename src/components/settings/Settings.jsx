@@ -13,7 +13,7 @@ const Settings = React.createClass({
                     +
                 </button>
                 <span>
-                    {this.props.counters.find(function(counter) {
+                    {this.props.counters.find(counter => {
                         return counter.get('name') == 'Two';
                     }).get('value')}
                 </span>

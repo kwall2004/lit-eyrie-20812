@@ -14,6 +14,7 @@ const Home = React.createClass({
                         <Nav pullLeft>
                             <LinkContainer to="/home/dashboard">
                                 <NavItem>
+                                    <div className="pipe"></div>
                                     <span>
                                         Dashboard
                                     </span>
@@ -21,8 +22,25 @@ const Home = React.createClass({
                             </LinkContainer>
                             <LinkContainer to="/home/trips">
                                 <NavItem>
+                                    <div className="pipe"></div>
                                     <span>
                                         Trips
+                                    </span>
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/home/vehicleDeviceInfo">
+                                <NavItem>
+                                    <div className="pipe"></div>
+                                    <span>
+                                        Vehicle & Device Info
+                                    </span>
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/home/data">
+                                <NavItem>
+                                    <div className="pipe"></div>
+                                    <span>
+                                        Data
                                     </span>
                                 </NavItem>
                             </LinkContainer>

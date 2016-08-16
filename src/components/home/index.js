@@ -11,7 +11,9 @@ const route = {
         require.ensure([], (require) => {
             cb(null, [
                 require('./dashboard'),
-                require('./trips')
+                require('./trips'),
+                require('./vehicleDeviceInfo'),
+                require('./data')
             ]);
         });
     }

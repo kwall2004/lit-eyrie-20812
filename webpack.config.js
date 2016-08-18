@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
@@ -36,24 +37,29 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loaders: ['file?name=[name].css', 'extract', 'css'],
-                include: path.join(__dirname, 'node_modules')
+                loader: ExtractTextWebpackPlugin.extract('css'),
+                include: [path.join(__dirname, 'node_modules'), PATHS.css]
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextWebpackPlugin.extract('css!less'),
+                include: [path.join(__dirname, 'node_modules'), PATHS.css]
             },
             {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "file"
+                loader: 'file'
             },
             {
                 test: /\.(woff|woff2)$/,
-                loader: "url?prefix=font/&limit=5000"
+                loader: 'url?prefix=font/&limit=5000'
             },
             {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/octet-stream"
+                loader: 'url?limit=10000&mimetype=application/octet-stream'
             },
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=image/svg+xml"
+                loader: 'url?limit=10000&mimetype=image/svg+xml'
             },
             {
                 test: /\.(jpg|png)$/,
@@ -62,12 +68,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['style/url', 'file?name=[name].css', 'extract', 'css'],
-                include: [PATHS.src, PATHS.css]
+                include: PATHS.src
             },
             {
                 test: /\.less$/,
                 loaders: ['style/url', 'file?name=[name].css', 'extract', 'css', 'less'],
-                include: [PATHS.src, PATHS.css]
+                include: PATHS.src
             },
             {
                 test: /\.js$/,
@@ -84,11 +90,12 @@ module.exports = {
         port: process.env.PORT
     },
     plugins: [
+        new ExtractTextWebpackPlugin('[name].css'),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
         }),
         new HtmlWebpackPlugin({
-            template: './index.html',
+            template: './src/index.html',
             publicPath: '/'
         })
     ]

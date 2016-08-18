@@ -2,25 +2,22 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// The drive letter is lower case in VS Code.
-const dirname = __dirname.replace(/^([A-Z]:)/, function (x) { return x.toLowerCase(); });
-
 const PATHS = {
-    src: path.join(dirname, 'src'),
-    build: path.join(dirname, 'build')
+    src: path.join(__dirname, 'src'),
+    build: path.join(__dirname, 'build')
 };
 
 module.exports = {
     devtool: 'source-map',
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     entry: {
         app: path.join(PATHS.src, 'components/main'),
         vendor: [
-            'react', 
-            'react-dom', 
-            'react-router', 
+            'react',
+            'react-dom',
+            'react-router',
             'react-redux',
             'react-bootstrap',
             'react-router-bootstrap',
@@ -41,21 +38,21 @@ module.exports = {
                 loaders: ['file?name=[name].css', 'extract', 'css'],
                 exclude: PATHS.src
             },
-            { 
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "file" 
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
             },
-            { 
-                test: /\.(woff|woff2)$/, 
-                loader: "url?prefix=font/&limit=5000" 
+            {
+                test: /\.(woff|woff2)$/,
+                loader: "url?prefix=font/&limit=5000"
             },
-            { 
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "url?limit=10000&mimetype=application/octet-stream" 
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
             },
-            { 
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
-                loader: "url?limit=10000&mimetype=image/svg+xml" 
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
             },
             {
                 test: /\.(jpg|png)$/,
@@ -72,7 +69,7 @@ module.exports = {
                 include: PATHS.src
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\.js$/,
                 loaders: ['babel'],
                 include: PATHS.src
             }

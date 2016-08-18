@@ -1,9 +1,9 @@
 const route = {
-    path: 'dashboard',
-    
+    path: 'settings',
+
     getComponent(location, cb) {
         require.ensure([], (require) => {
-            cb(null, require('./Dashboard'));
+            cb(null, require('../components/settings'));
         });
     }
 };

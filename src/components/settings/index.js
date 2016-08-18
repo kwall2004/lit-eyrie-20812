@@ -1,11 +1,3 @@
-const route = {
-    path: 'settings',
-    
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Settings'));
-        });
-    }
-};
+import Settings from './Settings';
 
-module.exports = route;
+module.exports = Settings;

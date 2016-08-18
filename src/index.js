@@ -1,23 +1,23 @@
 import bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import site from './Site.less';
-import visionfont from '../../../assets/css/visionfont.css';
-import visionsprite from '../../../assets/css/visionsprite.css';
+import site from '../css/Site.less';
+import visionfont from '../css/visionfont.css';
+import visionsprite from '../css/visionsprite.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import store from '../../store';
+import store from './store';
 
 const routes = {
     path: '/',
-    component: require('./Main'),
+    component: require('./components/main'),
     indexRoute: {
-        component: require('../home/Home')
+        component: require('./components/home')
     },
     childRoutes: [
-        require('../home'),
-        require('../clientSetup'),
-        require('../settings')
+        require('./routes/home'),
+        require('./routes/clients'),
+        require('./routes/settings')
     ]
 };
 

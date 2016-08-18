@@ -1,25 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { fromJS } from 'immutable';
 
 import reducer from './reducers/index';
 
-const defaultState = {
-    counters: fromJS([
-        {
-            name: 'One',
-            value: 0
-        },
-        {
-            name: 'Two',
-            value: 0
-        },
-        {
-            name: 'OneA',
-            value: 0
-        }
-    ])
-};
-
-const store = createStore(reducer, defaultState);
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+);
 
 export default store;

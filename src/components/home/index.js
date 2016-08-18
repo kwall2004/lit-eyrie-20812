@@ -1,22 +1,3 @@
-const route = {
-    path: 'home',
-    
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Home'));
-        });
-    },
-    
-    getChildRoutes(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, [
-                require('./dashboard'),
-                require('./trips'),
-                require('./vehicleDeviceInfo'),
-                require('./data')
-            ]);
-        });
-    }
-};
+import Home from './Home';
 
-module.exports = route;
+module.exports = Home;

@@ -49,8 +49,8 @@ const Home = React.createClass({
                 </Navbar>
                 <section>
                     {this.props.children && React.cloneElement(this.props.children, {
-                        counters: this.props.counters,
-                        increment: this.props.increment
+                        vehicles: this.props.vehicles,
+                        getVehicles: this.props.getVehicles
                     }) }
                 </section>
             </section>

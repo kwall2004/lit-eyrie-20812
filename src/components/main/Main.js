@@ -42,7 +42,7 @@ const Main = React.createClass({
                                         </div>
                                     }
                                     id="admin-menu">
-                                    <LinkContainer to="/clientSetup">
+                                    <LinkContainer to="/clients">
                                         <MenuItem>Client Setup</MenuItem>
                                     </LinkContainer>
                                     <MenuItem>User Setup</MenuItem>
@@ -89,8 +89,8 @@ const Main = React.createClass({
                 </header>
                 <section>
                     {React.cloneElement(this.props.children, {
-                        counters: this.props.counters,
-                        increment: this.props.increment
+                        vehicles: this.props.vehicles,
+                        getVehicles: this.props.getVehicles,
                     }) }
                 </section>
             </div>
@@ -101,7 +101,7 @@ const Main = React.createClass({
 const Container = connect(
     state => {
         return {
-            counters: state.counters
+            vehicles: state.vehicles
         };
     },
     actionCreators

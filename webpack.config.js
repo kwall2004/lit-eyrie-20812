@@ -2,21 +2,19 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// The drive letter is lower case in VS Code.
-const dirname = __dirname.replace(/^([A-Z]:)/, function (x) { return x.toLowerCase(); });
-
 const PATHS = {
-    src: path.join(dirname, 'src'),
-    build: path.join(dirname, 'build')
+    src: path.join(__dirname, 'src'),
+    css: path.join(__dirname, 'css'),
+    build: path.join(__dirname, 'build')
 };
 
 module.exports = {
     devtool: 'source-map',
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     entry: {
-        app: path.join(PATHS.src, 'components/main'),
+        app: PATHS.src,
         vendor: [
             'react',
             'react-dom',
@@ -39,7 +37,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['file?name=[name].css', 'extract', 'css'],
-                exclude: PATHS.src
+                include: path.join(__dirname, 'node_modules')
             },
             {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -64,15 +62,15 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['style/url', 'file?name=[name].css', 'extract', 'css'],
-                include: PATHS.src
+                include: [PATHS.src, PATHS.css]
             },
             {
                 test: /\.less$/,
                 loaders: ['style/url', 'file?name=[name].css', 'extract', 'css', 'less'],
-                include: PATHS.src
+                include: [PATHS.src, PATHS.css]
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\.js$/,
                 loaders: ['babel'],
                 include: PATHS.src
             }

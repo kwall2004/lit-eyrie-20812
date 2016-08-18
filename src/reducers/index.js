@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import counters from './counters';
+import vehicles from './vehicles';
 
 const reducer = combineReducers({
-    counters
+    vehicles
 });
 
 export default reducer;

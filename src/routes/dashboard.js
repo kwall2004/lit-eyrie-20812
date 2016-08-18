@@ -1,9 +1,9 @@
 const route = {
-    path: 'data',
-    
+    path: 'dashboard',
+
     getComponent(location, cb) {
         require.ensure([], (require) => {
-            cb(null, require('./Data'));
+            cb(null, require('../components/dashboard'));
         });
     }
 };

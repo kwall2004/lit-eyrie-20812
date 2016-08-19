@@ -12,7 +12,7 @@ const routes = {
     path: '/',
     component: require('./components/main'),
     indexRoute: {
-        component: require('./components/home')
+        onEnter: (nextState, replace) => replace('/home/dashboard')
     },
     childRoutes: [
         require('./routes/home'),

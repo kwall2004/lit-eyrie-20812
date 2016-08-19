@@ -88,7 +88,7 @@ const Main = React.createClass({
                     </Navbar>
                 </header>
                 <section>
-                    {React.cloneElement(this.props.children, {
+                    {this.props.children && React.cloneElement(this.props.children, {
                         vehicles: this.props.vehicles,
                         getVehicles: this.props.getVehicles,
                     }) }

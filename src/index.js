@@ -1,7 +1,9 @@
-import bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import site from '../css/Site.less';
-import visionfont from '../css/visionfont.css';
-import visionsprite from '../css/visionsprite.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Site.less';
+import '../css/visionfont.css';
+import '../css/visionsprite.css';
+import 'kendo-ui-core/css/web/kendo.common-bootstrap.core.min.css';
+import 'kendo-ui-core/css/web/kendo.bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';

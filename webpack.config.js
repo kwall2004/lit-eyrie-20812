@@ -24,7 +24,9 @@ module.exports = {
             'react-bootstrap',
             'react-router-bootstrap',
             'redux',
-            'immutable'
+            'immutable',
+            'kendo-ui-core',
+            'jquery'
         ]
     },
     output: {
@@ -62,7 +64,7 @@ module.exports = {
                 loader: 'url?limit=10000&mimetype=image/svg+xml'
             },
             {
-                test: /\.(jpg|png)$/,
+                test: /\.(jpg|png|gif)$/,
                 loader: 'url?limit=25000',
             },
             {
@@ -90,7 +92,9 @@ module.exports = {
         port: process.env.PORT
     },
     plugins: [
-        new ExtractTextWebpackPlugin('[name].css'),
+        new ExtractTextWebpackPlugin('[name].css', {
+            allChunks: true
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
         }),

@@ -15,7 +15,9 @@ function vehicles(state = initialState, action) {
             var newState = state.set('list', fromJS(action.json.map(vehicle => {
                 return {
                     vehicleId: vehicle.vehicleId,
-                    name: vehicle.name
+                    name: vehicle.name,
+                    userName: vehicle.userName,
+                    userId: vehicle.userId
                 };
             })));
             return newState.set('stored', true);

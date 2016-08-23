@@ -50,7 +50,8 @@ const Home = React.createClass({
                 <section>
                     {this.props.children && React.cloneElement(this.props.children, {
                         vehicles: this.props.vehicles,
-                        getVehicles: this.props.getVehicles
+                        getVehicles: this.props.getVehicles,
+                        setSelectedVehicle: this.props.setSelectedVehicle
                     }) }
                 </section>
             </section>

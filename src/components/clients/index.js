@@ -1,3 +1,1 @@
-import Clients from './Clients';
-
-module.exports = Clients;
+module.exports = require('./Clients');

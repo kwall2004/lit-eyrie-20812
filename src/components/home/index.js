@@ -1,3 +1,1 @@
-import Home from './Home';
-
-module.exports = Home;
+module.exports = require('./Home');

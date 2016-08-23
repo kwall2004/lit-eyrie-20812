@@ -1,3 +1,1 @@
-import Trips from './Trips';
-
-module.exports = Trips;
+module.exports = require('./Trips');

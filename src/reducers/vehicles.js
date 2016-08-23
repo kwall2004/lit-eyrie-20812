@@ -12,15 +12,13 @@ function vehicles(state = initialState, action) {
             return state.set('loading', action.loading);
 
         case 'STORE_VEHICLES':
-            var newState = state.set('list', fromJS(action.json.map(vehicle => {
-                return {
-                    vehicleId: vehicle.vehicleId,
-                    name: vehicle.name,
-                    userName: vehicle.userName,
-                    userId: vehicle.userId
-                };
-            })));
+            var newState = state.set('list', fromJS(action.json));
             return newState.set('stored', true);
+
+        case 'SET_SELECTED_VEHICLE':
+            return state.set('selectedVehicle', state.get('list').find(vehicle => {
+                return vehicle.get('vehicleId') === action.vehicleId;
+            }));
 
         default:
             return state;

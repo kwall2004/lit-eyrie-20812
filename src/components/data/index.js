@@ -1,3 +1,1 @@
-import Data from './Data';
-
-module.exports = Data;
+module.exports = require('./Data');

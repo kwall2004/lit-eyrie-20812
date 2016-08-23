@@ -1,3 +1,1 @@
-import Dashboard from './Dashboard';
-
-module.exports = Dashboard;
+module.exports = require('./Dashboard');

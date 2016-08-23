@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/actionCreators';
 
-const Main = React.createClass({
+const Root = React.createClass({
     render() {
         return (
             <div>
@@ -91,6 +91,7 @@ const Main = React.createClass({
                     {this.props.children && React.cloneElement(this.props.children, {
                         vehicles: this.props.vehicles,
                         getVehicles: this.props.getVehicles,
+                        setSelectedVehicle: this.props.setSelectedVehicle
                     }) }
                 </section>
             </div>
@@ -105,6 +106,6 @@ const Container = connect(
         };
     },
     actionCreators
-)(Main);
+)(Root);
 
 module.exports = Container;

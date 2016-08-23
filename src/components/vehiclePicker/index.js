@@ -1,3 +1,1 @@
-import VehiclePicker from './VehiclePicker';
-
-module.exports = VehiclePicker;
+module.exports = require('./VehiclePicker');

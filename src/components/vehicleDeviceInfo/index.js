@@ -1,3 +1,1 @@
-import VehicleDeviceInfo from './VehicleDeviceInfo';
-
-module.exports = VehicleDeviceInfo;
+module.exports = require('./VehicleDeviceInfo');

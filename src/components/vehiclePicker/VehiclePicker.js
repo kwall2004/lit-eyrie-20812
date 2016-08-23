@@ -1,45 +1,20 @@
 import React from 'react';
-import kuicombobox from 'kendo-ui-core/js/kendo.combobox.js';
-import $ from 'jquery';
+import { Row, Col, Table } from 'react-bootstrap';
+import KendoVehicleDeviceFilteredComboBox from '../kendoVehicleDeviceFilteredComboBox';
 
 const VehiclePicker = React.createClass({
-    componentWillMount() {
-        if (!this.props.vehicles.get('stored')) this.props.getVehicles();
+    openVehicleSelect() {
+        $('.k-list-container').css('font-size', '14px');
     },
 
     componentDidMount() {
-        var self = this;
-
-        this.vehiclePicker = new kuicombobox.ui.ComboBox(
-            this.refs.vehiclePicker,
-            {
-                dataTextField: 'name',
-                dataValueField: 'vehicleId',
-                filter: 'contains',
-                dataSource: {
-                    data: this.props.vehicles.get('list').toJS()
-                },
-                template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
-                open: this.openVehicleSelect
-            }
-        );
-
-        $(this.vehiclePicker.wrapper).find('.k-select').on('click', function(e) {
-            self.vehiclePicker.dataSource.filter([]);
-        });
-    },
-
-    componentWillReceiveProps(nextProps) {
-        if (this.vehiclePicker.setDataSource) {
-            if (nextProps.vehicles) {
-                this.vehiclePicker.setDataSource({
-                    data: nextProps.vehicles.get('list').toJS()
-                });
-            }
-        }
+        if (!this.props.vehicles.get('stored')) this.props.getVehicles();
     },
 
     render() {
+        var self = this;
+        var selectedVehicle = this.props.vehicles.get('selectedVehicle');
+
         return (
             <section>
                 <div className="vehicle-picker">
@@ -63,18 +38,90 @@ const VehiclePicker = React.createClass({
                                     <span className="input-label">
                                         Select Vehicle
                                     </span>
-                                    <input ref="vehiclePicker" />
+                                    <KendoVehicleDeviceFilteredComboBox options={{
+                                        dataTextField: 'name',
+                                        dataValueField: 'vehicleId',
+                                        filter: 'contains',
+                                        dataSource: {
+                                            data: this.props.vehicles.get('list').toJS()
+                                        },
+                                        template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
+                                        value: selectedVehicle ? selectedVehicle.get('vehicleId') : '',
+                                        text: selectedVehicle ? selectedVehicle.get('name') : '',
+                                        open: self.openVehicleSelect,
+                                        change: function(e) {
+                                            self.props.setSelectedVehicle(this.value());
+                                        }
+                                    }} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div className="vehicle-picker-info">
+                    <div className="container">
+                        {(() => {
+                            if (selectedVehicle && selectedVehicle.get('name')) {
+                                return (
+                                    <Row>
+                                        <Col sm={4} md={4} className="vehicle-picker-info-name">
+                                            {selectedVehicle.get('name')}
+                                        </Col>
+                                        <Col sm={8} md={8} className="vehicle-picker-info-table-wrapper">
+                                            <div className="vehicle-picker-info-table">
+                                                <Table condensed>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Make</th>
+                                                            <th>Model</th>
+                                                            <th>Year</th>
+                                                            <th>VIN</th>
+                                                            <th>Odometer</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span>
+                                                                    {selectedVehicle.get('make') && selectedVehicle.get('make') !== 'Unknown' ? selectedVehicle.get('make') : '--'}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    {selectedVehicle.get('model') && selectedVehicle.get('make') !== 'Unknown' ? selectedVehicle.get('model') : '--'}
+                                                                </span>
+                                                            </td>
+                                                            <td className="vehicle-year">
+                                                                <span>
+                                                                    {selectedVehicle.get('year') && selectedVehicle.get('year') > 1900 && selectedVehicle.get('year') < 2100 ? selectedVehicle.get('year') : '--'}
+                                                                </span>
+                                                            </td>
+                                                            <td className="vehicle-picker-info-vin">
+                                                                <span>
+                                                                    {selectedVehicle.get('vin') && selectedVehicle.get('vin').length == 17 ? selectedVehicle.get('vin') : '--'}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </Table>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                )
+                            }
+                            else {
+                                return (
+                                <div className="no-vehicle-selected">
+                                    No Vehicle Selected
+                                </div>
+                                )
+                            }
+                        })()}
+                    </div>
+                </div>
             </section>
         )
-    },
-
-    openVehicleSelect() {
-        $('.k-list-container').css('font-size', '14px');
     }
 });
 

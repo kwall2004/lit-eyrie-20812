@@ -1,3 +1,1 @@
-import Settings from './Settings';
-
-module.exports = Settings;
+module.exports = require('./Settings');

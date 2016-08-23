@@ -1,5 +1,5 @@
 // import/require dependencies
-import kendo from 'kendo-ui-web/scripts/kendo.combobox.min.js';
+import kendo from 'kendo-ui-web/scripts/kendo.grid.min.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,11 +19,7 @@ const KendoComboBox = React.createClass({
 
         //instantiate and save reference to the Kendo UI widget on elementNode
         //note I am not using jQuery plugin to instantiate, don't want to wait for namespace on $.fn
-        this.widgetInstance = new kendo.ui.VehicleDeviceFilteredComboBox(elementNode, this.props.options);
-
-        $(this.widgetInstance.wrapper).find('.k-select').on('click', function(e) {
-            self.widgetInstance.dataSource.filter([]);
-        });
+        this.widgetInstance = new kendo.ui.Grid(elementNode, this.props.options);
     },
 
     //not called on inital render, but whenever parent state changes this is called
@@ -42,7 +38,6 @@ const KendoComboBox = React.createClass({
 
     //destory it, when the component is unmouted
     componentWillUnmount: function() {
-        $(this.widgetInstance.wrapper).find('.k-select').off('click');
         this.widgetInstance.destroy();
     },
 

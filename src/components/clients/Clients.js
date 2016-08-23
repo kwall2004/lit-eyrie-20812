@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
-import styles from './clients.less';
 
 const Clients = React.createClass({
     render() {

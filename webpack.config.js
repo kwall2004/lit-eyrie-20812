@@ -12,6 +12,7 @@ const PATHS = {
 module.exports = {
     devtool: 'source-map',
     resolve: {
+        modulesDirectories: ['node_modules', 'bower_components'],
         extensions: ['', '.js']
     },
     entry: {
@@ -25,7 +26,7 @@ module.exports = {
             'react-router-bootstrap',
             'redux',
             'immutable',
-            'kendo-ui-core',
+            'kendo-ui-web',
             'jquery'
         ]
     },
@@ -40,12 +41,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: ExtractTextWebpackPlugin.extract('css'),
-                include: [path.join(__dirname, 'node_modules'), PATHS.css]
+                include: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'bower_components'), PATHS.css]
             },
             {
                 test: /\.less$/,
                 loader: ExtractTextWebpackPlugin.extract('css!less'),
-                include: [path.join(__dirname, 'node_modules'), PATHS.css]
+                include: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'bower_components'), PATHS.css]
             },
             {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -92,6 +93,9 @@ module.exports = {
         port: process.env.PORT
     },
     plugins: [
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+        ),
         new ExtractTextWebpackPlugin('[name].css', {
             allChunks: true
         }),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col, Table } from 'react-bootstrap';
 import KendoVehicleDeviceFilteredComboBox from '../kendoVehicleDeviceFilteredComboBox';
 
 const VehiclePicker = React.createClass({
@@ -18,7 +18,7 @@ const VehiclePicker = React.createClass({
         return (
             <section>
                 <div className="vehicle-picker">
-                    <div className="container">
+                    <Grid>
                         <div className="vehicle-picker-top-row">
                             <div className="vehicle-picker-left-column">
                                 <i className="sprite sprite-icon-main-vehicle"></i>
@@ -56,11 +56,11 @@ const VehiclePicker = React.createClass({
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Grid>
                 </div>
 
                 <div className="vehicle-picker-info">
-                    <div className="container">
+                    <Grid>
                         {(() => {
                             if (selectedVehicle && selectedVehicle.get('name')) {
                                 return (
@@ -118,7 +118,7 @@ const VehiclePicker = React.createClass({
                                 )
                             }
                         })()}
-                    </div>
+                    </Grid>
                 </div>
             </section>
         )

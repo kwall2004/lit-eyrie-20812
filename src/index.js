@@ -4,8 +4,7 @@ import '../css/visionfont.css';
 import '../css/visionsprite.css';
 import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
 import 'kendo-ui-web/content/kendo.bootstrap.min.css';
-import $ from 'jquery';
-import kendo from 'kendo-ui-web/scripts/kendo.combobox.min.js';
+import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
@@ -37,7 +36,7 @@ const routes = {
     },
     childRoutes: [
         require('./routes/home'),
-        require('./routes/clients'),
+        require('./routes/admin'),
         require('./routes/settings')
     ]
 };

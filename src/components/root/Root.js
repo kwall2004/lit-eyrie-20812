@@ -42,7 +42,7 @@ const Root = React.createClass({
                                         </div>
                                     }
                                     id="admin-menu">
-                                    <LinkContainer to="/clients">
+                                    <LinkContainer to="/admin/clients">
                                         <MenuItem>Client Setup</MenuItem>
                                     </LinkContainer>
                                     <MenuItem>User Setup</MenuItem>

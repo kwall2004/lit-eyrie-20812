@@ -1,5 +1,5 @@
 // import/require dependencies
-import kendo from 'kendo-ui-web/scripts/kendo.combobox.min.js';
+import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

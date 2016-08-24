@@ -1,11 +1,12 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { fromJS } from 'immutable';
 
-import reducer from './reducers/index';
+import vehicles from './reducers/vehicles';
 
 const store = createStore(
-    reducer,
+    combineReducers({
+        vehicles
+    }),
     applyMiddleware(thunk)
 );
 

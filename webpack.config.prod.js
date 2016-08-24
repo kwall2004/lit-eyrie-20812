@@ -27,7 +27,6 @@ module.exports = {
             'redux',
             'immutable',
             'kendo-ui-web',
-            'jquery'
         ]
     },
     output: {

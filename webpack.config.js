@@ -27,7 +27,6 @@ module.exports = {
             'redux',
             'immutable',
             'kendo-ui-web',
-            'jquery'
         ]
     },
     output: {
@@ -82,7 +81,7 @@ module.exports = {
                 test: /\.js$/,
                 loaders: ['babel'],
                 include: PATHS.src
-            }
+            },
         ]
     },
     devServer: {
@@ -90,7 +89,7 @@ module.exports = {
         inline: true,
         stats: 'errors-only',
         host: process.env.HOST,
-        port: process.env.PORT
+        port: process.env.PORT,
     },
     plugins: [
         new webpack.ResolverPlugin(

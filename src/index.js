@@ -32,14 +32,14 @@ kendo.ui.plugin(kendo.ui.ComboBox.extend({
 
 const routes = {
     path: '/',
-    component: require('./components/root'),
+    component: require('./components/Shell'),
     indexRoute: {
         onEnter: (nextState, replace) => replace('/home/dashboard')
     },
     childRoutes: [
-        require('./routes/home'),
-        require('./routes/admin'),
-        require('./routes/settings')
+        require('./components/routes/home'),
+        require('./components/routes/admin'),
+        require('./components/routes/settings')
     ]
 };
 

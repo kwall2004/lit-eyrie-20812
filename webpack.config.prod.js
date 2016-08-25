@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
@@ -85,6 +86,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new CopyWebpackPlugin([{
+            from: path.join(__dirname, 'bower_components/jquery/dist/jquery.min.js')
+        }]),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         ),

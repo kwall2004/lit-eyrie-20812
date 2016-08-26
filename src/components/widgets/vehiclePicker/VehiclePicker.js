@@ -3,10 +3,6 @@ import { Grid, Row, Col, Table } from 'react-bootstrap';
 import KendoVehicleDeviceFilteredComboBox from '../kendoVehicleDeviceFilteredComboBox';
 
 const VehiclePicker = React.createClass({
-    openVehicleSelect() {
-        $('.k-list-container').css('font-size', '14px');
-    },
-
     componentDidMount() {
         if (!this.props.vehicles.get('stored')) this.props.getVehicles();
     },
@@ -112,9 +108,9 @@ const VehiclePicker = React.createClass({
                             }
                             else {
                                 return (
-                                <div className="no-vehicle-selected">
-                                    No Vehicle Selected
-                                </div>
+                                    <div className="no-vehicle-selected">
+                                        No Vehicle Selected
+                                    </div>
                                 )
                             }
                         })()}
@@ -122,7 +118,11 @@ const VehiclePicker = React.createClass({
                 </div>
             </section>
         )
-    }
+    },
+
+    openVehicleSelect() {
+        $('.k-list-container').css('font-size', '14px');
+    },
 });
 
 module.exports = VehiclePicker;

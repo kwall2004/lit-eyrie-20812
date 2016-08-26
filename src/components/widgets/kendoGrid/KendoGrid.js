@@ -1,9 +1,9 @@
-// import/require dependencies
-import kendo from 'kendo-ui-web/scripts/kendo.grid.min';
+import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
+import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import businessAccountTypes from '../../../kendoDataSources/businessAccountTypes';
 
-// create a React component, that is a wrapper for a Kendo UI widget
 const KendoGrid = React.createClass({
     resizer() {
         var gridElement = this.widgetInstance.element;
@@ -27,28 +27,22 @@ const KendoGrid = React.createClass({
         dataArea.height(dataAreaHeight);
     },
 
-    //component is in the DOM, so do stuff to it in this callback
     componentDidMount: function() {
         var self = this;
 
-        //get, child element node for this component
         var elementNode = ReactDOM.findDOMNode(this);
 
-        //determine if a selector was passed on which to invoke the KUI widget
         if (this.props.selector) {
             elementNode = elementNode.querySelector(this.props.selector);
         }
 
-        //instantiate and save reference to the Kendo UI widget on elementNode
-        //note I am not using jQuery plugin to instantiate, don't want to wait for namespace on $.fn
-        this.widgetInstance = new kendo.ui.Grid(elementNode, this.props.options);
+        this.widgetInstance = new kendoGrid.ui.Grid(elementNode, this.props.options);
 
         this.resizer();
 
         $(window).resize(this.resizer);
     },
 
-    //not called on inital render, but whenever parent state changes this is called
     componentWillReceiveProps: function(nextProps) {
         if (this.widgetInstance.setDataSource && nextProps.options.dataSource) {
             this.widgetInstance.setDataSource(nextProps.options.dataSource);
@@ -60,17 +54,57 @@ const KendoGrid = React.createClass({
         return false;
     },
 
-    //destory it, when the component is unmouted
     componentWillUnmount: function() {
         $(window).off('resize', this.resizer);
         this.widgetInstance.destroy();
     },
 
-    //use the passed in React nodes or a plain <div> if no React child nodes are defined
     render: function() {
-        return this.props.children ? this.props.children : <div /> ;
+        return <div />;
     }
 });
 
-//export the wrapped component
-export default KendoGrid
+export default KendoGrid;
+
+export const accountTypeEditor = function(container, options) {
+    var element = $('<input name="' + options.field + '" required />')
+        .appendTo(container);
+
+    new kendoComboBox.ui.ComboBox(
+        element,
+        {
+            dataTextField: "Name",
+            dataValueField: "Id",
+            filter: "contains",
+            autoBind: false,
+            minLength: 3,
+            dataSource: businessAccountTypes,
+            template: '<span class="k-state-default">#: data.Name #</span>',
+            dataBound: function (e) {
+                e.preventDefault();
+                if (!options.model.isNew() && !businessAccountTypes.get(options.model.BusinessAccountType.Id)) {
+                    businessAccountTypes.add(options.model.BusinessAccountType);
+                }
+            },
+            change: function (e) {
+                if (this.selectedIndex != null && this.selectedIndex != undefined && this.selectedIndex >= 0) {
+                    var selectedValue = this.value();
+                    options.model.BusinessAccountTypeId = selectedValue;
+                }
+            }
+        });
+}
+
+export const filterMenuInit = function(e) {
+    var firstValueDropDown = e.container.find("select:eq(0)").data("kendoDropDownList");
+    firstValueDropDown.value("contains");
+    firstValueDropDown.trigger("change");
+
+    var logicDropDown = e.container.find("select:eq(1)").data("kendoDropDownList");
+    logicDropDown.value("or");
+    logicDropDown.trigger("change");
+
+    var secondValueDropDown = e.container.find("select:eq(2)").data("kendoDropDownList");
+    secondValueDropDown.value("contains");
+    secondValueDropDown.trigger("change");
+}

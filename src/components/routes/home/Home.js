@@ -48,11 +48,14 @@ const Home = React.createClass({
                     </Navbar.Collapse>
                 </Navbar>
                 <section>
-                    {this.props.children && React.cloneElement(this.props.children, {
-                        vehicles: this.props.vehicles,
-                        getVehicles: this.props.getVehicles,
-                        setSelectedVehicle: this.props.setSelectedVehicle
-                    }) }
+                    {this.props.children && React.cloneElement(
+                        this.props.children,
+                        {
+                            vehicles: this.props.vehicles,
+                            getVehicles: this.props.getVehicles,
+                            setSelectedVehicle: this.props.setSelectedVehicle
+                        }
+                    )}
                 </section>
             </section>
         )

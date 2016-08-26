@@ -2,7 +2,7 @@ import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const KendoComboBox = React.createClass({
+const KendoVehicleComboBox = React.createClass({
     componentDidMount: function() {
         var self = this;
 
@@ -12,7 +12,8 @@ const KendoComboBox = React.createClass({
             elementNode = elementNode.querySelector(this.props.selector);
         }
 
-        this.widgetInstance = new kendo.ui.VehicleDeviceFilteredComboBox(elementNode, this.props.options);
+        this.widgetInstance = new kendo.ui.VehicleComboBox(elementNode, this.props.options);
+        this.widgetInstance.bind('open', this.open);
 
         $(this.widgetInstance.wrapper).find('.k-select').on('click', function(e) {
             self.widgetInstance.dataSource.filter([]);
@@ -20,6 +21,8 @@ const KendoComboBox = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
+        this.widgetInstance.value(nextProps.options.value);
+
         if (this.widgetInstance.setDataSource && nextProps.options.dataSource) {
             this.widgetInstance.setDataSource(nextProps.options.dataSource);
         }
@@ -37,7 +40,11 @@ const KendoComboBox = React.createClass({
 
     render: function() {
         return <div />;
-    }
+    },
+
+    open() {
+        $('.k-list-container').css('font-size', '14px');
+    },
 });
 
-export default KendoComboBox
+export default KendoVehicleComboBox;

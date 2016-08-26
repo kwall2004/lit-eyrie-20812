@@ -15,7 +15,7 @@ localStorage.setItem('token', 'q29F6k1pRiqD5o76wDQpYjZVpxQ9ei809jtomqOKlb6n7qzSb
 
 kendo.ui.plugin(kendo.ui.ComboBox.extend({
     options: {
-        name: 'VehicleDeviceFilteredComboBox'
+        name: 'VehicleComboBox'
     },
     _filterSource: function() {
         this.dataSource.filter({

@@ -4,7 +4,15 @@ import VehiclePicker from '../../../widgets/vehiclePicker';
 const Trips = React.createClass({
     render() {
         return (
-            <VehiclePicker {...this.props}></VehiclePicker>
+            <section>
+                <VehiclePicker
+                    {...this.props}
+                    iconClassName="sprite sprite-icon-main-trips"
+                    number={0}
+                    description="Trips"
+                    showDatePicker={true}
+                />
+            </section>
         )
     }
 });

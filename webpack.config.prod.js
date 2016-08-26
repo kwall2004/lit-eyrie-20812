@@ -28,6 +28,7 @@ module.exports = {
             'redux',
             'immutable',
             'kendo-ui-web',
+            'moment',
         ]
     },
     output: {

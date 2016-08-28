@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const KendoVehicleComboBox = React.createClass({
-    componentDidMount: function() {
+    componentDidMount() {
         var self = this;
 
         var elementNode = ReactDOM.findDOMNode(this);
@@ -20,25 +20,32 @@ const KendoVehicleComboBox = React.createClass({
         });
     },
 
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.widgetInstance.value(nextProps.options.value);
 
         if (this.widgetInstance.setDataSource && nextProps.options.dataSource) {
             this.widgetInstance.setDataSource(nextProps.options.dataSource);
         }
+
+        if (nextProps.vehicles.get('loading')) {
+            $(this.widgetInstance.wrapper).find('.k-i-arrow-s').addClass('k-loading');
+        }
+        else {
+            $(this.widgetInstance.wrapper).find('.k-i-arrow-s').removeClass('k-loading');
+        }
     },
 
     //don't run render again, create widget once, then leave it alone
-    shouldComponentUpdate: function() {
+    shouldComponentUpdate() {
         return false;
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         $(this.widgetInstance.wrapper).find('.k-select').off('click');
         this.widgetInstance.destroy();
     },
 
-    render: function() {
+    render() {
         return <div />;
     },
 

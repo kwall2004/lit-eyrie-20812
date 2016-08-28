@@ -32,7 +32,6 @@ const Admin = React.createClass({
                         </div>
                     </div>
                     <div className="admin-header-right-column">
-
                     </div>
                 </div>
                 <div id="wrapper">
@@ -60,7 +59,7 @@ const Admin = React.createClass({
                                 vehicles: this.props.vehicles,
                                 getVehicles: this.props.getVehicles,
                                 setSelectedVehicle: this.props.setSelectedVehicle
-                            }) }
+                            })}
                         </section>
                     </div>
                 </div>

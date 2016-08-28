@@ -17,23 +17,59 @@ const VehiclePicker = React.createClass({
                 <div className="vehicle-picker">
                     <Grid>
                         <div className="vehicle-picker-top-row">
-                            <div className="vehicle-picker-left-column">
-                                <i className={this.props.iconClassName}></i>
-                                <div className="vehicle-picker-title">
-                                    <div className="vehicle-picker-title-relative">
-                                        <span className="accent-number">
-                                            {this.props.number}
-                                        </span>
-                                        <span className="accent-description">
-                                            {this.props.description}
-                                        </span>
+                            {(() => {
+                                switch (this.props.location.pathname) {
+                                    case '/home/dashboard':
+                                    return (
+                                        <div className="vehicle-picker-left-column">
+                                            <i className="sprite sprite-icon-main-vehicle"></i>
+                                            <div className="vehicle-picker-title">
+                                                {(() => {
+                                                    if (this.props.vehicles.get('loading')) {
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <i className="fa fa-refresh fa-4x fa-spin"></i>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    else {
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <span className="accent-number">
+                                                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
+                                                                </span>
+                                                                <span className="accent-description">
+                                                                    {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
+                                                                </span>
+                                                            </div>
+                                                        )
+                                                    }
+                                                })()}
+                                            </div>
+                                        </div>
+                                    );
+                                    case '/home/trips':
+                                    return (
+                                    <div className="vehicle-picker-left-column">
+                                        <i className="sprite sprite-icon-main-trips"></i>
+                                        <div className="vehicle-picker-title">
+                                            <div className="vehicle-picker-title-relative">
+                                                <span className="accent-number">
+                                                    {0}
+                                                </span>
+                                                <span className="accent-description">
+                                                    Trips
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                    );
+                                }
+                            })()}
                             <div>
                                 <div className="vehicle-picker-right-column">
                                     {(() => {
-                                        if (this.props.showDatePicker) {
+                                        if (this.props.location.pathname != '/home/dashboard') {
                                             return (
                                                 <span>
                                                     <span className="input-label">
@@ -51,7 +87,7 @@ const VehiclePicker = React.createClass({
                                         <span className="input-label">
                                             Select Vehicle
                                         </span>
-                                        <KendoVehicleComboBox options={{
+                                        <KendoVehicleComboBox vehicles={this.props.vehicles} options={{
                                             dataTextField: 'name',
                                             dataValueField: 'vehicleId',
                                             filter: 'contains',
@@ -73,7 +109,7 @@ const VehiclePicker = React.createClass({
                 </div>
 
                 {(() => {
-                    if (this.props.showInfo) {
+                    if (this.props.location.pathname == '/home/dashboard') {
                         return (
                             <div className="vehicle-picker-info">
                                 <Grid>

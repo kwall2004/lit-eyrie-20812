@@ -27,7 +27,7 @@ const KendoGrid = React.createClass({
         dataArea.height(dataAreaHeight);
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
         var self = this;
 
         var elementNode = ReactDOM.findDOMNode(this);
@@ -43,23 +43,23 @@ const KendoGrid = React.createClass({
         $(window).resize(this.resizer);
     },
 
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (this.widgetInstance.setDataSource && nextProps.options.dataSource) {
             this.widgetInstance.setDataSource(nextProps.options.dataSource);
         }
     },
 
     //don't run render again, create widget once, then leave it alone
-    shouldComponentUpdate: function() {
+    shouldComponentUpdate() {
         return false;
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         $(window).off('resize', this.resizer);
         this.widgetInstance.destroy();
     },
 
-    render: function() {
+    render() {
         return <div />;
     }
 });
@@ -73,9 +73,9 @@ export const accountTypeEditor = function(container, options) {
     new kendoComboBox.ui.ComboBox(
         element,
         {
-            dataTextField: "Name",
-            dataValueField: "Id",
-            filter: "contains",
+            dataTextField: 'Name',
+            dataValueField: 'Id',
+            filter: 'contains',
             autoBind: false,
             minLength: 3,
             dataSource: businessAccountTypes,
@@ -96,15 +96,15 @@ export const accountTypeEditor = function(container, options) {
 }
 
 export const filterMenuInit = function(e) {
-    var firstValueDropDown = e.container.find("select:eq(0)").data("kendoDropDownList");
-    firstValueDropDown.value("contains");
-    firstValueDropDown.trigger("change");
+    var firstValueDropDown = e.container.find('select:eq(0)').data('kendoDropDownList');
+    firstValueDropDown.value('contains');
+    firstValueDropDown.trigger('change');
 
-    var logicDropDown = e.container.find("select:eq(1)").data("kendoDropDownList");
-    logicDropDown.value("or");
-    logicDropDown.trigger("change");
+    var logicDropDown = e.container.find('select:eq(1)').data('kendoDropDownList');
+    logicDropDown.value('or');
+    logicDropDown.trigger('change');
 
-    var secondValueDropDown = e.container.find("select:eq(2)").data("kendoDropDownList");
-    secondValueDropDown.value("contains");
-    secondValueDropDown.trigger("change");
+    var secondValueDropDown = e.container.find('select:eq(2)').data('kendoDropDownList');
+    secondValueDropDown.value('contains');
+    secondValueDropDown.trigger('change');
 }

@@ -27,8 +27,12 @@ module.exports = {
             'react-router-bootstrap',
             'redux',
             'immutable',
-            'kendo-ui-web',
+            'kendo-ui-web/scripts/kendo.grid.min',
+            'kendo-ui-web/scripts/kendo.combobox.min',
+            'kendo-ui-web/scripts/kendo.datepicker.min',
+            'kendo-ui-web/scripts/kendo.tooltip.min',
             'moment',
+            'js-cookie',
         ]
     },
     output: {
@@ -54,7 +58,7 @@ module.exports = {
                 loader: 'file'
             },
             {
-                test: /\.(woff|woff2)$/,
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url?prefix=font/&limit=5000'
             },
             {

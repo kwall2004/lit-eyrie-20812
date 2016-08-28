@@ -10,13 +10,7 @@ const Dashboard = React.createClass({
     render() {
         return (
             <section>
-                <VehiclePicker
-                    {...this.props}
-                    iconClassName="sprite sprite-icon-main-vehicle"
-                    number={this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
-                    description={this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
-                    showInfo={true}
-                />
+                <VehiclePicker {...this.props} />
                 <Grid>
                     <Row>
                         <Col md={5}>

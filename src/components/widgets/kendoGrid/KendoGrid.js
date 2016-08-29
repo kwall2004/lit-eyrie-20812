@@ -2,7 +2,7 @@ import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
 import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import businessAccountTypes from '../../../kendoDataSources/businessAccountTypes';
+import businessAccountTypes from './businessAccountTypesDataSource';
 
 const KendoGrid = React.createClass({
     resizer() {

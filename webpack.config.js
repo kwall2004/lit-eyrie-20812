@@ -31,6 +31,7 @@ module.exports = {
             'kendo-ui-web/scripts/kendo.combobox.min',
             'kendo-ui-web/scripts/kendo.datepicker.min',
             'kendo-ui-web/scripts/kendo.tooltip.min',
+            'kendo-ui-web/scripts/kendo.data.min',
             'moment',
             'js-cookie',
         ],

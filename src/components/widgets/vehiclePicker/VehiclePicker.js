@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 import KendoTripDatePicker from '../kendoTripDatePicker';
 import KendoVehicleComboBox from '../kendoVehicleComboBox';
 
@@ -28,7 +29,11 @@ const VehiclePicker = React.createClass({
                                                     if (this.props.vehicles.get('loading')) {
                                                         return (
                                                             <div className="vehicle-picker-title-relative">
-                                                                <i className="fa fa-refresh fa-4x fa-spin"></i>
+                                                                <FontAwesome
+                                                                    name="refresh"
+                                                                    size="4x"
+                                                                    spin
+                                                                />
                                                             </div>
                                                         )
                                                     }

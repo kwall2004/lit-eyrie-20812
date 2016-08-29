@@ -53,7 +53,11 @@ const Home = React.createClass({
                         {
                             vehicles: this.props.vehicles,
                             getVehicles: this.props.getVehicles,
-                            setSelectedVehicle: this.props.setSelectedVehicle
+                            selectVehicle: this.props.selectVehicle,
+                            trips: this.props.trips,
+                            getLastTripDate: this.props.getLastTripDate,
+                            selectTripDate: this.props.selectTripDate,
+                            getTrips: this.props.getTrips,
                         }
                     )}
                 </section>

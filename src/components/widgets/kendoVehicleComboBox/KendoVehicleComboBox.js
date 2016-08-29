@@ -41,12 +41,14 @@ const KendoVehicleComboBox = React.createClass({
     },
 
     componentWillUnmount() {
-        $(this.widgetInstance.wrapper).find('.k-select').off('click');
-        this.widgetInstance.destroy();
+        if (this.widgetInstance) {
+            $(this.widgetInstance.wrapper).find('.k-select').off('click');
+            this.widgetInstance.destroy();
+        }
     },
 
     render() {
-        return <div />;
+        return <input />;
     },
 
     open() {

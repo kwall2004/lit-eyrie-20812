@@ -58,7 +58,7 @@ const Admin = React.createClass({
                             {this.props.children && React.cloneElement(this.props.children, {
                                 vehicles: this.props.vehicles,
                                 getVehicles: this.props.getVehicles,
-                                setSelectedVehicle: this.props.setSelectedVehicle
+                                selectVehicle: this.props.selectVehicle
                             })}
                         </section>
                     </div>

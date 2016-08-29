@@ -33,14 +33,18 @@ const KendoDatePicker = React.createClass({
             self.widgetInstance._click();
         });
 
-        select.append('<span unselectable="on" class="lastTripDateButton" data-kendo-bind="click: clickLastTripDate"><span class="k-icon k-i-arrow-w">select</span></span>');
+        select.append('<span unselectable="on" class="lastTripDateButton"><span class="k-icon k-i-arrow-w">select</span></span>');
         var lastTripDateButton = select.find('.lastTripDateButton');
         this.lastTripDateButtonToolTip = new kendoTooltip.ui.Tooltip(lastTripDateButton, {
             width: 120,
             content: 'go to last trip date',
         });
         lastTripDateButton.on('click', function() {
-
+            var lastTripDate = self.props.trips.getIn(['lastTripDate', 'timeStamp']);
+            if (lastTripDate) {
+                self.widgetInstance.value(new Date(lastTripDate));
+                self.props.selectTripDate(self.widgetInstance.value());
+            }
         })
     },
 
@@ -56,11 +60,24 @@ const KendoDatePicker = React.createClass({
     },
 
     componentWillUnmount() {
-        this.widgetInstance.destroy();
+        if (this.lastTripDateButtonToolTip) {
+            this.lastTripDateButtonToolTip.destroy();
+        }
+
+        if (this.openCalendarToolTip) {
+            this.openCalendarToolTip.destroy();
+        }
+
+        if (this.widgetInstance) {
+            var select = $(this.widgetInstance.wrapper).find('.k-select');
+            select.children().first().unbind('click');
+            select.find('.lastTripDateButton').unbind('click');
+            this.widgetInstance.destroy();
+        }
     },
 
     render() {
-        return <div />;
+        return <input />;
     },
 
     open() {

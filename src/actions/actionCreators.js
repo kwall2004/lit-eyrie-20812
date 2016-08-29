@@ -1,25 +1,27 @@
+import moment from 'moment';
+
 export function getVehicles() {
-    return function (dispatch, getState) {
-        dispatch(loadingVehiclesChanged(true));
+    return function(dispatch, getState) {
+        dispatch(loadVehicles(true));
         fetch(
             'http://localhost:65027/api/Dashboard/GetVehicles',
             {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
             }
         ).then(response => {
             response.json().then(json => {
-                dispatch(loadingVehiclesChanged(false));
+                dispatch(loadVehicles(false));
                 dispatch(storeVehicles(json));
-                dispatch(setSelectedVehicle());
+                dispatch(selectVehicle());
             });
         });
     }
 }
 
-function loadingVehiclesChanged(loading) {
+function loadVehicles(loading) {
     return {
-        type: 'VEHICLES_LOADING',
+        type: 'LOAD_VEHICLES',
         loading
     }
 }
@@ -31,9 +33,86 @@ function storeVehicles(json) {
     }
 }
 
-export function setSelectedVehicle(vehicleId) {
+export function selectVehicle(vehicleId) {
+    return function(dispatch, getState) {
+        dispatch({
+            type: 'SELECT_VEHICLE',
+            vehicleId
+        });
+
+        var selectedVehicleId = getState().vehicles.getIn(['selectedVehicle', 'vehicleId']);
+        var selectedTripDate = getState().trips.get('selectedTripDate');
+
+        if (selectedVehicleId) {
+            dispatch(getLastTripDate(selectedVehicleId));
+            
+            if (selectedTripDate) {
+                dispatch(getTrips(selectedVehicleId, selectedTripDate));
+            }
+        }
+    }
+}
+
+export function getLastTripDate(vehicleId) {
+    return function(dispatch, getState) {
+        fetch(
+            'http://localhost:65027/api/Dashboard/GetLastTripDate?VehicleId=' + vehicleId,
+            {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+            }
+        ).then(response => {
+            if (response.ok) {
+                response.json().then(json => {
+                    dispatch(storeLastTripDate(json));
+                });
+            }
+        });
+    }
+}
+
+function storeLastTripDate(json) {
     return {
-        type: 'SET_SELECTED_VEHICLE',
-        vehicleId
+        type: 'STORE_LAST_TRIP_DATE',
+        json
+    }
+}
+
+export function selectTripDate(date) {
+    return {
+        type: 'SELECT_TRIP_DATE',
+        date
+    }
+}
+
+export function getTrips(vehicleId, date) {
+    return function(dispatch, getState) {
+        dispatch(loadTrips(true));
+        fetch(
+            'http://localhost:65027/api/Trips/GetTrips?VehicleId=' + vehicleId + '&SelectedDate=' + new moment(date).format('YYYY-MM-DD'),
+            {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+            }
+        ).then(response => {
+            response.json().then(json => {
+                dispatch(loadTrips(false));
+                dispatch(storeTrips(json));
+            });
+        });
+    }
+}
+
+function loadTrips(loading) {
+    return {
+        type: 'LOAD_TRIPS',
+        loading
+    }
+}
+
+function storeTrips(json) {
+    return {
+        type: 'STORE_TRIPS',
+        json
     }
 }

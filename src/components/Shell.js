@@ -95,7 +95,11 @@ const Shell = React.createClass({
                             {
                                 vehicles: this.props.vehicles,
                                 getVehicles: this.props.getVehicles,
-                                setSelectedVehicle: this.props.setSelectedVehicle
+                                selectVehicle: this.props.selectVehicle,
+                                trips: this.props.trips,
+                                getLastTripDate: this.props.getLastTripDate,
+                                selectTripDate: this.props.selectTripDate,
+                                getTrips: this.props.getTrips,
                             }
                         )}
                     </section>
@@ -115,7 +119,8 @@ const Shell = React.createClass({
 const Container = connect(
     state => {
         return {
-            vehicles: state.vehicles
+            vehicles: state.vehicles,
+            trips: state.trips,
         };
     },
     actionCreators

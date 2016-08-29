@@ -3,19 +3,19 @@ import Cookies from 'js-cookie';
 
 const initialState = fromJS({
     loading: false,
-    stored: false,
-    list: []
+    list: [],
+    selectedVehicle: null,
 });
 
 function vehicles(state = initialState, action) {
     switch (action.type) {
-        case 'VEHICLES_LOADING':
+        case 'LOAD_VEHICLES':
             return state.set('loading', action.loading);
 
         case 'STORE_VEHICLES':
-            return state.set('list', fromJS(action.json)).set('stored', true);
+            return state.set('list', fromJS(action.json));
 
-        case 'SET_SELECTED_VEHICLE':
+        case 'SELECT_VEHICLE':
             if (state.get('list').size > 0) {
                 var vehicleId;
 

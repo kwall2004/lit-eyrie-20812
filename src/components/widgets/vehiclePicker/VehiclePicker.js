@@ -6,7 +6,9 @@ import KendoVehicleComboBox from '../kendoVehicleComboBox';
 
 const VehiclePicker = React.createClass({
     componentDidMount() {
-        if (!this.props.vehicles.get('stored')) this.props.getVehicles();
+        if (this.props.vehicles.get('list').size == 0) {
+            this.props.getVehicles();
+        }
     },
 
     render() {
@@ -60,7 +62,7 @@ const VehiclePicker = React.createClass({
                                         <div className="vehicle-picker-title">
                                             <div className="vehicle-picker-title-relative">
                                                 <span className="accent-number">
-                                                    {0}
+                                                    {this.props.trips.get('list').size}
                                                 </span>
                                                 <span className="accent-description">
                                                     Trips
@@ -80,10 +82,18 @@ const VehiclePicker = React.createClass({
                                                     <span className="input-label">
                                                         Select a Date
                                                     </span>
-                                                    <KendoTripDatePicker options={{
-                                                        optionLabel: 'Select a Date',
-                                                        format: 'MM/dd/yyyy',
-                                                    }} />
+                                                    <KendoTripDatePicker
+                                                        trips={this.props.trips}
+                                                        selectTripDate={this.props.selectTripDate}
+                                                        options={{
+                                                            optionLabel: 'Select a Date',
+                                                            value: this.props.trips.get('selectedTripDate'),
+                                                            format: 'MM/dd/yyyy',
+                                                            change: function() {
+                                                                self.props.selectTripDate(this.value());
+                                                            }
+                                                        }}
+                                                    />
                                                 </span>
                                             )
                                         }
@@ -92,20 +102,23 @@ const VehiclePicker = React.createClass({
                                         <span className="input-label">
                                             Select Vehicle
                                         </span>
-                                        <KendoVehicleComboBox vehicles={this.props.vehicles} options={{
-                                            dataTextField: 'name',
-                                            dataValueField: 'vehicleId',
-                                            filter: 'contains',
-                                            dataSource: {
-                                                data: this.props.vehicles.get('list').toJS()
-                                            },
-                                            template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
-                                            value: selectedVehicle ? selectedVehicle.get('vehicleId') : '',
-                                            text: selectedVehicle ? selectedVehicle.get('name') : '',
-                                            change: function(e) {
-                                                self.props.setSelectedVehicle(this.value());
-                                            }
-                                        }} />
+                                        <KendoVehicleComboBox
+                                            vehicles={this.props.vehicles}
+                                            options={{
+                                                dataTextField: 'name',
+                                                dataValueField: 'vehicleId',
+                                                filter: 'contains',
+                                                dataSource: {
+                                                    data: this.props.vehicles.get('list').toJS()
+                                                },
+                                                template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
+                                                value: selectedVehicle ? selectedVehicle.get('vehicleId') : '',
+                                                text: selectedVehicle ? selectedVehicle.get('name') : '',
+                                                change: function(e) {
+                                                    self.props.selectVehicle(this.value());
+                                                }
+                                            }}
+                                        />
                                     </span>
                                 </div>
                             </div>

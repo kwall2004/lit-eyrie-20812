@@ -58,6 +58,7 @@ const Home = React.createClass({
                             getLastTripDate: this.props.getLastTripDate,
                             selectTripDate: this.props.selectTripDate,
                             getTrips: this.props.getTrips,
+                            selectTrip: this.props.selectTrip,
                         }
                     )}
                 </section>

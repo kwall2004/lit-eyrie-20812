@@ -1,8 +1,17 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
 
-const RecentAlerts = React.createClass({
+const TripList = React.createClass({
+    selectRow(trip) {
+        this.props.selectTrip(trip);
+    },
+
+    getClassName(trip) {
+        return 'trip-list-row' + (trip.getIn(['trip', 'tripId']) === this.props.trips.getIn(['selectedTrip', 'trip', 'tripId']) ? ' trip-list-row-selected' : '');
+    },
+
     render() {
         return (
             <section>
@@ -24,6 +33,53 @@ const RecentAlerts = React.createClass({
                                     <th>Trip End</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {(() => {
+                                    if (!this.props.trips.get('loading')) {
+                                        if (this.props.trips.get('list').size > 0) {
+                                            return this.props.trips.get('list').map(trip => {
+                                                return (
+                                                    <tr key={trip.get('rowNumber')} className={this.getClassName(trip)} onClick={this.selectRow.bind(this, trip)}>
+                                                        <td className="trip-list-column-number">
+                                                            <div className="trip-list-row-number">
+                                                                {trip.get('rowNumber') + 1}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {new moment(trip.get('localStartTime')).format('hh:mm A')}
+                                                        </td>
+                                                        <td>
+                                                            {new moment(trip.get('localEndTime')).format('hh:mm A')}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            });
+                                        }
+                                        else {
+                                            return (
+                                                <tr className="trip-list-row-no-trips">
+                                                    <td className="trip-list-no-trips" colSpan={3}>
+                                                        (trip list is empty)
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }
+                                    }
+                                    else {
+                                        return (
+                                            <tr className="trip-list-row-no-trips">
+                                                <td className="trip-list-no-trips" colSpan={3}>
+                                                    <FontAwesome
+                                                        name="refresh"
+                                                        size="2x"
+                                                        spin
+                                                    />
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                })()}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -32,4 +88,4 @@ const RecentAlerts = React.createClass({
     }
 });
 
-module.exports = RecentAlerts;
+module.exports = TripList;

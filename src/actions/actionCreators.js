@@ -45,7 +45,8 @@ export function selectVehicle(vehicleId) {
 
         if (selectedVehicleId) {
             dispatch(getLastTripDate(selectedVehicleId));
-            
+            dispatch(getLastTripInfo(selectedVehicleId));
+
             if (selectedTripDate) {
                 dispatch(getTrips(selectedVehicleId, selectedTripDate));
             }
@@ -79,9 +80,48 @@ function storeLastTripDate(json) {
 }
 
 export function selectTripDate(date) {
+    return function(dispatch, getState) {
+        dispatch({
+            type: 'SELECT_TRIP_DATE',
+            date
+        });
+
+        var selectedVehicleId = getState().vehicles.getIn(['selectedVehicle', 'vehicleId']);
+        var selectedTripDate = getState().trips.get('selectedTripDate');
+
+        if (selectedVehicleId) {
+            dispatch(getLastTripDate(selectedVehicleId));
+            dispatch(getLastTripInfo(selectedVehicleId));
+
+            if (selectedTripDate) {
+                dispatch(getTrips(selectedVehicleId, selectedTripDate));
+            }
+        }
+    }
+}
+
+export function getLastTripInfo(vehicleId) {
+    return function(dispatch, getState) {
+        fetch(
+            'http://localhost:65027/api/Dashboard/GetLastTripInfo?VehicleId=' + vehicleId,
+            {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+            }
+        ).then(response => {
+            if (response.ok) {
+                response.json().then(json => {
+                    dispatch(storeLastTripInfo(json));
+                });
+            }
+        });
+    }
+}
+
+function storeLastTripInfo(json) {
     return {
-        type: 'SELECT_TRIP_DATE',
-        date
+        type: 'STORE_LAST_TRIP_INFO',
+        json
     }
 }
 
@@ -114,5 +154,12 @@ function storeTrips(json) {
     return {
         type: 'STORE_TRIPS',
         json
+    }
+}
+
+export function selectTrip(trip) {
+    return {
+        type: 'SELECT_TRIP',
+        trip
     }
 }

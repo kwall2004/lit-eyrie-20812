@@ -21,8 +21,7 @@ const VehiclePicker = React.createClass({
                     <Grid>
                         <div className="vehicle-picker-top-row">
                             {(() => {
-                                switch (this.props.location.pathname) {
-                                    case '/home/dashboard':
+                                if (this.props.location.pathname == '/home/dashboard') {
                                     return (
                                         <div className="vehicle-picker-left-column">
                                             <i className="sprite sprite-icon-main-vehicle"></i>
@@ -55,21 +54,39 @@ const VehiclePicker = React.createClass({
                                             </div>
                                         </div>
                                     );
-                                    case '/home/trips':
+                                }
+                                else if (this.props.location.pathname == '/home/trips') {
                                     return (
-                                    <div className="vehicle-picker-left-column">
-                                        <i className="sprite sprite-icon-main-trips"></i>
-                                        <div className="vehicle-picker-title">
-                                            <div className="vehicle-picker-title-relative">
-                                                <span className="accent-number">
-                                                    {this.props.trips.get('list').size}
-                                                </span>
-                                                <span className="accent-description">
-                                                    Trips
-                                                </span>
+                                        <div className="vehicle-picker-left-column">
+                                            <i className="sprite sprite-icon-main-trips"></i>
+                                            <div className="vehicle-picker-title">
+                                                {(() => {
+                                                    if (this.props.trips.get('loading')) {
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <FontAwesome
+                                                                    name="refresh"
+                                                                    size="4x"
+                                                                    spin
+                                                                />
+                                                            </div>
+                                                        )
+                                                    }
+                                                    else {
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <span className="accent-number">
+                                                                    {this.props.trips.get('list').size}
+                                                                </span>
+                                                                <span className="accent-description">
+                                                                    {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
+                                                                </span>
+                                                            </div>
+                                                        )
+                                                    }
+                                                })()}
                                             </div>
                                         </div>
-                                    </div>
                                     );
                                 }
                             })()}
@@ -125,7 +142,6 @@ const VehiclePicker = React.createClass({
                         </div>
                     </Grid>
                 </div>
-
                 {(() => {
                     if (this.props.location.pathname == '/home/dashboard') {
                         return (
@@ -190,7 +206,7 @@ const VehiclePicker = React.createClass({
                                     })()}
                                 </Grid>
                             </div>
-                        )
+                        );
                     }
                 })()}
             </section>

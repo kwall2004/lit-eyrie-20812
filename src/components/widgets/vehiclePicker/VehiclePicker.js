@@ -21,73 +21,74 @@ const VehiclePicker = React.createClass({
                     <Grid>
                         <div className="vehicle-picker-top-row">
                             {(() => {
-                                if (this.props.location.pathname == '/home/dashboard') {
-                                    return (
-                                        <div className="vehicle-picker-left-column">
-                                            <i className="sprite sprite-icon-main-vehicle"></i>
-                                            <div className="vehicle-picker-title">
-                                                {(() => {
-                                                    if (this.props.vehicles.get('loading')) {
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <FontAwesome
-                                                                    name="refresh"
-                                                                    size="4x"
-                                                                    spin
-                                                                />
-                                                            </div>
-                                                        )
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <span className="accent-number">
-                                                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
-                                                                </span>
-                                                                <span className="accent-description">
-                                                                    {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
-                                                                </span>
-                                                            </div>
-                                                        )
-                                                    }
-                                                })()}
+                                switch (this.props.location.pathname) {
+                                    case '/home/dashboard':
+                                        return (
+                                            <div className="vehicle-picker-left-column">
+                                                <i className="sprite sprite-icon-main-vehicle"></i>
+                                                <div className="vehicle-picker-title">
+                                                    {(() => {
+                                                        if (this.props.vehicles.get('loading')) {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <FontAwesome
+                                                                        name="refresh"
+                                                                        size="4x"
+                                                                        spin
+                                                                    />
+                                                                </div>
+                                                            )
+                                                        }
+                                                        else {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <span className="accent-number">
+                                                                        {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
+                                                                    </span>
+                                                                    <span className="accent-description">
+                                                                        {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })()}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                }
-                                else if (this.props.location.pathname == '/home/trips') {
-                                    return (
-                                        <div className="vehicle-picker-left-column">
-                                            <i className="sprite sprite-icon-main-trips"></i>
-                                            <div className="vehicle-picker-title">
-                                                {(() => {
-                                                    if (this.props.trips.get('loading')) {
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <FontAwesome
-                                                                    name="refresh"
-                                                                    size="4x"
-                                                                    spin
-                                                                />
-                                                            </div>
-                                                        )
-                                                    }
-                                                    else {
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <span className="accent-number">
-                                                                    {this.props.trips.get('list').size}
-                                                                </span>
-                                                                <span className="accent-description">
-                                                                    {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
-                                                                </span>
-                                                            </div>
-                                                        )
-                                                    }
-                                                })()}
+                                        );
+
+                                    case '/home/trips':
+                                        return (
+                                            <div className="vehicle-picker-left-column">
+                                                <i className="sprite sprite-icon-main-trips"></i>
+                                                <div className="vehicle-picker-title">
+                                                    {(() => {
+                                                        if (this.props.trips.get('loading')) {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <FontAwesome
+                                                                        name="refresh"
+                                                                        size="4x"
+                                                                        spin
+                                                                    />
+                                                                </div>
+                                                            )
+                                                        }
+                                                        else {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <span className="accent-number">
+                                                                        {this.props.trips.get('list').size}
+                                                                    </span>
+                                                                    <span className="accent-description">
+                                                                        {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })()}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
+                                        );
                                 }
                             })()}
                             <div>

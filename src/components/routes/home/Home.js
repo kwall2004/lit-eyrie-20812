@@ -55,9 +55,7 @@ const Home = React.createClass({
                             getVehicles: this.props.getVehicles,
                             selectVehicle: this.props.selectVehicle,
                             trips: this.props.trips,
-                            getLastTripDate: this.props.getLastTripDate,
                             selectTripDate: this.props.selectTripDate,
-                            getTrips: this.props.getTrips,
                             selectTrip: this.props.selectTrip,
                         }
                     )}

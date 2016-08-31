@@ -100,8 +100,7 @@ const VehiclePicker = React.createClass({
                                                         Select a Date
                                                     </span>
                                                     <KendoTripDatePicker
-                                                        trips={this.props.trips}
-                                                        selectTripDate={this.props.selectTripDate}
+                                                        {...this.props}
                                                         options={{
                                                             optionLabel: 'Select a Date',
                                                             value: this.props.trips.get('selectedTripDate'),
@@ -120,7 +119,7 @@ const VehiclePicker = React.createClass({
                                             Select Vehicle
                                         </span>
                                         <KendoVehicleComboBox
-                                            vehicles={this.props.vehicles}
+                                            {...this.props}
                                             options={{
                                                 dataTextField: 'name',
                                                 dataValueField: 'vehicleId',

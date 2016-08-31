@@ -1,5 +1,4 @@
 import { fromJS, List } from 'immutable';
-import Cookies from 'js-cookie';
 
 const initialState = fromJS({
     loading: false,
@@ -17,25 +16,14 @@ function vehicles(state = initialState, action) {
 
         case 'SELECT_VEHICLE':
             if (state.get('list').size > 0) {
-                var vehicleId;
-
                 if (action.vehicleId) {
-                    vehicleId = action.vehicleId;
+                    return state.set('selectedVehicle', state.get('list').find(vehicle => {
+                        return vehicle.get('vehicleId') == action.vehicleId;
+                    }));
                 }
                 else {
-                    var cookie = Cookies.get('selectedVehicleId');
-                    if (cookie) {
-                        vehicleId = cookie;
-                    }
-                    else {
-                        vehicleId = state.getIn(['list', 0, 'vehicleId']);
-                    }
+                    return state.set('selectedVehicle', state.getIn(['list', 0]));
                 }
-
-                Cookies.set('selectedVehicleId', vehicleId, { expires: 30 });
-                return state.set('selectedVehicle', state.get('list').find(vehicle => {
-                    return vehicle.get('vehicleId') == vehicleId;
-                }));
             }
             else {
                 return state;

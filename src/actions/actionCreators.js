@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import moment from 'moment';
 
 export function getVehicles() {
@@ -35,6 +36,13 @@ function storeVehicles(json) {
 
 export function selectVehicle(vehicleId) {
     return function(dispatch, getState) {
+        if (!vehicleId) {
+            var cookie = Cookies.get('selectedVehicleId');
+            if (cookie) {
+                vehicleId = cookie;
+            }
+        }
+
         dispatch({
             type: 'SELECT_VEHICLE',
             vehicleId
@@ -44,6 +52,8 @@ export function selectVehicle(vehicleId) {
         var selectedTripDate = getState().trips.get('selectedTripDate');
 
         if (selectedVehicleId) {
+            Cookies.set('selectedVehicleId', selectedVehicleId, { expires: 30 });
+
             dispatch(getLastTripDate(selectedVehicleId));
             dispatch(getLastTripInfo(selectedVehicleId));
 
@@ -54,7 +64,7 @@ export function selectVehicle(vehicleId) {
     }
 }
 
-export function getLastTripDate(vehicleId) {
+function getLastTripDate(vehicleId) {
     return function(dispatch, getState) {
         fetch(
             'http://localhost:65027/api/Dashboard/GetLastTripDate?VehicleId=' + vehicleId,
@@ -89,18 +99,13 @@ export function selectTripDate(date) {
         var selectedVehicleId = getState().vehicles.getIn(['selectedVehicle', 'vehicleId']);
         var selectedTripDate = getState().trips.get('selectedTripDate');
 
-        if (selectedVehicleId) {
-            dispatch(getLastTripDate(selectedVehicleId));
-            dispatch(getLastTripInfo(selectedVehicleId));
-
-            if (selectedTripDate) {
-                dispatch(getTrips(selectedVehicleId, selectedTripDate));
-            }
+        if (selectedVehicleId && selectedTripDate) {
+            dispatch(getTrips(selectedVehicleId, selectedTripDate));
         }
     }
 }
 
-export function getLastTripInfo(vehicleId) {
+function getLastTripInfo(vehicleId) {
     return function(dispatch, getState) {
         fetch(
             'http://localhost:65027/api/Dashboard/GetLastTripInfo?VehicleId=' + vehicleId,
@@ -125,7 +130,7 @@ function storeLastTripInfo(json) {
     }
 }
 
-export function getTrips(vehicleId, date) {
+function getTrips(vehicleId, date) {
     return function(dispatch, getState) {
         dispatch(loadTrips(true));
         fetch(

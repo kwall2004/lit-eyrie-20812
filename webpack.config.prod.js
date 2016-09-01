@@ -25,7 +25,6 @@ module.exports = {
             'react-redux',
             'react-bootstrap',
             'react-router-bootstrap',
-            'react-leaflet',
             'react-fontawesome',
             'redux',
             'redux-thunk',
@@ -37,6 +36,8 @@ module.exports = {
             'kendo-ui-web/scripts/kendo.data.min',
             'moment',
             'js-cookie',
+            'leaflet',
+            'q',
         ]
     },
     output: {

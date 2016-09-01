@@ -4,9 +4,9 @@ const initialState = fromJS({
     lastTripDate: null,
     lastTripInfo: null,
     selectedTripDate: new Date(),
-    selectedTrip: null,
     loading: false,
     list: [],
+    selectedTrip: null,
 });
 
 function trips(state = initialState, action) {

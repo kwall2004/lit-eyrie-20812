@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import moment from 'moment';
+import elementProcessor from './utilities/elementProcessor';
 
 export function getVehicles() {
     return function(dispatch, getState) {
@@ -163,8 +164,50 @@ function storeTrips(json) {
 }
 
 export function selectTrip(trip) {
+    return function(dispatch, getState) {
+        dispatch({
+            type: 'SELECT_TRIP',
+            trip
+        });
+
+        var selectedTripId = getState().trips.getIn(['selectedTrip', 'trip', 'tripId']);
+
+        if (selectedTripId) {
+            dispatch(getTripJsonData(selectedTripId));
+        }
+    }
+}
+
+function getTripJsonData(tripId) {
+    return function(dispatch, getState) {
+        dispatch(loadTripJsonData(true));
+        fetch(
+            'http://localhost:65027/api/Trips/GetTripJsonData?TripId=' + tripId,
+            {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+            }
+        ).then(response => {
+            response.json().then(json => {
+                elementProcessor.jsonProcessor.processData(json).then(data => {
+                    dispatch(loadTripJsonData(false));
+                    dispatch(storeTripJsonData(data));
+                })
+            });
+        });
+    }
+}
+
+function loadTripJsonData(loading) {
     return {
-        type: 'SELECT_TRIP',
-        trip
+        type: 'LOAD_TRIP_JSON_DATA',
+        loading
+    }
+}
+
+function storeTripJsonData(data) {
+    return {
+        type: 'STORE_TRIP_JSON_DATA',
+        data
     }
 }

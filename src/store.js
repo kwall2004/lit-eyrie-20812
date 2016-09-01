@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 
 import vehicles from './reducers/vehicles';
 import trips from './reducers/trips';
+import tripJsonData from './reducers/tripJsonData';
 
 const store = createStore(
     combineReducers({
         vehicles,
-        trips
+        trips,
+        tripJsonData,
     }),
     applyMiddleware(thunk)
 );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import VehiclePicker from '../../../widgets/vehiclePicker';
-import TripList from '../../../widgets/tripList';
-import TripDetails from '../../../widgets/tripDetails';
-import TripMap from '../../../widgets/tripMap';
+import VehiclePicker from '../../../vehiclePicker';
+import TripList from '../../../tripList';
+import TripDetails from '../../../tripDetails';
+import TripMap from '../../../tripMap';
 
 const Trips = React.createClass({
     render() {
@@ -20,7 +20,7 @@ const Trips = React.createClass({
                                 <TripDetails {...this.props} />
                             </div>
                             <div className="trips-map">
-                                <TripMap />
+                                <TripMap {...this.props} />
                             </div>
                         </Col>
                     </Row>

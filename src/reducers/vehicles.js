@@ -15,18 +15,15 @@ function vehicles(state = initialState, action) {
             return state.set('list', fromJS(action.json));
 
         case 'SELECT_VEHICLE':
-            if (state.get('list').size > 0) {
-                if (action.vehicleId) {
-                    return state.set('selectedVehicle', state.get('list').find(vehicle => {
-                        return vehicle.get('vehicleId') == action.vehicleId;
-                    }));
-                }
-                else {
-                    return state.set('selectedVehicle', state.getIn(['list', 0]));
-                }
+            if (state.get('list').size == 0) return state;
+
+            if (action.vehicleId) {
+                return state.set('selectedVehicle', state.get('list').find(vehicle => {
+                    return vehicle.get('vehicleId') == action.vehicleId;
+                }));
             }
             else {
-                return state;
+                return state.set('selectedVehicle', state.getIn(['list', 0]));
             }
 
         default:

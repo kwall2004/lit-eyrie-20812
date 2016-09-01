@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/actionCreators';
+import * as actionCreators from '../../actions/actionCreators';
 import moment from 'moment';
 
 const Shell = React.createClass({
@@ -99,6 +99,7 @@ const Shell = React.createClass({
                                 trips: this.props.trips,
                                 selectTripDate: this.props.selectTripDate,
                                 selectTrip: this.props.selectTrip,
+                                tripJsonData: this.props.tripJsonData,
                             }
                         )}
                     </section>
@@ -120,6 +121,7 @@ const Container = connect(
         return {
             vehicles: state.vehicles,
             trips: state.trips,
+            tripJsonData: state.tripJsonData,
         };
     },
     actionCreators

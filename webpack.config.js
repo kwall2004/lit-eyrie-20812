@@ -36,8 +36,10 @@ module.exports = {
             'kendo-ui-web/scripts/kendo.data.min',
             'moment',
             'js-cookie',
-            'leaflet',
+            'mapbox.js',
+            'leaflet-textpath',
             'q',
+            'deep-diff',
         ],
     },
     output: {
@@ -48,6 +50,10 @@ module.exports = {
     },
     module: {
         loaders: [
+            {
+                test: /\.json$/,
+                loader: 'json',
+            },
             {
                 test: /\.css$/,
                 loader: ExtractTextWebpackPlugin.extract('css'),

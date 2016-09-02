@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import moment from 'moment';
-import elementProcessor from './utilities/elementProcessor';
+import elementProcessor from './helpers/elementProcessor';
 
 export function getVehicles() {
     return function(dispatch, getState) {

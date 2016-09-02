@@ -3,7 +3,6 @@ import { fromJS, List } from 'immutable';
 const initialState = fromJS({
     loading: false,
     data: null,
-    geoJsonLayer: null,
 });
 
 function tripJsonData(state = initialState, action) {

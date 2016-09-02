@@ -1,113 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import L from 'leaflet';
+import L from 'mapbox.js';
 import 'leaflet/dist/leaflet.css';
+import TripLayer from './helpers/trip_map_layer';
+import diff from 'deep-diff';
 
 const TripMap = React.createClass({
     componentDidMount() {
         var self = this;
         var elementNode = ReactDOM.findDOMNode(this.refs.map);
-        var accessToken = 'pk.eyJ1Ijoia2V2aW53IiwiYSI6ImNpc2h2Zmo4aTAwN2Yyb3BpcmplYmRrcHkifQ.eR82_M14vFQEzydtlMdZJA';
 
-        this.map = L.map(elementNode, {
-            center: [20, 0],
-            zoom: 2
+        L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW53IiwiYSI6ImNpc2h2Zmo4aTAwN2Yyb3BpcmplYmRrcHkifQ.eR82_M14vFQEzydtlMdZJA';
+        L.mapbox.config.FORCE_HTTPS = true;
+
+        this.map = L.mapbox.map(elementNode).setView([20, 0], 2);
+        var styleLayer = L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v9', { maxZoom: 19 }).addTo(this.map);
+
+        // var streetsLayer = L.tileLayer(
+        //     'https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}',
+        //     {
+        //         attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/"">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        //         accessToken: accessToken
+        //     }
+        // ).addTo(this.map);
+        //
+        // this.map.invalidateSize();
+
+        this.map.whenReady(() => {
+            this.tripLayer = new TripLayer(this.map, null, null);
+
+            L.control.layers({
+                "Streets": styleLayer,
+                "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9')
+            }).addTo(this.map);
         });
-
-        var streetsLayer = L.tileLayer(
-            'https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}',
-            {
-                attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/"">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                accessToken: accessToken
-            }
-        ).addTo(this.map);
-
-        L.control.layers({
-            "Streets": streetsLayer,
-            "Satellite": L.tileLayer(
-                'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}',
-                {
-                    attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/"">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                    accessToken: accessToken
-                }
-            )
-        }).addTo(this.map);
     },
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.tripJsonData.get('data') && !nextProps.tripJsonData.geoJsonLayer) {
-            var geoJsonLayer = L.geoJson(
-                this.processDataForGps(nextProps.tripJsonData.get('data')),
-                {
-                    style: function(feature) {
-                        switch (feature.properties.eventType) {
-                            case 'TripPath':
-                                if (feature.properties.properties.length > 0) {
-                                    var gprf = feature.properties.properties[0].GPRF;
-                                    if (gprf && gprf == 1) {
-                                        self.gprfValid = false;
-                                        return { color: "#39f", opacity: 1, fillOpacity: 1 };
-                                    } else {
-                                        return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
-                                    }
-                                } else {
-                                    return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
-                                }
-                            case 'Trip Start': return { color: "#ff0000" };
-                            case 'Trip Stop': return { color: "#0000ff" };
-                            case 'Speeding':
-                                if (feature.properties.properties.length > 0) {
-                                    var gprf = feature.properties.properties[0].GPRF;
-                                    if (gprf && gprf == 1) {
-                                        return { color: "#db0022", opacity: 1, fillOpacity: 1 };
-                                    } else {
-                                        return { color: "transparent", fillOpacity: 0 };
-                                    }
-                                } else {
-                                    return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
-                                }
-                            case 'Hard Acceleration': return {};
-                            case 'Extreme Acceleration': return {};
-                            case 'Hard Braking': return {};
-                            case 'Extreme Braking': return {};
-                        }
-                    },
-                    pointToLayer: function(feature, latlng) {
-                        switch (feature.properties.eventType) {
-                            case 'Trip Start':
-                                return L.marker(latlng, { icon: startIcon });
-                            case 'Trip Stop':
-                                return L.marker(latlng, { icon: endIcon });
-                            case 'Hard Acceleration':
-                                return bindEventPopup(L.marker(latlng, { icon: haIcon }), feature);
-                            case 'Extreme Acceleration':
-                                return bindEventPopup(L.marker(latlng, { icon: eaIcon }), feature);
-                            case 'Hard Braking':
-                                return bindEventPopup(L.marker(latlng, { icon: hbIcon }), feature);
-                            case 'Extreme Braking':
-                                return bindEventPopup(L.marker(latlng, { icon: ebIcon }), feature);
-                            default:
-                                return L.marker(latlng);
-                        }
-                    },
-                    onEachFeature: function(feature, layer) {
-                        switch (feature.properties.eventType) {
-                            case 'Trip Start':
-                            case 'Trip Stop':
-                                layer.on({
-                                    click: reverseGeoCodeEvent
-                                });
-                                break;
-                            case 'Speeding':
-                                bindEventSpeedPopup(layer, feature);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            ).addTo(this.map);
+        var data = nextProps.tripJsonData.get('data');
+        if (data && diff(data, this.props.tripJsonData.get('data'))) {
+            var processedData = this.processDataForGps(data);
+            this.tripLayer.updateData(processedData, null);
         }
     },
 

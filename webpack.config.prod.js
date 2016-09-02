@@ -36,8 +36,10 @@ module.exports = {
             'kendo-ui-web/scripts/kendo.data.min',
             'moment',
             'js-cookie',
-            'leaflet',
+            'mapbox.js',
+            'leaflet-textpath',
             'q',
+            'deep-diff',
         ]
     },
     output: {

@@ -1,3 +1,4 @@
+import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';

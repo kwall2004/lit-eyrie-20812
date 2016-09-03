@@ -1,3 +1,5 @@
+import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
+import 'kendo-ui-web/content/kendo.bootstrap.min.css';
 import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
 import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
@@ -6,7 +8,7 @@ import businessAccountTypes from './businessAccountTypesDataSource';
 
 const KendoGrid = React.createClass({
     resizer() {
-        var gridElement = this.widgetInstance.element;
+        var gridElement = this.grid.element;
         var dataArea = gridElement.find('.k-grid-content');
         var gridHeight = $(window).height() - 230 + 43;
         var otherElements = gridElement.children().not('.k-grid-content');
@@ -28,15 +30,13 @@ const KendoGrid = React.createClass({
     },
 
     componentDidMount() {
-        var self = this;
-
-        var elementNode = ReactDOM.findDOMNode(this);
+        var element = ReactDOM.findDOMNode(this);
 
         if (this.props.selector) {
-            elementNode = elementNode.querySelector(this.props.selector);
+            element = element.querySelector(this.props.selector);
         }
 
-        this.widgetInstance = new kendoGrid.ui.Grid(elementNode, this.props.options);
+        this.grid = new kendoGrid.ui.Grid(element, this.props.options);
 
         this.resizer();
 
@@ -44,8 +44,8 @@ const KendoGrid = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        if (this.widgetInstance.setDataSource && nextProps.options.dataSource) {
-            this.widgetInstance.setDataSource(nextProps.options.dataSource);
+        if (this.grid.setDataSource && nextProps.options.dataSource) {
+            this.grid.setDataSource(nextProps.options.dataSource);
         }
     },
 
@@ -56,7 +56,7 @@ const KendoGrid = React.createClass({
 
     componentWillUnmount() {
         $(window).off('resize', this.resizer);
-        this.widgetInstance.destroy();
+        this.grid.destroy();
     },
 
     render() {

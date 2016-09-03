@@ -1,35 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
-import 'kendo-ui-web/content/kendo.bootstrap.min.css';
-import 'font-awesome/css/font-awesome.css';
 import '../css/Site.less';
 import '../css/visionfont.css';
 import '../css/visionsprite.css';
-import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store';
 
-localStorage.setItem('token', 'Je092gyV3Vv9Ft_JaM7jWnvffi_ZM-UOBIu-hynQya-9FCRgEHLixTnWF_wtR_8jLLcayAmbdwo-A1psHHievjH3uIntzhqMgxjxRdEyewvquXmS2Nz-4JgNbHHy7_hWFPo_tVECRlK8xOPfJB9LlHXFryG4_PMxLThhEI1KxJ6kzOmlanu_MOHphejVLuhGdmBhWnM6QdqOZE5f-rUWzT20FMU3q4yfSLXgnpqcqjbnha9ZOrUOZZ5yiLXR0aw929mXa7HsXJtyHocA0IUCRjMcoGCrgg1ZvsN8gOUTEDVjXshb_ijQTk7c1S8b_O_OqJ0xMjrUQXX7flPfw05aTYp3rZ1gsxbkGfBTHmsOixZW8DseY2UGW4asto6mgoCki-fztoE64xV04QH_ijwks3fXzGDrOYIRNxlUX-wS1CcrSMReaiuOSOMazAoWfvl1I9Eyo58K3j_-0AMutQTBtqURjlJ-ze5Vzr02xQodnevLQa8d_Yyl0Enec6LDBb4KR7wWeTA2it22W0QmACZR0PQSyKhEkhVLbl8EPFHvkNxFJ3zNt8mBkOuRccMhzjAj4OED4l-TgiipZ4wmWvl0W5HZQhwEnWtgLJ6tE6lh7qUx5x1o02WjYAQIXRoVWOOE8lsEYOw2b5yObOmLxwLUNhGglrK6FI_Kvh2CQgAtxcJEQN1Fn0HTtFOSud4EK72VR47dyF4a3BAD8SyKgsO1tv9INH7PYoMnjrCnkgwuQTtEgsYytDm-nk7I85V7HzO-dCk4iRbTR78E-tSz02mfeHm3HwD69SwES5gEpgtP6GRIu_fTkiXXq3i7XXqWY4YNo-ZRECrSp-Fqxp2WFos6HntbQce_xmIrQyoY3_l_Vpk-jaIrHRjaD3LsYoghU_BbKPc_YW6tFQsgJ23WDcZVoGzKU4tEMwft2C5zu0jjWIS_4rP4CjO9fbytMWfMxDzgJUWfCIOKlpNbGK7fT0e1n9qVcwIvXnA0E5L3sHpPMM0BR_wxhldreXh4P09VeTCuSY8pcvX9Rg1xPdFigQzTqruojlztKrnWbOa7vIpXhP4285yLc-54zjfpHu9cvlv297w-jT0we27sY7ADo0L3cE2Than9vgLIJ1YTLV8M6rrOxZ3LH1HinNuNokcV-9s6r_XiP9bodH5UJNm8Bcmjsdm8EK_QcbvyYTn2S81OwlRqpfJ8Znx04RavRShPVteBAouzk3ag3aiA6qhaaXiqVjnWxxOLniRCD4OVWs6iVDV1rQtPgreQVDcMI_O3_NyXwtMZUvLBllkzvyfQyAs6xZQGmLDxh9mnLhPYljT65IF_M2D5SMWthgDOQrkTBr0N70TWbiE-lXk2qzodhQgTJU6OtO1NBDw9_zkeP5_El9YCLSEGA8uhmxOtpe5QnHJs_hSb0sTzDfv-DnFahaLbWqgBtUz8Jwyy33FS78vgkaQtINXFbHiOMQNqsNzdyG1kJcd4OgDSXt8QeZYpdfmME2bgn23htlqWus4BCQY-rzrr0R4ORTU5BJaDoFAlTZo_Y1JOU6yYHg7t0mT8MeY3GKxhZbXzFYjlN4cHw-QpN6CBlIpTo2DBhIpZt7vNiUqa');
-
-kendo.ui.plugin(kendo.ui.ComboBox.extend({
-    options: {
-        name: 'VehicleComboBox'
-    },
-    _filterSource: function() {
-        this.dataSource.filter({
-            logic: "or",
-            filters: [
-              { field: "name", operator: "contains", value: this.text() },
-              { field: "imei", operator: "contains", value: this.text() },
-              { field: "userId", operator: "contains", value: this.text() },
-              { field: "userName", operator: "contains", value: this.text() }
-            ]
-        });
-    }
-}));
+localStorage.setItem('token', 'AvLlWUa00K7aOmB5rMp2GWK9-F6xUC3ED25AZktKeo1P-j2LD26IDK43Zysi-Rm71TvGJqAvMmrLdzOWSncibVhXj08nljKVu2P3X_gVJS78cyFLyG22oLCcVHcJkxD1FDX0Pteq0lY1u-fjBBZQDb0k9oO_8XMO2UZ7Yri3qW_MGt-ymBCAzmqZqrAC-WdQVZ1-Jv5blj7GVFm7HdxFW1ZCV8iTuzhFRVTc32VEdnRDxoQi-k6NB4-2tQ5C5-5OhQqxSk7J_yqDzwBesNJiIoY1FW_6KDxEh27r09OwWLvbrqAz4w0T6UkPmjv_Z3NTb5xZo-9q7LB7v2LL3LrlH0Dcu3yLFp_kGwbwNzrOAGOYXMc0QFPFXoCIZtzpaCqlQcqMdnznOFt0c6J8VJ2vVypdyNcyCcl7F7Q8NyDE-dY7PsA749erAultr2Wh_0e-W5_EBKi82FkF2Zrso16WCab_SmQbvKwLsrBQlXuTF76EWV2rUN-GPpaHbP25IYyhIrMrcYfMghyZgkjF2EdoKrwFir949maucVHX26MRRjRAexMi7tdyo56253TutYup9gS2aoK4YXd2rXGDK5arRhGL_uve8_vNkRQFDu5eFPncs7Afaf8gLfboGUc7vbLBfEMAGINrKqyF0EOqStDVI51e9ApWoj9x04NPFN_w0vdxBCySFjstkwkiG946IehWVIH9_OW8_KnkIKfMXzLE9qRi9MAhI-iSAqNzOsaspzWbmqo9Q-SvcJspS1wZzmQEO3grUOrqGPmTTpkCKG_Qia3SNpsiYzFhJrUGBC_zQ-vJ60M78bftE_eiCthMKloHMZm4c56RlDMQd-p49fjMHbFprWcxxUQFz1Tq98T38cjSXlykTanFeiT9_W_8mclbYh-owh-u8qnGdg5jWwAvwLQk2-XSNQUBnuSmnbVTc9lc9dZ76owDfHFvZIvSP9vupG7BLtPvr-a5HFU2jF3lJqyNRLDABWVvl8IxLPDNwopQIsSFDhJVAk84x3Fg_RzGMmNHmfgOLhLO4B0tVWTaoD9piHJNPVmWbviBSVVvEwAk_SV0BKz5wxFMNbtNFGQ52xcGTg66dV6nN0nnbk0c3lSEoH0I_wUcqi0adAWAMC_VF83qRunLn_b3INH8Uhx2MmIfXmHZnixJxdT_Ry4hsXRWcSG_6lsIx8WG0rSlZF5tfs2aCc3fY6LhTM8UeHU0ZRCeS9WsV81L-Ex0umVueAXXlDIBn3aMvX9k1Y1SGWP3dL1_n-q3OCX5So17DNnIWPYrEg6ia5SyAepvqSd4-mUnIhwuTzCwY6ezFnk3fRMKP1jra_QRYVaCdGGSrmcLk1G0CT_ZSG299w_q4m5J1vVk4V-_N4IltBvtvEQe6wJ8dSSGSBLDPyHOf_gk-oRbIYZG_xhimp_tFsZFKabWkSyAWBXSACNKve4Y8f8-LO4uIvDxW3uA88WcR1Tc-7rEzoxlnCO6gJZU1zVqWu-5HHpgWQSVFNDu1bVx9oGxONDt164I23wjlOunCLQI0lzf5pkAjHScMwGLGBC2K7-yv93DqWvRAfH7OCjuo-XhVUcq3x-UpORVYT5z12bUUE74');
 
 const routes = {
     path: '/',

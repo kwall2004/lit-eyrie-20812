@@ -1,3 +1,4 @@
+import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';

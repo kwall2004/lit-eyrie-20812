@@ -1,4 +1,5 @@
-import reversegeocode from './reversegeocode';
+import reverseGeoCode from './reverseGeoCode';
+import L from 'mapbox.js';
 import 'leaflet-textpath';
 
 var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
@@ -68,12 +69,12 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
         }
     };
 
-    self.reverseGeocoder = reversegeocode;
+    self.reverseGeoCode = reverseGeoCode;
 
     function reverseGeoCodeEvent(e) {
         if (!e.target.getPopup()) {
             e.originalEvent.preventDefault();
-            self.reverseGeocoder.getAddressParts(
+            self.reverseGeoCode.getAddressParts(
                 e.target.feature.geometry.coordinates[1],
                 e.target.feature.geometry.coordinates[0]).then(function (addressParts) {
                     var feature = e.target.feature;

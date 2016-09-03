@@ -1,5 +1,5 @@
 import React from 'react';
-import KendoGrid, { accountTypeEditor, filterMenuInit } from '../../../kendoGrid';
+import KendoGrid, { accountTypeEditor, filterMenuInit } from '../../../widgets/kendoGrid';
 import clients from './clientsDataSource';
 
 const Clients = React.createClass({

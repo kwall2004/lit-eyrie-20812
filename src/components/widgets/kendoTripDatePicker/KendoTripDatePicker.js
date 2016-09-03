@@ -1,3 +1,5 @@
+import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
+import 'kendo-ui-web/content/kendo.bootstrap.min.css';
 import kendoDatePicker from 'kendo-ui-web/scripts/kendo.datepicker.min';
 import kendoTooltip from 'kendo-ui-web/scripts/kendo.tooltip.min';
 import React from 'react';
@@ -13,10 +15,10 @@ const KendoDatePicker = React.createClass({
             elementNode = elementNode.querySelector(this.props.selector);
         }
 
-        this.widgetInstance = new kendoDatePicker.ui.DatePicker(elementNode, this.props.options);
-        this.widgetInstance.bind('open', this.open);
+        this.datePicker = new kendoDatePicker.ui.DatePicker(elementNode, this.props.options);
+        this.datePicker.bind('open', this.open);
 
-        var select = $(this.widgetInstance.wrapper).find('.k-select');
+        var select = $(this.datePicker.wrapper).find('.k-select');
         select.unbind('click');
         select.removeAttr('role');
 
@@ -30,7 +32,7 @@ const KendoDatePicker = React.createClass({
         });
 
         openButton.on('click', function() {
-            self.widgetInstance._click();
+            self.datePicker._click();
         });
 
         select.append('<span unselectable="on" class="lastTripDateButton"><span class="k-icon k-i-arrow-w">select</span></span>');
@@ -42,15 +44,15 @@ const KendoDatePicker = React.createClass({
         lastTripDateButton.on('click', function() {
             var lastTripDate = self.props.trips.getIn(['lastTripDate', 'timeStamp']);
             if (lastTripDate) {
-                self.widgetInstance.value(new Date(lastTripDate));
-                self.props.selectTripDate(self.widgetInstance.value());
+                self.datePicker.value(new Date(lastTripDate));
+                self.props.selectTripDate(self.datePicker.value());
             }
         })
     },
 
     componentWillReceiveProps(nextProps) {
-        if (this.widgetInstance.setOptions && nextProps.options) {
-            this.widgetInstance.setOptions(nextProps.options);
+        if (this.datePicker.setOptions && nextProps.options) {
+            this.datePicker.setOptions(nextProps.options);
         }
     },
 
@@ -68,11 +70,11 @@ const KendoDatePicker = React.createClass({
             this.openCalendarToolTip.destroy();
         }
 
-        if (this.widgetInstance) {
-            var select = $(this.widgetInstance.wrapper).find('.k-select');
+        if (this.datePicker) {
+            var select = $(this.datePicker.wrapper).find('.k-select');
             select.children().first().unbind('click');
             select.find('.lastTripDateButton').unbind('click');
-            this.widgetInstance.destroy();
+            this.datePicker.destroy();
         }
     },
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import VehiclePicker from '../../../vehiclePicker';
-import RecentAlerts from '../../../recentAlerts';
-import VehicleStatus from '../../../vehicleStatus';
-import DeviceEvents from '../../../deviceEvents';
-import DrivingBehavior from '../../../drivingBehavior';
+import VehiclePicker from '../../../widgets/vehiclePicker';
+import RecentAlerts from '../../../widgets/recentAlerts';
+import VehicleStatus from '../../../widgets/vehicleStatus';
+import DeviceEvents from '../../../widgets/deviceEvents';
+import DrivingBehavior from '../../../widgets/drivingBehavior';
 
 const Dashboard = React.createClass({
     render() {

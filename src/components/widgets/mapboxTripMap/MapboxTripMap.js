@@ -1,12 +1,12 @@
+import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import L from 'mapbox.js';
-import 'leaflet/dist/leaflet.css';
-import TripLayer from './helpers/trip_map_layer';
+import tripGeoJsonLayer from './tripGeoJsonLayer';
 import diff from 'deep-diff';
 
-const TripMap = React.createClass({
+const MapboxTripMap = React.createClass({
     componentDidMount() {
         var self = this;
         var elementNode = ReactDOM.findDOMNode(this.refs.map);
@@ -17,22 +17,12 @@ const TripMap = React.createClass({
         this.map = L.mapbox.map(elementNode).setView([20, 0], 2);
         var styleLayer = L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v9', { maxZoom: 19 }).addTo(this.map);
 
-        // var streetsLayer = L.tileLayer(
-        //     'https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}',
-        //     {
-        //         attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/"">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        //         accessToken: accessToken
-        //     }
-        // ).addTo(this.map);
-        //
-        // this.map.invalidateSize();
-
         this.map.whenReady(() => {
-            this.tripLayer = new TripLayer(this.map, null, null);
+            this.tripGeoJsonLayer = new tripGeoJsonLayer(this.map, null, null);
 
             L.control.layers({
                 "Streets": styleLayer,
-                "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9')
+                "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
             }).addTo(this.map);
         });
     },
@@ -41,7 +31,7 @@ const TripMap = React.createClass({
         var data = nextProps.tripJsonData.get('data');
         if (data && diff(data, this.props.tripJsonData.get('data'))) {
             var processedData = this.processDataForGps(data);
-            this.tripLayer.updateData(processedData, null);
+            this.tripGeoJsonLayer.updateData(processedData, null);
         }
     },
 
@@ -120,4 +110,4 @@ const TripMap = React.createClass({
     }
 });
 
-module.exports = TripMap;
+module.exports = MapboxTripMap;

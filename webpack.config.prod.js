@@ -51,6 +51,10 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.json$/,
+                loader: 'json',
+            },
+            {
                 test: /\.css$/,
                 loader: ExtractTextWebpackPlugin.extract('css'),
                 include: [path.join(__dirname, 'node_modules'), path.join(__dirname, 'bower_components'), PATHS.css]

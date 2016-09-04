@@ -6,7 +6,7 @@ import L from 'mapbox.js';
 import tripGeoJsonLayer from './tripGeoJsonLayer';
 import diff from 'deep-diff';
 
-const MapboxTripMap = React.createClass({
+const TripMap = React.createClass({
     componentDidMount() {
         var self = this;
         var elementNode = ReactDOM.findDOMNode(this.refs.map);
@@ -24,6 +24,12 @@ const MapboxTripMap = React.createClass({
                 "Streets": styleLayer,
                 "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
             }).addTo(this.map);
+
+            var data = this.props.tripJsonData.get('data');
+            if (data) {
+                var processedData = this.processDataForGps(data);
+                this.tripGeoJsonLayer.updateData(processedData, null);
+            }
         });
     },
 
@@ -110,4 +116,4 @@ const MapboxTripMap = React.createClass({
     }
 });
 
-module.exports = MapboxTripMap;
+module.exports = TripMap;

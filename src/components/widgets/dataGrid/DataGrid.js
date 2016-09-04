@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import businessAccountTypes from './businessAccountTypesDataSource';
 
-const KendoGrid = React.createClass({
+const DataGrid = React.createClass({
     resizer() {
         var gridElement = this.grid.element;
         var dataArea = gridElement.find('.k-grid-content');
@@ -64,7 +64,7 @@ const KendoGrid = React.createClass({
     }
 });
 
-export default KendoGrid;
+export default DataGrid;
 
 export const accountTypeEditor = function(container, options) {
     var element = $('<input name="' + options.field + '" required />')

@@ -5,7 +5,7 @@ import kendoTooltip from 'kendo-ui-web/scripts/kendo.tooltip.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const KendoDatePicker = React.createClass({
+const TripDatePicker = React.createClass({
     componentDidMount() {
         var self = this;
 
@@ -87,4 +87,4 @@ const KendoDatePicker = React.createClass({
     }
 });
 
-export default KendoDatePicker;
+export default TripDatePicker;

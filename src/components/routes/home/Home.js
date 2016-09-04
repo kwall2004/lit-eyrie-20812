@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import VehiclePicker from '../../widgets/vehiclePicker';
 
 const Home = React.createClass({
     render() {
@@ -47,6 +48,7 @@ const Home = React.createClass({
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
+                <VehiclePicker {...this.props} />
                 <section>
                     {this.props.children && React.cloneElement(
                         this.props.children,

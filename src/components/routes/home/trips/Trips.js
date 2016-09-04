@@ -1,15 +1,13 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import VehiclePicker from '../../../widgets/vehiclePicker';
 import TripList from '../../../widgets/tripList';
 import TripDetails from '../../../widgets/tripDetails';
-import MapboxTripMap from '../../../widgets/mapboxTripMap';
+import TripMap from '../../../widgets/tripMap';
 
 const Trips = React.createClass({
     render() {
         return (
             <section>
-                <VehiclePicker {...this.props} />
                 <Grid className="trips-layout">
                     <Row className="trips-layout-root">
                         <Col md={3} className="trips-layout-left">
@@ -20,7 +18,7 @@ const Trips = React.createClass({
                                 <TripDetails {...this.props} />
                             </div>
                             <div className="trips-map">
-                                <MapboxTripMap {...this.props} />
+                                <TripMap {...this.props} />
                             </div>
                         </Col>
                     </Row>

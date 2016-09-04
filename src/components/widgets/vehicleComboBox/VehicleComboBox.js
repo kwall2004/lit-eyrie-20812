@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import diff from 'deep-diff';
 
-const KendoVehicleComboBox = React.createClass({
+const VehicleComboBox = React.createClass({
     open() {
         $('.k-list-container').css('font-size', '14px');
     },
@@ -81,4 +81,4 @@ const KendoVehicleComboBox = React.createClass({
     },
 });
 
-export default KendoVehicleComboBox;
+export default VehicleComboBox;

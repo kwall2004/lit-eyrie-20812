@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import VehiclePicker from '../../../widgets/vehiclePicker';
 import RecentAlerts from '../../../widgets/recentAlerts';
 import VehicleStatus from '../../../widgets/vehicleStatus';
 import DeviceEvents from '../../../widgets/deviceEvents';
@@ -10,7 +9,6 @@ const Dashboard = React.createClass({
     render() {
         return (
             <section>
-                <VehiclePicker {...this.props} />
                 <Grid>
                     <Row>
                         <Col md={5}>

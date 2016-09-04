@@ -2,14 +2,12 @@ import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import KendoTripDatePicker from '../kendoTripDatePicker';
-import KendoVehicleComboBox from '../kendoVehicleComboBox';
+import TripDatePicker from '../tripDatePicker';
+import VehicleComboBox from '../vehicleComboBox';
 
 const VehiclePicker = React.createClass({
     componentDidMount() {
-        if (this.props.vehicles.get('list').size == 0) {
-            this.props.getVehicles();
-        }
+        this.props.getVehicles();
     },
 
     render() {
@@ -101,7 +99,7 @@ const VehiclePicker = React.createClass({
                                                     <span className="input-label">
                                                         Select a Date
                                                     </span>
-                                                    <KendoTripDatePicker
+                                                    <TripDatePicker
                                                         {...this.props}
                                                         options={{
                                                             optionLabel: 'Select a Date',
@@ -120,7 +118,7 @@ const VehiclePicker = React.createClass({
                                         <span className="input-label">
                                             Select Vehicle
                                         </span>
-                                        <KendoVehicleComboBox
+                                        <VehicleComboBox
                                             {...this.props}
                                             options={{
                                                 dataTextField: 'name',

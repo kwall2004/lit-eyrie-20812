@@ -1,12 +1,12 @@
 import React from 'react';
-import KendoGrid, { accountTypeEditor, filterMenuInit } from '../../../widgets/kendoGrid';
+import DataGrid, { accountTypeEditor, filterMenuInit } from '../../../widgets/dataGrid';
 import clients from './clientsDataSource';
 
 const Clients = React.createClass({
     render() {
         return (
             <section>
-                <KendoGrid options={{
+                <DataGrid options={{
                     dataSource: clients,
                     toolbar: ["create"],
                     editable: "popup",

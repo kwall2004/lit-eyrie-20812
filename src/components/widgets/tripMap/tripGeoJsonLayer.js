@@ -29,6 +29,12 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
         self.featureLayer.addTo(map);
     }
 
+    self.remove = function() {
+        if (self.map) {
+            self.map.removeLayer(self.featureLayer);
+        }
+    };
+
     self.updateData = function (geoJsonData, vehicleId) {
         self.vehicleId = vehicleId;
 

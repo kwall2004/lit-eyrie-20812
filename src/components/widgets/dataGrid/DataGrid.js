@@ -1,5 +1,6 @@
 import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
 import 'kendo-ui-web/content/kendo.bootstrap.min.css';
+import $ from 'jquery';
 import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
 import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';

@@ -1,5 +1,4 @@
 import 'leaflet/dist/leaflet.css';
-import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -25,19 +24,15 @@ const TripMap = React.createClass({
                 "Streets": styleLayer,
                 "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
             }).addTo(this.map);
-
-            var data = this.props.tripJsonData.get('data');
-            if (data) {
-                var processedData = this.processDataForGps(data);
-                this.tripGeoJsonLayer.updateData(processedData, null);
-            }
         });
     },
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.tripJsonData.get('loading') !== this.props.tripJsonData.get('loading')) {
             if (nextProps.tripJsonData.get('loading')) {
-                this.map.spin(true);
+                this.map.spin(true, {
+                    scale: 2
+                });
             }
             else {
                 this.map.spin(false);
@@ -45,9 +40,20 @@ const TripMap = React.createClass({
         }
 
         var data = nextProps.tripJsonData.get('data');
-        if (data && diff(data, this.props.tripJsonData.get('data'))) {
-            var processedData = this.processDataForGps(data);
-            this.tripGeoJsonLayer.updateData(processedData, null);
+        if (data) {
+            if (diff(data, this.props.tripJsonData.get('data'))) {
+                try {
+                    var processedData = this.processDataForGps(data);
+                    this.tripGeoJsonLayer.updateData(processedData, null);
+                }
+                catch (ex) {
+                    this.map.setView([20, 0], 2);
+                }
+            }
+        }
+        else {
+            this.tripGeoJsonLayer.remove();
+            this.map.setView([20, 0], 2);
         }
     },
 

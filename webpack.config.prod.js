@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
@@ -19,27 +18,29 @@ module.exports = {
     entry: {
         app: PATHS.src,
         vendor: [
+            'deep-diff',
+            'immutable',
+            'jquery',
+            'js-cookie',
+            'kendo-ui-web/scripts/kendo.grid.min',
+            'kendo-ui-web/scripts/kendo.combobox.min',
+            'kendo-ui-web/scripts/kendo.datepicker.min',
+            'kendo-ui-web/scripts/kendo.tooltip.min',
+            'kendo-ui-web/scripts/kendo.data.min',
+            'leaflet-spin',
+            'leaflet-textpath',
+            'mapbox.js',
+            'moment',
+            'q',
             'react',
             'react-dom',
             'react-router',
             'react-redux',
             'react-bootstrap',
             'react-router-bootstrap',
-            'react-fontawesome',
+            'react-spin',
             'redux',
             'redux-thunk',
-            'immutable',
-            'kendo-ui-web/scripts/kendo.grid.min',
-            'kendo-ui-web/scripts/kendo.combobox.min',
-            'kendo-ui-web/scripts/kendo.datepicker.min',
-            'kendo-ui-web/scripts/kendo.tooltip.min',
-            'kendo-ui-web/scripts/kendo.data.min',
-            'moment',
-            'js-cookie',
-            'mapbox.js',
-            'leaflet-textpath',
-            'q',
-            'deep-diff',
         ]
     },
     output: {
@@ -53,6 +54,18 @@ module.exports = {
             {
                 test: /\.json$/,
                 loader: 'json',
+            },
+            {
+                test: /\kendo.*.min.js$/,
+                loader: 'imports?jQuery=jquery,$=jquery',
+            },
+            {
+                test: require.resolve('leaflet-textpath'),
+                loader: 'imports?L=mapbox.js',
+            },
+            {
+                test: require.resolve('leaflet-spin'),
+                loader: 'imports?L=mapbox.js,Spinner=spin.js',
             },
             {
                 test: /\.css$/,
@@ -102,9 +115,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([{
-            from: path.join(__dirname, 'bower_components/jquery/dist/jquery.min.js')
-        }]),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         ),

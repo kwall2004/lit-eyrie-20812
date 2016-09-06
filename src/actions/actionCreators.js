@@ -133,6 +133,8 @@ function storeLastTripInfo(json) {
 
 function getTrips(vehicleId, date) {
     return function(dispatch, getState) {
+        dispatch(removeTripJsonData());
+        dispatch(selectTrip(null));
         dispatch(loadTrips(true));
         fetch(
             'http://localhost:65027/api/Trips/GetTrips?VehicleId=' + vehicleId + '&SelectedDate=' + new moment(date).format('YYYY-MM-DD'),
@@ -209,5 +211,11 @@ function storeTripJsonData(data) {
     return {
         type: 'STORE_TRIP_JSON_DATA',
         data
+    }
+}
+
+function removeTripJsonData() {
+    return {
+        type: 'REMOVE_TRIP_JSON_DATA'
     }
 }

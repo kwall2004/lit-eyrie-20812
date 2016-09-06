@@ -1,7 +1,6 @@
-import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import Spinner from 'react-spin';
 import TripDatePicker from '../tripDatePicker';
 import VehicleComboBox from '../vehicleComboBox';
 
@@ -29,25 +28,24 @@ const VehiclePicker = React.createClass({
                                                         if (this.props.vehicles.get('loading')) {
                                                             return (
                                                                 <div className="vehicle-picker-title-relative">
-                                                                    <FontAwesome
-                                                                        name="refresh"
-                                                                        size="4x"
-                                                                        spin
-                                                                    />
+                                                                    <Spinner config={{
+                                                                        scale: 1.5
+                                                                    }}/>
                                                                 </div>
                                                             );
                                                         }
-
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <span className="accent-number">
-                                                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
-                                                                </span>
-                                                                <span className="accent-description">
-                                                                    {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
-                                                                </span>
-                                                            </div>
-                                                        );
+                                                        else {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <span className="accent-number">
+                                                                        {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
+                                                                    </span>
+                                                                    <span className="accent-description">
+                                                                        {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        }
                                                     })()}
                                                 </div>
                                             </div>
@@ -62,25 +60,24 @@ const VehiclePicker = React.createClass({
                                                         if (this.props.trips.get('loading')) {
                                                             return (
                                                                 <div className="vehicle-picker-title-relative">
-                                                                    <FontAwesome
-                                                                        name="refresh"
-                                                                        size="4x"
-                                                                        spin
-                                                                    />
+                                                                    <Spinner config={{
+                                                                        scale: 1.5
+                                                                    }}/>
                                                                 </div>
                                                             );
                                                         }
-
-                                                        return (
-                                                            <div className="vehicle-picker-title-relative">
-                                                                <span className="accent-number">
-                                                                    {this.props.trips.get('list').size}
-                                                                </span>
-                                                                <span className="accent-description">
-                                                                    {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
-                                                                </span>
-                                                            </div>
-                                                        );
+                                                        else {
+                                                            return (
+                                                                <div className="vehicle-picker-title-relative">
+                                                                    <span className="accent-number">
+                                                                        {this.props.trips.get('list').size}
+                                                                    </span>
+                                                                    <span className="accent-description">
+                                                                        {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        }
                                                     })()}
                                                 </div>
                                             </div>

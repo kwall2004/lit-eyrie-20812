@@ -1,7 +1,6 @@
-import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import Spinner from 'react-spin';
 import moment from 'moment';
 
 const TripList = React.createClass({
@@ -25,66 +24,65 @@ const TripList = React.createClass({
                             <Glyphicon glyph="chevron-left" />&nbsp;on&nbsp;{new moment(this.props.trips.get('selectedTripDate')).format('MM/DD/YYYY')}&nbsp;<Glyphicon glyph="chevron-right" />
                         </span>
                     </div>
-                    <div className="trip-list-table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Trip Start</th>
-                                    <th>Trip End</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {(() => {
-                                    if (this.props.trips.get('loading')) {
-                                        return (
-                                            <tr className="trip-list-row-no-trips">
-                                                <td className="trip-list-no-trips" colSpan={3}>
-                                                    <FontAwesome
-                                                        name="refresh"
-                                                        size="2x"
-                                                        spin
-                                                    />
-                                                </td>
+                    {(() => {
+                        if (this.props.trips.get('loading')) {
+                            return (
+                                <Spinner config={{
+                                    color: '#8F9399'
+                                }}/>
+                            );
+                        }
+                        else {
+                            return (
+                                <div className="trip-list-table-wrapper">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Trip Start</th>
+                                                <th>Trip End</th>
                                             </tr>
-                                        );
-                                    }
-
-                                    if (this.props.trips.get('list').size > 0) {
-                                        return this.props.trips.get('list').map(trip => {
-                                            return (
-                                                <tr key={trip.get('rowNumber')} className={this.getClassName(trip)} onClick={this.selectRow.bind(this, trip)}>
-                                                    <td className="trip-list-column-number">
-                                                        <div className="trip-list-row-number">
-                                                            {trip.get('rowNumber') + 1}
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        {new moment(trip.get('localStartTime')).format('hh:mm A')}
-                                                    </td>
-                                                    <td>
-                                                        {new moment(trip.get('localEndTime')).format('hh:mm A')}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        });
-                                    }
-                                    else {
-                                        return (
-                                            <tr className="trip-list-row-no-trips">
-                                                <td className="trip-list-no-trips" colSpan={3}>
-                                                    (trip list is empty)
-                                                </td>
-                                            </tr>
-                                        );
-                                    }
-                                })()}
-                            </tbody>
-                        </table>
-                    </div>
+                                        </thead>
+                                        <tbody>
+                                            {(() => {
+                                                if (this.props.trips.get('list').size > 0) {
+                                                    return this.props.trips.get('list').map(trip => {
+                                                        return (
+                                                            <tr key={trip.get('rowNumber')} className={this.getClassName(trip)} onClick={this.selectRow.bind(this, trip)}>
+                                                                <td className="trip-list-column-number">
+                                                                    <div className="trip-list-row-number">
+                                                                        {trip.get('rowNumber') + 1}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    {new moment(trip.get('localStartTime')).format('hh:mm A')}
+                                                                </td>
+                                                                <td>
+                                                                    {new moment(trip.get('localEndTime')).format('hh:mm A')}
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    });
+                                                }
+                                                else {
+                                                    return (
+                                                        <tr className="trip-list-row-no-trips">
+                                                            <td className="trip-list-no-trips" colSpan={3}>
+                                                                (trip list is empty)
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
+                                            })()}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            );
+                        }
+                    })()}
                 </div>
             </section>
-        )
+        );
     }
 });
 

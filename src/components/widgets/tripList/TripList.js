@@ -36,37 +36,7 @@ const TripList = React.createClass({
                             </thead>
                             <tbody>
                                 {(() => {
-                                    if (!this.props.trips.get('loading')) {
-                                        if (this.props.trips.get('list').size > 0) {
-                                            return this.props.trips.get('list').map(trip => {
-                                                return (
-                                                    <tr key={trip.get('rowNumber')} className={this.getClassName(trip)} onClick={this.selectRow.bind(this, trip)}>
-                                                        <td className="trip-list-column-number">
-                                                            <div className="trip-list-row-number">
-                                                                {trip.get('rowNumber') + 1}
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            {new moment(trip.get('localStartTime')).format('hh:mm A')}
-                                                        </td>
-                                                        <td>
-                                                            {new moment(trip.get('localEndTime')).format('hh:mm A')}
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            });
-                                        }
-                                        else {
-                                            return (
-                                                <tr className="trip-list-row-no-trips">
-                                                    <td className="trip-list-no-trips" colSpan={3}>
-                                                        (trip list is empty)
-                                                    </td>
-                                                </tr>
-                                            );
-                                        }
-                                    }
-                                    else {
+                                    if (this.props.trips.get('loading')) {
                                         return (
                                             <tr className="trip-list-row-no-trips">
                                                 <td className="trip-list-no-trips" colSpan={3}>
@@ -75,6 +45,35 @@ const TripList = React.createClass({
                                                         size="2x"
                                                         spin
                                                     />
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+
+                                    if (this.props.trips.get('list').size > 0) {
+                                        return this.props.trips.get('list').map(trip => {
+                                            return (
+                                                <tr key={trip.get('rowNumber')} className={this.getClassName(trip)} onClick={this.selectRow.bind(this, trip)}>
+                                                    <td className="trip-list-column-number">
+                                                        <div className="trip-list-row-number">
+                                                            {trip.get('rowNumber') + 1}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {new moment(trip.get('localStartTime')).format('hh:mm A')}
+                                                    </td>
+                                                    <td>
+                                                        {new moment(trip.get('localEndTime')).format('hh:mm A')}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        });
+                                    }
+                                    else {
+                                        return (
+                                            <tr className="trip-list-row-no-trips">
+                                                <td className="trip-list-no-trips" colSpan={3}>
+                                                    (trip list is empty)
                                                 </td>
                                             </tr>
                                         );

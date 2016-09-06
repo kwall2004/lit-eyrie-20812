@@ -1,20 +1,21 @@
 import 'leaflet/dist/leaflet.css';
+import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
+import 'leaflet-spin';
 import L from 'mapbox.js';
 import tripGeoJsonLayer from './tripGeoJsonLayer';
 import diff from 'deep-diff';
 
 const TripMap = React.createClass({
     componentDidMount() {
-        var self = this;
-        var elementNode = ReactDOM.findDOMNode(this.refs.map);
+        var element = ReactDOM.findDOMNode(this.refs.map);
 
         L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW53IiwiYSI6ImNpc2h2Zmo4aTAwN2Yyb3BpcmplYmRrcHkifQ.eR82_M14vFQEzydtlMdZJA';
         L.mapbox.config.FORCE_HTTPS = true;
 
-        this.map = L.mapbox.map(elementNode).setView([20, 0], 2);
+        this.map = L.mapbox.map(element).setView([20, 0], 2);
         var styleLayer = L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v9', { maxZoom: 19 }).addTo(this.map);
 
         this.map.whenReady(() => {
@@ -34,6 +35,15 @@ const TripMap = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.tripJsonData.get('loading') !== this.props.tripJsonData.get('loading')) {
+            if (nextProps.tripJsonData.get('loading')) {
+                this.map.spin(true);
+            }
+            else {
+                this.map.spin(false);
+            }
+        }
+
         var data = nextProps.tripJsonData.get('data');
         if (data && diff(data, this.props.tripJsonData.get('data'))) {
             var processedData = this.processDataForGps(data);

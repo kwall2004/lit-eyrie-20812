@@ -11,7 +11,6 @@ const VehiclePicker = React.createClass({
     },
 
     render() {
-        var self = this;
         var selectedVehicle = this.props.vehicles.get('selectedVehicle');
 
         return (
@@ -36,20 +35,19 @@ const VehiclePicker = React.createClass({
                                                                         spin
                                                                     />
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
-                                                        else {
-                                                            return (
-                                                                <div className="vehicle-picker-title-relative">
-                                                                    <span className="accent-number">
-                                                                        {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
-                                                                    </span>
-                                                                    <span className="accent-description">
-                                                                        {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
-                                                                    </span>
-                                                                </div>
-                                                            )
-                                                        }
+
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <span className="accent-number">
+                                                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
+                                                                </span>
+                                                                <span className="accent-description">
+                                                                    {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
+                                                                </span>
+                                                            </div>
+                                                        );
                                                     })()}
                                                 </div>
                                             </div>
@@ -70,20 +68,19 @@ const VehiclePicker = React.createClass({
                                                                         spin
                                                                     />
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
-                                                        else {
-                                                            return (
-                                                                <div className="vehicle-picker-title-relative">
-                                                                    <span className="accent-number">
-                                                                        {this.props.trips.get('list').size}
-                                                                    </span>
-                                                                    <span className="accent-description">
-                                                                        {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
-                                                                    </span>
-                                                                </div>
-                                                            )
-                                                        }
+
+                                                        return (
+                                                            <div className="vehicle-picker-title-relative">
+                                                                <span className="accent-number">
+                                                                    {this.props.trips.get('list').size}
+                                                                </span>
+                                                                <span className="accent-description">
+                                                                    {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
+                                                                </span>
+                                                            </div>
+                                                        );
                                                     })()}
                                                 </div>
                                             </div>
@@ -105,13 +102,13 @@ const VehiclePicker = React.createClass({
                                                             optionLabel: 'Select a Date',
                                                             value: this.props.trips.get('selectedTripDate'),
                                                             format: 'MM/dd/yyyy',
-                                                            change: function() {
-                                                                self.props.selectTripDate(this.value());
+                                                            change: (e) => {
+                                                                this.props.selectTripDate(e.sender.value());
                                                             }
                                                         }}
                                                     />
                                                 </span>
-                                            )
+                                            );
                                         }
                                     })()}
                                     <span>
@@ -130,8 +127,8 @@ const VehiclePicker = React.createClass({
                                                 template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
                                                 value: selectedVehicle ? selectedVehicle.get('vehicleId') : '',
                                                 text: selectedVehicle ? selectedVehicle.get('name') : '',
-                                                change: function(e) {
-                                                    self.props.selectVehicle(this.value());
+                                                change: (e) => {
+                                                    this.props.selectVehicle(e.sender.value());
                                                 }
                                             }}
                                         />
@@ -193,14 +190,14 @@ const VehiclePicker = React.createClass({
                                                         </div>
                                                     </Col>
                                                 </Row>
-                                            )
+                                            );
                                         }
                                         else {
                                             return (
                                                 <div className="no-vehicle-selected">
                                                     No Vehicle Selected
                                                 </div>
-                                            )
+                                            );
                                         }
                                     })()}
                                 </Grid>

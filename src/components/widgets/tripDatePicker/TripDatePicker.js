@@ -2,13 +2,12 @@ import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
 import 'kendo-ui-web/content/kendo.bootstrap.min.css';
 import kendoDatePicker from 'kendo-ui-web/scripts/kendo.datepicker.min';
 import kendoTooltip from 'kendo-ui-web/scripts/kendo.tooltip.min';
+import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 const TripDatePicker = React.createClass({
     componentDidMount() {
-        var self = this;
-
         var elementNode = ReactDOM.findDOMNode(this);
 
         if (this.props.selector) {
@@ -31,8 +30,8 @@ const TripDatePicker = React.createClass({
             content: 'open calendar',
         });
 
-        openButton.on('click', function() {
-            self.datePicker._click();
+        openButton.on('click', () => {
+            this.datePicker._click();
         });
 
         select.append('<span unselectable="on" class="lastTripDateButton"><span class="k-icon k-i-arrow-w">select</span></span>');
@@ -41,11 +40,11 @@ const TripDatePicker = React.createClass({
             width: 120,
             content: 'go to last trip date',
         });
-        lastTripDateButton.on('click', function() {
-            var lastTripDate = self.props.trips.getIn(['lastTripDate', 'timeStamp']);
+        lastTripDateButton.on('click', () => {
+            var lastTripDate = this.props.trips.getIn(['lastTripDate', 'timeStamp']);
             if (lastTripDate) {
-                self.datePicker.value(new Date(lastTripDate));
-                self.props.selectTripDate(self.datePicker.value());
+                this.datePicker.value(new Date(lastTripDate));
+                this.props.selectTripDate(this.datePicker.value());
             }
         })
     },

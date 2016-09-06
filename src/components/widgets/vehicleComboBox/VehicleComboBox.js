@@ -1,15 +1,12 @@
 import 'kendo-ui-web/content/kendo.common-bootstrap.min.css';
 import 'kendo-ui-web/content/kendo.bootstrap.min.css';
 import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
+import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import diff from 'deep-diff';
 
 const VehicleComboBox = React.createClass({
-    open() {
-        $('.k-list-container').css('font-size', '14px');
-    },
-
     componentWillMount() {
         kendo.ui.plugin(kendo.ui.ComboBox.extend({
             options: {
@@ -30,8 +27,6 @@ const VehicleComboBox = React.createClass({
     },
 
     componentDidMount() {
-        var self = this;
-
         var element = ReactDOM.findDOMNode(this);
 
         if (this.props.selector) {
@@ -41,8 +36,8 @@ const VehicleComboBox = React.createClass({
         this.comboBox = new kendo.ui.VehicleComboBox(element, this.props.options);
         this.comboBox.bind('open', this.open);
 
-        $(this.comboBox.wrapper).find('.k-select').on('click', function(e) {
-            self.comboBox.dataSource.filter([]);
+        $(this.comboBox.wrapper).find('.k-select').on('click', (e) => {
+            this.comboBox.dataSource.filter([]);
         });
     },
 
@@ -78,6 +73,10 @@ const VehicleComboBox = React.createClass({
 
     render() {
         return <input />;
+    },
+
+    open() {
+        $('.k-list-container').css('font-size', '14px');
     },
 });
 

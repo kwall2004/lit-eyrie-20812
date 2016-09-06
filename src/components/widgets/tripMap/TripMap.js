@@ -30,8 +30,10 @@ const TripMap = React.createClass({
     componentWillReceiveProps(nextProps) {
         if (nextProps.tripJsonData.get('loading') !== this.props.tripJsonData.get('loading')) {
             if (nextProps.tripJsonData.get('loading')) {
+                this.tripGeoJsonLayer.remove();
                 this.map.spin(true, {
-                    scale: 2
+                    scale: 2,
+                    top: '48%'
                 });
             }
             else {

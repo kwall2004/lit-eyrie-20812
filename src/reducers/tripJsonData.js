@@ -13,9 +13,6 @@ function tripJsonData(state = initialState, action) {
         case 'STORE_TRIP_JSON_DATA':
             return state.set('data', action.data);
 
-        case 'REMOVE_TRIP_JSON_DATA':
-            return state.set('data', null);
-
         default:
             return state;
     }

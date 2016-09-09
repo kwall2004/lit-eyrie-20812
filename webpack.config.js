@@ -135,6 +135,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             publicPath: '/'
-        })
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'apiBaseUrl': "'https://visiontest.danlawinc.com'"
+            }
+        }),
     ]
 };

@@ -6,7 +6,7 @@ export function getVehicles() {
     return function(dispatch, getState) {
         dispatch(loadVehicles(true));
         fetch(
-            'http://localhost:65027/api/Dashboard/GetVehicles',
+            process.env.apiBaseUrl + '/api/Dashboard/GetVehicles',
             {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
@@ -68,7 +68,7 @@ export function selectVehicle(vehicleId) {
 function getLastTripDate(vehicleId) {
     return function(dispatch, getState) {
         fetch(
-            'http://localhost:65027/api/Dashboard/GetLastTripDate?VehicleId=' + vehicleId,
+            process.env.apiBaseUrl + '/api/Dashboard/GetLastTripDate?VehicleId=' + vehicleId,
             {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
@@ -109,7 +109,7 @@ export function selectTripDate(date) {
 function getLastTripInfo(vehicleId) {
     return function(dispatch, getState) {
         fetch(
-            'http://localhost:65027/api/Dashboard/GetLastTripInfo?VehicleId=' + vehicleId,
+            process.env.apiBaseUrl + '/api/Dashboard/GetLastTripInfo?VehicleId=' + vehicleId,
             {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
@@ -137,7 +137,7 @@ function getTrips(vehicleId, date) {
         dispatch(selectTrip(null));
         dispatch(loadTrips(true));
         fetch(
-            'http://localhost:65027/api/Trips/GetTrips?VehicleId=' + vehicleId + '&SelectedDate=' + new moment(date).format('YYYY-MM-DD'),
+            process.env.apiBaseUrl + '/api/Trips/GetTrips?VehicleId=' + vehicleId + '&SelectedDate=' + new moment(date).format('YYYY-MM-DD'),
             {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
@@ -184,7 +184,7 @@ function getTripJsonData(tripId) {
     return function(dispatch, getState) {
         dispatch(loadTripJsonData(true));
         fetch(
-            'http://localhost:65027/api/Trips/GetTripJsonData?TripId=' + tripId,
+            process.env.apiBaseUrl + '/api/Trips/GetTripJsonData?TripId=' + tripId,
             {
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },

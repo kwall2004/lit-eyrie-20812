@@ -139,6 +139,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 'apiBaseUrl': "'https://visiontest.danlawinc.com'"
+                // 'apiBaseUrl': "'//localhost:65027'"
             }
         }),
     ]

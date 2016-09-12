@@ -12,13 +12,13 @@ const businessAccountTypes = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return "/odata/BusinessAccountTypes('" + data.Id + "')";
+                return '/odata/BusinessAccountTypes(' + data.Id + ')';
             },
             type: 'PATCH'
         },
         destroy: {
             url: function (data) {
-                return "/odata/BusinessAccountTypes('" + data.Id + "')";
+                return '/odata/BusinessAccountTypes(' + data.Id + ')';
             },
             dataType: 'json',
             type: 'DELETE'

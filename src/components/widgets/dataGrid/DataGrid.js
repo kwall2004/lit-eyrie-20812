@@ -5,7 +5,8 @@ import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
 import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import businessAccountTypes from './businessAccountTypesDataSource';
+import businessAccountTypes from '../../../kendoDataSources/businessAccountTypesDataSource';
+import clients from '../../../kendoDataSources/clientsDataSource';
 
 const DataGrid = React.createClass({
     resizer() {
@@ -67,7 +68,7 @@ const DataGrid = React.createClass({
 
 export default DataGrid;
 
-export const accountTypeEditor = function(container, options) {
+export const accountTypeEditor = function (container, options) {
     var element = $('<input name="' + options.field + '" required />')
         .appendTo(container);
 
@@ -96,7 +97,35 @@ export const accountTypeEditor = function(container, options) {
         });
 }
 
-export const filterMenuInit = function(e) {
+export const clientEditor = function (container, options) {
+    var element = $('<input name="BsnsInfoID" required />')
+        .appendTo(container);
+
+    new kendoComboBox.ui.ComboBox(
+        element,
+        {
+            dataTextField: 'BsnsName',
+            dataValueField: 'BsnsInfoID',
+            filter: 'contains',
+            autoBind: true,
+            minLength: 3,
+            dataSource: clients,
+            dataBound: function (e) {
+                if (!options.model.isNew() && !kendodata.clientSetup.get(options.model.BsnsInfoID)) {
+                    e.preventDefault();
+                    kendodata.clientSetup.add(options.model.bsnsinfo);
+                }
+            },
+            open: function (e) {
+                if (!e.sender.ul.find('.serverFilteredListMessage').length) {
+                    var message = e.sender.ul.append($('<li class="serverFilteredListMessage">Type at least 3 characters for more...</li>')).find('.serverFilteredListMessage');
+                    message.on('click', function (e) { e.preventDefault(); return false; });
+                }
+            }
+        });
+}
+
+export const filterMenuInit = function (e) {
     var firstValueDropDown = e.container.find('select:eq(0)').data('kendoDropDownList');
     firstValueDropDown.value('contains');
     firstValueDropDown.trigger('change');

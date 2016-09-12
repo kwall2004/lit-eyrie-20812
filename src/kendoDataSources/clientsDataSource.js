@@ -12,13 +12,13 @@ const clients = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return "/odata/BsnsInfo(" + data.BsnsInfoID + ")";
+                return '/odata/BsnsInfo(' + data.BsnsInfoID + ')';
             },
             type: 'PATCH'
         },
         destroy: {
             url: function (data) {
-                return "/odata/BsnsInfo(" + data.BsnsInfoID + ")";
+                return '/odata/BsnsInfo(' + data.BsnsInfoID + ')';
             },
             dataType: 'json',
             type: 'DELETE'

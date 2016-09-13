@@ -37,26 +37,26 @@ const Vehicles = React.createClass({
                         filterable: true,
                         sortable: true
                     }, {
-                        field: 'Modl',
+                        field: 'Model',
                         title: 'Model',
                         width: '150px',
                         filterable: true,
                         sortable: true
                     }, {
-                        field: 'ModlYear',
+                        field: 'ModelYear',
                         title: 'Model Year',
                         width: '150px',
                         filterable: true,
                         sortable: true
                     }, {
-                        field: 'Alas',
+                        field: 'Alias',
                         title: 'Alias',
                         width: '150px',
                         filterable: true,
                         sortable: true
                     }, {
-                        field: 'InitOdo',
-                        title: 'ODO Reading',
+                        field: 'OdoReading',
+                        title: 'Odo Reading',
                         width: '100px',
                         filterable: true,
                         sortable: true

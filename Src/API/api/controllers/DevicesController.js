@@ -106,8 +106,7 @@ module.exports = {
     var Device = req.body;
     //Device.ModifiedBy = req.userProfile.userID;
 
-    Devices.update({id:id},{SerialNo: Device.SerialNo,IMEI:Device.IMEI,CreatedDate:Device.CreatedDate,UpdatedDate:Device.UpdatedDate,FWVersion:Device.FWVersion,
-      ConfigVersion: Device.ConfigVersion != null ? Device.ConfigVersion:undefined ,ModifiedBy: Device.ModifiedBy,Active:Device.Active}).exec(function afterwards(err, updated) {
+    Devices.update({id:id},Device).exec(function afterwards(err, updated) {
 
       if (err) {
         // handle error here- e.g. `res.serverError(err);`

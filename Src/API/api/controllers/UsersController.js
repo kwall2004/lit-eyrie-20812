@@ -113,8 +113,7 @@ module.exports = {
     }
     var user = req.body;
     //user.ModifiedBy = req.userProfile.userID;
-    Users.update({id:id},{Name: user.Name,ParentOrganization:user.ParentOrganization,Role:user.Role.id,Email:user.Email,PhoneNumber:user.PhoneNumber,
-      Printer: user.Printer != null ? user.Printer.id:undefined ,Active:user.Active}).exec(function afterwards(err, updated) {
+    Users.update({id:id},user).exec(function afterwards(err, updated) {
 
       if (err) {
         // handle error here- e.g. `res.serverError(err);`

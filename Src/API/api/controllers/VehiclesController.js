@@ -106,8 +106,7 @@ module.exports = {
     var Vehicle = req.body;
     //Vehicle.ModifiedBy = req.userProfile.userID;
 
-    Vehicles.update({id:id},{SerialNo: Vehicle.SerialNo,IMEI:Vehicle.IMEI,CreatedDate:Vehicle.CreatedDate,UpdatedDate:Vehicle.UpdatedDate,FWVersion:Vehicle.FWVersion,
-      ConfigVersion: Vehicle.ConfigVersion != null ? Vehicle.ConfigVersion:undefined ,ModifiedBy: Vehicle.ModifiedBy,Active:Vehicle.Active}).exec(function afterwards(err, updated) {
+    Vehicles.update({id:id},Vehicle).exec(function afterwards(err, updated) {
 
       if (err) {
         // handle error here- e.g. `res.serverError(err);`

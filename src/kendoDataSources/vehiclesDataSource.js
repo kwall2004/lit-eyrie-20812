@@ -1,4 +1,5 @@
 import kendo from 'kendo-ui-web/scripts/kendo.data.min';
+import getSailsParams from './sailsParameterMap';
 
 const vehicles = new kendo.data.DataSource({
     transport: {
@@ -11,80 +12,28 @@ const vehicles = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return '/odata/Vehicle(' + data.VhclID + ')';
+                return '//localhost:1337/vehicle/' + data.id;
             },
-            type: 'PATCH'
+            type: 'PUT'
         },
         destroy: {
             url: function (data) {
-                return '/odata/Vehicle(' + data.VhclID + ')';
+                return '//localhost:1337/vehicle/' + data.id;
             },
             dataType: 'json',
             type: 'DELETE'
         },
         create: {
-            url: '/odata/Vehicle',
+            url: '//localhost:1337/vehicle',
             dataType: 'json',
             type: 'POST'
         },
         parameterMap: function (kendoParams, type) {
             if (type == 'read') {
-                var waterlineParams = {};
-                waterlineParams.limit = kendoParams.take;
-                waterlineParams.skip = kendoParams.skip;
-                if (kendoParams.filter) {
-                    waterlineParams.where = {};
-                    var logic = kendoParams.filter.logic;
-                    if (logic === 'and') {
-                        logic = '$and';
-                    }
-                    waterlineParams.where[logic] = [];
-                    kendoParams.filter.filters.forEach(function (element, index, array) {
-                        var pair = {};
-                        switch (element.operator) {
-                            case 'eq':
-                                pair[element.field] = element.value;
-                                break;
-                            case 'neq':
-                                pair[element.field] = {};
-                                pair[element.field]['!'] = element.value;
-                                break;
-                            case 'startswith':
-                                pair[element.field] = {};
-                                pair[element.field]['startsWith'] = element.value;
-                                break;
-                            case 'endswith':
-                                pair[element.field] = {};
-                                pair[element.field]['endsWith'] = element.value;
-                                break;
-                            default:
-                                pair[element.field] = {};
-                                pair[element.field][element.operator] = element.value;
-                        }
-                        waterlineParams.where[logic].push(pair);
-                    });
-                }
-                if (kendoParams.sort) {
-                    waterlineParams.sort = {};
-                    kendoParams.sort.forEach(function (element, index, array) {
-                        waterlineParams.sort[element.field] = element.dir;
-                    });
-                }
-
-                return waterlineParams;
-            }
-            else if (type == 'create') {
-                options.VhclID = 0;
-                delete options.bsnsinfo;
-                delete options.UserInfoID_input;
-                delete options.BsnsInfoID_input;
-                return kendo.data.transports.odata.parameterMap(options, type);
+                return getSailsParams(kendoParams);
             }
             else {
-                delete options.bsnsinfo;
-                delete options.UserInfoID_input;
-                delete options.BsnsInfoID_input;
-                return kendo.data.transports.odata.parameterMap(options, type);
+                return kendoParams;
             }
         }
     },
@@ -93,43 +42,18 @@ const vehicles = new kendo.data.DataSource({
             id: 'id',
             fields: {
                 id: {
-                    type: 'number',
-                    editable: false,
-                    nullable: false,
-                    defaultValue: 0,
-                    validation: {
-                        required: {
-                            message: 'id is required.'
-                        }
-                    }
+                    type: 'string',
+                    defaultValue: '',
                 },
-                // BsnsInfoID: {
-                //     type: 'number',
-                //     editable: true,
-                //     nullable: false,
-                //     defaultValue: '',
-                //     validation: {
-                //         required: {
-                //             message: 'BsnsInfoID is required.'
-                //         }
-                //     }
-                // },
-                // bsnsinfo: {
-                //     defaultValue: {
-                //         BsnsInfoID: '',
-                //         BsnsName: ''
-                //     }
-                // },
-                VIN: {
+                ClientId: {
                     type: 'string',
                     editable: true,
-                    nullable: true,
+                    nullable: false,
+                    defaultValue: '',
                     validation: {
                         required: {
-                            message: 'VIN is required.'
-                        },
-                        minLength: function (input) { if (!input[0] || input[0].name != 'VIN') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-                        maxLength: function (input) { if (!input[0] || input[0].name != 'VIN') return true; if (input.val().length > 25) { input.attr('data-maxLength-msg', 'Max length is 25'); return false; } return true; }
+                            message: 'Client Id is required.'
+                        }
                     }
                 },
                 Make: {
@@ -180,7 +104,7 @@ const vehicles = new kendo.data.DataSource({
                         maxLength: function (input) { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
                     }
                 },
-                OdoReading: {
+                OdometerReading: {
                     type: 'number',
                     editable: true,
                     nullable: true,

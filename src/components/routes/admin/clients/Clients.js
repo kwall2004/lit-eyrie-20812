@@ -1,5 +1,5 @@
 import React from 'react';
-import DataGrid, { accountTypeEditor, filterMenuInit } from '../../../widgets/dataGrid';
+import DataGrid, { filterMenuInit } from '../../../widgets/dataGrid';
 import clients from '../../../../kendoDataSources/clientsDataSource';
 
 const Clients = React.createClass({
@@ -21,83 +21,70 @@ const Clients = React.createClass({
                         pageSizes: true,
                         buttonCount: 5
                     },
-                    columns: [{
-                        field: 'BsnsName',
+                    columns: [
+                    {
+                        field: 'Name',
                         title: 'Client Name',
                         filterable: true,
                         sortable: true,
                         width: 180
                     },
                     {
-                        field: 'Adrs1',
+                        field: 'Address1',
                         title: 'Address 1',
                         filterable: true,
                         sortable: true,
                         width: 171
-                    }, {
-                        field: 'Adrs2',
+                    },
+                    {
+                        field: 'Address2',
                         title: 'Address 2',
                         filterable: true,
                         sortable: true,
                         width: 85
-                    }, {
+                    },
+                    {
                         field: 'City',
                         title: 'City',
                         filterable: true,
                         sortable: true,
                         width: 160
-                    }, {
-                        field: 'Stat',
+                    },
+                    {
+                        field: 'State',
                         title: 'State',
                         filterable: true,
                         sortable: true,
                         width: 80
-                    }, {
-                        field: 'Ctry',
+                    },
+                    {
+                        field: 'Country',
                         title: 'Country',
                         filterable: true,
                         sortable: true,
                         width: 95
-                    }, {
+                    },
+                    {
                         field: 'Zip',
                         title: 'Zip',
                         filterable: true,
                         sortable: true,
                         width: 65
-                    }, {
+                    },
+                    {
                         field: 'Phone',
                         title: 'Phone',
                         filterable: true,
                         sortable: true,
                         width: 110
-                    }, {
-                        field: 'BusinessAccountTypeId',
-                        template: '#: BusinessAccountType.Name #',
-                        title: 'Act. Type',
-                        editor: accountTypeEditor,
-                        filterable: true,
-                        sortable: true,
-                        width: 110
-                    }, {
-                        field: 'StartDate',
-                        title: 'Start Date',
-                        filterable: true,
-                        sortable: true,
-                        format: '{0: yyyy-MM-dd}',
-                        width: 90
-                    }, {
-                        field: 'EndDate',
-                        title: 'End Date',
-                        filterable: true,
-                        sortable: true,
-                        format: '{0: yyyy-MM-dd}',
-                        width: 90
-                    }, {
+                    },
+                    {
                         command: ['edit'],
                         title: ' ',
                         width: 90,
                         resizable: false
-                    }]
+                    }
+                    ]
                 }} />
             </section>
         )

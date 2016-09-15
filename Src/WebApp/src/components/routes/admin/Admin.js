@@ -7,8 +7,6 @@ const Admin = React.createClass({
         switch (this.props.location.pathname) {
             case '/admin/clients':
                 return 'Icon_Title_ClientSetup.png';
-            case '/admin/vehicles':
-                return 'Icon_Title_VehicleSetup.png';
         }
     },
 
@@ -16,8 +14,6 @@ const Admin = React.createClass({
         switch (this.props.location.pathname) {
             case '/admin/clients':
                 return 'Client Setup';
-            case '/admin/vehicles':
-                return 'Vehicle Setup';
         }
     },
 
@@ -51,16 +47,6 @@ const Admin = React.createClass({
                                     </span>
                                     <span className="link-text">
                                         Client Setup
-                                    </span>
-                                </NavItem>
-                            </LinkContainer>
-                            <LinkContainer to="/admin/vehicles">
-                                <NavItem>
-                                    <span className="sidebar-icon">
-                                        <i className="icon-VehicleSetup fa-2x"></i>
-                                    </span>
-                                    <span className="link-text">
-                                        Vehicle Setup
                                     </span>
                                 </NavItem>
                             </LinkContainer>

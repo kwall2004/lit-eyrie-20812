@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing Users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var lang = require("lodash/lang");
 module.exports = {
 
   find : function(req,res)
@@ -25,18 +25,18 @@ module.exports = {
       };
     }
     console.log("This is the options", options);
-    Users.find(options).populate('Role').populate('Printer').exec(function(err,users){
+    Users.find(options).populate('Role').exec(function(err,users){
 
       if(users)
       {
 
-        var usersFilteredBasedOnDataEntitlements=Authentication_AuthorizationService.filterCollectionBasedOnDataEntitlements(users,"ParentOrganization.id",req.userProfile.entitlements.dataEntitlements["parentOrganizationId"])
+       // var usersFilteredBasedOnDataEntitlements=Authentication_AuthorizationService.filterCollectionBasedOnDataEntitlements(users,"ParentOrganization.id",req.userProfile.entitlements.dataEntitlements["parentOrganizationId"])
 
-        return res.dimsJSON(usersFilteredBasedOnDataEntitlements,"Found Users","success");
+        return res.visionResponseJSON(users,"Found Users","success");
       }
       else
       {
-        return res.dimsJSON(null,"Sorry couldn't find any Users","error");
+        return res.visionResponseJSON(null,"Sorry couldn't find any Users","error");
       }
     })
   },
@@ -44,15 +44,15 @@ module.exports = {
   findOne: function(req,res)
   {
     var id = req.param("id");
-    Users.findOne({id:id}).populate('Role').populate('Printer').exec(function(err,users){
+    Users.findOne({id:id}).populate('Role').exec(function(err,users){
 
       if(users)
       {
-        return res.dimsJSON(users,"Found User","success");
+        return res.visionResponseJSON(users,"Found User","success");
       }
       else
       {
-        return res.dimsJSON(null,"Sorry couldn't find any User","error");
+        return res.visionResponseJSON(null,"Sorry couldn't find any User","error");
       }
     })
   },
@@ -67,7 +67,7 @@ module.exports = {
     user.Email = user.Email.toLowerCase();
     delete user.id;
 
-    user.ModifiedBy = req.userProfile.userID;
+    //user.ModifiedBy = req.userProfile.userID;
 
     // assigning default password
 
@@ -92,7 +92,7 @@ module.exports = {
             }
 
             sails.log.info("user has been created  " + user);
-            return res.dimsJSON(user, "User Added!", "success", "");
+            return res.visionResponseJSON(user, "User Added!", "success", "");
           });
         }
         else
@@ -112,23 +112,23 @@ module.exports = {
       return res.badRequest("Please provide the user id ");
     }
     var user = req.body;
-    user.ModifiedBy = req.userProfile.userID;
+    //user.ModifiedBy = req.userProfile.userID;
     Users.update({id:id},{Name: user.Name,ParentOrganization:user.ParentOrganization,Role:user.Role.id,Email:user.Email,PhoneNumber:user.PhoneNumber,
       Printer: user.Printer != null ? user.Printer.id:undefined ,Active:user.Active}).exec(function afterwards(err, updated) {
 
       if (err) {
         // handle error here- e.g. `res.serverError(err);`
         sails.log.error("Failed to update user error " + err);
-        return res.dimsJSON(null, "Failed to Update User!", "error");
+        return res.visionResponseJSON(null, "Failed to Update User!", "error");
 
       }
       if (updated.length > 0) {
-        Users.findOne({id: id}).populate('Role').populate('Printer').exec(function (err, user) {
+        Users.findOne({id: id}).populate('Role').exec(function (err, user) {
           if (err) {
             return
           }
           if (user) {
-            return res.dimsJSON(user, "User Updated!", "success");
+            return res.visionResponseJSON(user, "User Updated!", "success");
           }
         });
 
@@ -153,7 +153,7 @@ module.exports = {
         return res.serverError(err);
       }
 
-      return res.dimsJSON(null,"User Deleted!","success");
+      return res.visionResponseJSON(null,"User Deleted!","success");
 
     });
   },

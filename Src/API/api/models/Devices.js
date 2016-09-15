@@ -21,10 +21,6 @@ module.exports = {
 
     },
 
-
-    CreatedDate: {
-      Type: 'DateTime'
-    },
     FWVersion: {
       type: "string",
       required: true
@@ -37,6 +33,12 @@ module.exports = {
       type: 'string',
       required: false,
       size:50
+    },
+    CreatedDate: {
+      Type: 'DateTime'
+    },
+    UpdatedDate: {
+      Type: 'DateTime'
     },
     Active: {
       type: 'boolean',

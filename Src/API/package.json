@@ -24,7 +24,8 @@
     "sails": "~0.12.4",
     "sails-disk": "~0.10.9",
     "jsonwebtoken": "^5.7.0",
-    "cryptr": "^1.0.0"
+    "cryptr": "^1.0.0",
+    "lodash": "^3.10.1"
   },
   "scripts": {
     "debug": "node debug app.js",

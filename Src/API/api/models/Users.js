@@ -70,7 +70,12 @@ module.exports = {
       type: 'dateTime',
       required: false
     },
-
+    CreatedDate: {
+      Type: 'DateTime'
+    },
+    UpdatedDate: {
+      Type: 'DateTime'
+    },
     toJSON: function () {
       var obj = this.toObject();
       delete obj.Password;

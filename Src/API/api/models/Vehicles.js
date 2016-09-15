@@ -47,9 +47,11 @@ module.exports = {
       type: 'date',
       required: false
     },
-    Updated:{
-      type: 'date',
-      required: false
+    CreatedDate: {
+      Type: 'DateTime'
+    },
+    UpdatedDate: {
+      Type: 'DateTime'
     },
     Active :{
       type: 'boolean',

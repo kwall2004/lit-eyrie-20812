@@ -24,7 +24,7 @@ module.exports = {
         where:  where || undefined
       };
     }
-    console.log("This is the options", options);
+
     Users.find(options).populate('Role').exec(function(err,users){
 
       if(users)

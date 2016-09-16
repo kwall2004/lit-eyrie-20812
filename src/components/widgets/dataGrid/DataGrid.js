@@ -80,6 +80,15 @@ export const clientEditor = function (container, options) {
             autoBind: true,
             minLength: 3,
             dataSource: clients,
+            dataBound: function (e) {
+                if (!options.model.isNew() && !clients.get(options.model.ClientId)) {
+                    e.preventDefault();
+                    clients.add({
+                        id: options.model.ClientId,
+                        Name: options.model.ClientName
+                    });
+                }
+            },
             change: function (e) {
                 options.model.ClientName = e.sender.text();
             }

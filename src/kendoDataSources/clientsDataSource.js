@@ -1,5 +1,5 @@
 import kendo from 'kendo-ui-web/scripts/kendo.data.min';
-import getSailsParams from './sailsParameterMap';
+import getSailsParams from './helpers/sailsParameterMap';
 
 const clients = new kendo.data.DataSource({
     transport: {
@@ -29,13 +29,15 @@ const clients = new kendo.data.DataSource({
             type: 'POST'
         },
         parameterMap: function (kendoParams, type) {
-            if (type == 'read') {
-                return getSailsParams(kendoParams);
+            switch (type) {
+                case 'read':
+                    return getSailsParams(kendoParams);
+                case 'create':
+                    delete kendoParams.id;
+                default:
+                    return kendoParams;
             }
-            else {
-                return kendoParams;
-            }
-        }
+    }
     },
     batch: false,
     schema: {
@@ -119,7 +121,7 @@ const clients = new kendo.data.DataSource({
                         required: {
                             message: 'Zip is required'
                         },
-                        maxLength: function (input) { if (!input[0] || input[0].name != 'ZipCode') return true; if (input.val().length > 10) { input.attr('data-maxLength-msg', 'Max length is 10'); return false; } return true; }
+                        maxLength: function (input) { if (!input[0] || input[0].name != 'Zip') return true; if (input.val().length > 10) { input.attr('data-maxLength-msg', 'Max length is 10'); return false; } return true; }
                     }
                 },
                 Phone: {

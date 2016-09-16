@@ -1,5 +1,5 @@
 import kendo from 'kendo-ui-web/scripts/kendo.data.min';
-import getSailsParams from './sailsParameterMap';
+import getSailsParams from './helpers/sailsParameterMap';
 
 const vehicles = new kendo.data.DataSource({
     transport: {
@@ -29,11 +29,13 @@ const vehicles = new kendo.data.DataSource({
             type: 'POST'
         },
         parameterMap: function (kendoParams, type) {
-            if (type == 'read') {
-                return getSailsParams(kendoParams);
-            }
-            else {
-                return kendoParams;
+            switch (type) {
+                case 'read':
+                    return getSailsParams(kendoParams);
+                case 'create':
+                    delete kendoParams.id;
+                default:
+                    return kendoParams;
             }
         }
     },

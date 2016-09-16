@@ -9,6 +9,10 @@ const Admin = React.createClass({
                 return 'Icon_Title_ClientSetup.png';
             case '/admin/vehicles':
                 return 'Icon_Title_VehicleSetup.png';
+            case '/admin/devices':
+                return 'Icon_Title_DeviceSetup.png';
+            case '/admin/users':
+                return 'Icon_Title_UserSetup.png';
         }
     },
 
@@ -18,6 +22,10 @@ const Admin = React.createClass({
                 return 'Client Setup';
             case '/admin/vehicles':
                 return 'Vehicle Setup';
+            case '/admin/devices':
+                return 'Device Setup';
+            case '/admin/users':
+                return 'Users Setup';
         }
     },
 
@@ -61,6 +69,26 @@ const Admin = React.createClass({
                                     </span>
                                     <span className="link-text">
                                         Vehicle Setup
+                                    </span>
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/admin/devices">
+                                <NavItem>
+                                    <span className="sidebar-icon">
+                                        <i className="icon-DeviceSetup fa-2x"></i>
+                                    </span>
+                                    <span className="link-text">
+                                        Device Setup
+                                    </span>
+                                </NavItem>
+                            </LinkContainer>
+                            <LinkContainer to="/admin/users">
+                                <NavItem>
+                                    <span className="sidebar-icon">
+                                        <i className="icon-UserSetup fa-2x"></i>
+                                    </span>
+                                    <span className="link-text">
+                                        User Setup
                                     </span>
                                 </NavItem>
                             </LinkContainer>

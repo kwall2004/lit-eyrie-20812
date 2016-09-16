@@ -19,7 +19,9 @@ module.exports = {
         require.ensure([], (require) => {
             cb(null, [
                 require('./clients'),
-                require('./vehicles')
+                require('./vehicles'),
+                require('./devices'),
+                require('./users'),
             ]);
         });
     }

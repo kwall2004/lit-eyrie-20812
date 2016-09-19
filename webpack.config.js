@@ -5,8 +5,8 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
-    css: path.join(__dirname, 'css'),
-    build: path.join(__dirname, 'build')
+    css: path.join(__dirname, 'public/css'),
+    dist: path.join(__dirname, 'public/dist')
 };
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
         ],
     },
     output: {
-        path: PATHS.build,
+        path: PATHS.dist,
         filename: '[name].js',
         chunkFilename: '[id].js',
         publicPath: '/'
@@ -120,7 +120,7 @@ module.exports = {
         stats: 'errors-only',
         host: process.env.HOST,
         port: process.env.PORT,
-        outputPath: PATHS.build,
+        outputPath: PATHS.dist,
     },
     plugins: [
         new webpack.ResolverPlugin(
@@ -138,7 +138,8 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                'apiBaseUrl': "'https://hidden-ravine-51571.herokuapp.com'"
+                'apiBaseUrl': "'https://visiontest.danlawinc.com'",
+                'apiBaseUrl2': "'https://hidden-ravine-51571.herokuapp.com'"
                 // 'apiBaseUrl': "'//localhost:65027'"
             }
         }),

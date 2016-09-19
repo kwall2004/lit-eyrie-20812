@@ -5,7 +5,7 @@ import { minLength, maxLength } from './helpers/validation';
 const users = new kendo.data.DataSource({
     transport: {
         read: {
-            url: process.env.apiBaseUrl + '/user',
+            url: process.env.apiBaseUrl2 + '/user',
             dataType: 'json',
             // beforeSend: function(xhr) {
             //     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -13,19 +13,19 @@ const users = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return process.env.apiBaseUrl + '/user/' + data.id;
+                return process.env.apiBaseUrl2 + '/user/' + data.id;
             },
             type: 'PUT'
         },
         destroy: {
             url: function (data) {
-                return process.env.apiBaseUrl + '/user/' + data.id;
+                return process.env.apiBaseUrl2 + '/user/' + data.id;
             },
             dataType: 'json',
             type: 'DELETE'
         },
         create: {
-            url: process.env.apiBaseUrl + '/user',
+            url: process.env.apiBaseUrl2 + '/user',
             dataType: 'json',
             type: 'POST'
         },

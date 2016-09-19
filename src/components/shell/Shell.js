@@ -47,11 +47,15 @@ const Shell = React.createClass({
                                         <LinkContainer to="/admin/clients">
                                             <MenuItem>Client Setup</MenuItem>
                                         </LinkContainer>
-                                        <MenuItem>User Setup</MenuItem>
+                                        <LinkContainer to="/admin/users">
+                                            <MenuItem>User Setup</MenuItem>
+                                        </LinkContainer>
                                         <LinkContainer to="/admin/vehicles">
                                             <MenuItem>Vehicle Setup</MenuItem>
                                         </LinkContainer>
-                                        <MenuItem>Device Setup</MenuItem>
+                                        <LinkContainer to="/admin/devices">
+                                            <MenuItem>Device Setup</MenuItem>
+                                        </LinkContainer>
                                         <MenuItem>User-Vehicle-Device Mapping</MenuItem>
                                         <MenuItem>FOTA Setup</MenuItem>
                                         <MenuItem>Geo-Fence</MenuItem>

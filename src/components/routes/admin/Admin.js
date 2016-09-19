@@ -34,7 +34,7 @@ const Admin = React.createClass({
             <section>
                 <div className="admin-header">
                     <div className="admin-header-left-column">
-                        <img src={'../../../images/admin-icons/' + this.getImageName()} />
+                        <img src={'../../../public/images/admin-icons/' + this.getImageName()} />
                         <div className="admin-header-title">
                             <div className="admin-header-title-relative">
                                 <div className="accent-description">
@@ -62,6 +62,16 @@ const Admin = React.createClass({
                                     </span>
                                 </NavItem>
                             </LinkContainer>
+                            <LinkContainer to="/admin/users">
+                                <NavItem>
+                                    <span className="sidebar-icon">
+                                        <i className="icon-UserSetup fa-2x"></i>
+                                    </span>
+                                    <span className="link-text">
+                                        User Setup
+                                    </span>
+                                </NavItem>
+                            </LinkContainer>
                             <LinkContainer to="/admin/vehicles">
                                 <NavItem>
                                     <span className="sidebar-icon">
@@ -79,16 +89,6 @@ const Admin = React.createClass({
                                     </span>
                                     <span className="link-text">
                                         Device Setup
-                                    </span>
-                                </NavItem>
-                            </LinkContainer>
-                            <LinkContainer to="/admin/users">
-                                <NavItem>
-                                    <span className="sidebar-icon">
-                                        <i className="icon-UserSetup fa-2x"></i>
-                                    </span>
-                                    <span className="link-text">
-                                        User Setup
                                     </span>
                                 </NavItem>
                             </LinkContainer>

@@ -5,8 +5,8 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
-    css: path.join(__dirname, 'css'),
-    build: path.join(__dirname, 'build')
+    css: path.join(__dirname, 'public/css'),
+    dist: path.join(__dirname, 'public/dist')
 };
 
 module.exports = {
@@ -41,13 +41,13 @@ module.exports = {
             'react-spin',
             'redux',
             'redux-thunk',
-        ]
+        ],
     },
     output: {
-        path: PATHS.build,
+        path: PATHS.dist,
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js',
-        publicPath: '/'
+        publicPath: '/public/dist/'
     },
     module: {
         loaders: [
@@ -83,7 +83,7 @@ module.exports = {
             },
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?prefix=font/&limit=5000'
+                loader: 'url?limit=10000&mimetype=application/font-woff'
             },
             {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -111,7 +111,7 @@ module.exports = {
                 test: /\.js$/,
                 loaders: ['babel'],
                 include: PATHS.src
-            }
+            },
         ]
     },
     plugins: [
@@ -126,11 +126,13 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            publicPath: '/'
+            publicPath: '/public/dist/'
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': "'production'"
+                'NODE_ENV': "'production'",
+                'apiBaseUrl': "'https://visiontest.danlawinc.com'",
+                'apiBaseUrl2': "'https://hidden-ravine-51571.herokuapp.com'"
             }
         }),
         new webpack.optimize.UglifyJsPlugin({

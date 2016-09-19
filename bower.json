@@ -14,7 +14,7 @@
         "test",
         "tests"
     ],
-    "devDependencies": {
+    "dependencies": {
         "kendo-ui-web": "^2014.1.318"
     }
 }

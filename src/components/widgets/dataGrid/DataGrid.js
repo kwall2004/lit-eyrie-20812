@@ -89,6 +89,12 @@ export const clientEditor = function (container, options) {
                     });
                 }
             },
+            open: function (e) {
+                if (!e.sender.ul.find(".serverFilteredListMessage").length) {
+                    var message = e.sender.ul.append($("<li class='serverFilteredListMessage'>Type at least 3 characters for more...</li>")).find('.serverFilteredListMessage');
+                    message.on('click', function (e) { e.preventDefault(); return false; });
+                }
+            },
             change: function (e) {
                 options.model.ClientName = e.sender.text();
             }

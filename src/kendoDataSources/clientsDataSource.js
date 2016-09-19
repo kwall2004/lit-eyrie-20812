@@ -4,7 +4,7 @@ import getSailsParams from './helpers/sailsParameterMap';
 const clients = new kendo.data.DataSource({
     transport: {
         read: {
-            url: '//localhost:1337/client',
+            url: process.env.apiBaseUrl + '/client',
             dataType: 'json',
             // beforeSend: function(xhr) {
             //     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -12,19 +12,19 @@ const clients = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return '/odata/BsnsInfo(' + data.BsnsInfoID + ')';
+                return process.env.apiBaseUrl + '/client/' + data.id;
             },
-            type: 'PATCH'
+            type: 'PUT'
         },
         destroy: {
             url: function (data) {
-                return '/odata/BsnsInfo(' + data.BsnsInfoID + ')';
+                return process.env.apiBaseUrl + '/client/' + data.id;
             },
             dataType: 'json',
             type: 'DELETE'
         },
         create: {
-            url: '/odata/BsnsInfo',
+            url: process.env.apiBaseUrl + '/client',
             dataType: 'json',
             type: 'POST'
         },

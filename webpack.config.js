@@ -138,7 +138,7 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                'apiBaseUrl': "'https://visiontest.danlawinc.com'"
+                'apiBaseUrl': "'https://hidden-ravine-51571.herokuapp.com'"
                 // 'apiBaseUrl': "'//localhost:65027'"
             }
         }),

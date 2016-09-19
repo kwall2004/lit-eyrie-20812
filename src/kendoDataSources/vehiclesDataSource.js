@@ -4,7 +4,7 @@ import getSailsParams from './helpers/sailsParameterMap';
 const vehicles = new kendo.data.DataSource({
     transport: {
         read: {
-            url: '//localhost:1337/vehicle',
+            url: process.env.apiBaseUrl + '/vehicle',
             dataType: 'json',
             // beforeSend: function(xhr) {
             //     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -12,19 +12,19 @@ const vehicles = new kendo.data.DataSource({
         },
         update: {
             url: function (data) {
-                return '//localhost:1337/vehicle/' + data.id;
+                return process.env.apiBaseUrl + '/vehicle/' + data.id;
             },
             type: 'PUT'
         },
         destroy: {
             url: function (data) {
-                return '//localhost:1337/vehicle/' + data.id;
+                return process.env.apiBaseUrl + '/vehicle/' + data.id;
             },
             dataType: 'json',
             type: 'DELETE'
         },
         create: {
-            url: '//localhost:1337/vehicle',
+            url: process.env.apiBaseUrl + '/vehicle',
             dataType: 'json',
             type: 'POST'
         },

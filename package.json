@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "clean": "rimraf public/dist",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.config.prod.js"
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",

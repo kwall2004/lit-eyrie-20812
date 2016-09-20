@@ -100,7 +100,7 @@ const vehicles = new kendo.data.DataSource({
                     nullable: false,
                     validation: {
                         required: {
-                            message: 'Alas is required.'
+                            message: 'Alias is required.'
                         },
                         minLength: function (input) { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
                         maxLength: function (input) { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }

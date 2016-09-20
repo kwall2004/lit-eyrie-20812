@@ -5,7 +5,6 @@ import kendoGrid from 'kendo-ui-web/scripts/kendo.grid.min';
 import kendoComboBox from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import businessAccountTypes from '../../../kendoDataSources/businessAccountTypesDataSource';
 import clients from '../../../kendoDataSources/clientsDataSource';
 
 const DataGrid = React.createClass({
@@ -68,59 +67,36 @@ const DataGrid = React.createClass({
 
 export default DataGrid;
 
-export const accountTypeEditor = function (container, options) {
-    var element = $('<input name="' + options.field + '" required />')
+export const clientEditor = function (container, options) {
+    var element = $('<input name="ClientId" required />')
         .appendTo(container);
 
     new kendoComboBox.ui.ComboBox(
         element,
         {
             dataTextField: 'Name',
-            dataValueField: 'Id',
-            filter: 'contains',
-            autoBind: false,
-            minLength: 3,
-            dataSource: businessAccountTypes,
-            template: '<span class="k-state-default">#: data.Name #</span>',
-            dataBound: function (e) {
-                e.preventDefault();
-                if (!options.model.isNew() && !businessAccountTypes.get(options.model.BusinessAccountType.Id)) {
-                    businessAccountTypes.add(options.model.BusinessAccountType);
-                }
-            },
-            change: function (e) {
-                if (this.selectedIndex != null && this.selectedIndex != undefined && this.selectedIndex >= 0) {
-                    var selectedValue = this.value();
-                    options.model.BusinessAccountTypeId = selectedValue;
-                }
-            }
-        });
-}
-
-export const clientEditor = function (container, options) {
-    var element = $('<input name="BsnsInfoID" required />')
-        .appendTo(container);
-
-    new kendoComboBox.ui.ComboBox(
-        element,
-        {
-            dataTextField: 'BsnsName',
-            dataValueField: 'BsnsInfoID',
+            dataValueField: 'id',
             filter: 'contains',
             autoBind: true,
             minLength: 3,
             dataSource: clients,
             dataBound: function (e) {
-                if (!options.model.isNew() && !kendodata.clientSetup.get(options.model.BsnsInfoID)) {
+                if (!options.model.isNew() && !clients.get(options.model.ClientId)) {
                     e.preventDefault();
-                    kendodata.clientSetup.add(options.model.bsnsinfo);
+                    clients.add({
+                        id: options.model.ClientId,
+                        Name: options.model.ClientName
+                    });
                 }
             },
             open: function (e) {
-                if (!e.sender.ul.find('.serverFilteredListMessage').length) {
-                    var message = e.sender.ul.append($('<li class="serverFilteredListMessage">Type at least 3 characters for more...</li>')).find('.serverFilteredListMessage');
+                if (!e.sender.ul.find(".serverFilteredListMessage").length) {
+                    var message = e.sender.ul.append($("<li class='serverFilteredListMessage'>Type at least 3 characters for more...</li>")).find('.serverFilteredListMessage');
                     message.on('click', function (e) { e.preventDefault(); return false; });
                 }
+            },
+            change: function (e) {
+                options.model.ClientName = e.sender.text();
             }
         });
 }

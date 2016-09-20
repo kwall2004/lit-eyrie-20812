@@ -15,12 +15,12 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
         }
     });
 
-    var startIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-start2.png' }),
-    endIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-stop2.png' }),
-    haIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-ha.png' }),
-    eaIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-ea.png' }),
-    hbIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-hb.png' }),
-    ebIcon = new EventIcon({ iconUrl: '../../../../images/image_slices/marker-icon-eb.png' });
+    var startIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-start2.png' }),
+    endIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-stop2.png' }),
+    haIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ha.png' }),
+    eaIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ea.png' }),
+    hbIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-hb.png' }),
+    ebIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-eb.png' });
 
     self.featureLayer = createGeoJsonLayer(geoJsonData);
 

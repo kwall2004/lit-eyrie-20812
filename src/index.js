@@ -8,24 +8,24 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store';
 
-localStorage.setItem('token', 'GRmhZUHJKz-ZbXlQsKAduE166Z5KyogiQ-H8troPvR-kU3vnjwrsu-0T92HgpZuXeWc15Plx6Nd98VZz17kHh-KuGv1CYgzrKZllWQauuVAOsrvUdItEKA2WVOBH_T_rMt2FdVf_MnjMv8IvfinE0qQ9SA43jsskxDU0tUlw-NYQ3cFpOXITP7fGZUYCkau9sMv5Zr4DvUaVxzpywdKfTqhaOv2rx3Fzm2BGrfO1eYBMF86stWarIf19frh2LdE9U8WX2PWzmzDQr9fN_Tbrzburt7K7SoQH59p8W7NS2n-4lo80I8Bw5D4Xw7wVhatDmx2JfvYiFwN95-kEEXESNK44_3_V3jG1ojl4wZBpa3LqnuFm0WZGKP8Q3cEpD0Z59aWwr4EEwyUG0eOWPFg0_iyQTtUrJFi7C9S4FgjRK2FLGOC-icg9JqjFROfdflXq8muO-AidIbcVEBxvQ5APeMoEKYZE0zX2yOFduNAKPQMtEIfyS0kltcCO8OlF7rw_oN4fS6SJ2wdS-ofHp9vqnD20lkXzPErc4Cz_geeEHCVYUJTnm0PR1sg4qCJroAs7ntYvVO9MGuFGU4RcC_g3A8S0hW9zaw2-gojfNa5odVF6yfAUhIGITy2DoirYxv6SvHuePGSZZwIHav8mqjIUKa5xgELvvhF1BFzfwKAAA4hCmDSlP22GrgZftginEaXjTMNyijX6Zoq8tASJMTQiqvpyqus1dsVEwIhmLl2s7JluhHTyF7wuovRIBClf6HjqoBf_0NPWodMO_oyppxqdmxrp0LYhXJ9A7Rk9s4xzbgfq_qLgwyltgj_UBv14zc2dr_IZTQQas2E90rcUDlnKAPHblrJJvVkn39h8cepYY8jTtwQj6NHUi62aE-tp96zLimyUekvzC45ZnDUwbxsMU-72df5YDPFYfN2I7M6yQWRKwNvS4PnNfyzot1pmoQewFoKyuid4SkSbe4FCDAeTP8W2ag_iESSvHBnIFGC0GmH7UhE18SKDuYNZt5varAr7DcROzJa7ZSfmGyFhxyX7_46dfs8zfdn9Gou3JE8-rXr8warPO75-F9Ky3HqRZ_daLGdViAvhivQhbj1EP6kthgm1AHd_EsjQEqWRUdhqhQ7W-hlIgjw17QsbieMuDEnYSK3feaK68vPAFCZyTdJDXgZGGPQCl90AERQBeB3BJws9Ri6P06GruwFEQYU7tEUbTmaEYicU8GoaqdzhNIsOmsAaH1zeQbPeQSLnOP_3nTjqdt3oSqP2eztlCTqK8U_V2DIMO4dZQrDg7uJz_FL5IkIdu76-CS580mzCol3UL6a-hPH97wGi184OyKXqcrkdC-p7ypzpcv4VFu7BNN7yEaNp-GrID7eRD-jzR20v1ZDhCPZqMGOfXbiILFS44-6urFUVyd-Z_CHYSgfC5MNQW4lhRAhGumk9UYq8bT56_6GYJ6uo6J8m7Rr9EhiddCnGzSt0Q1uxTldrsR8zROa6JXFRooZ_JAfCQgALxHhH29iYUgDYZv1XecDDlkhgK7fV2UibJuaRo2tR8ZPCqRu1HEYw2opJGayBmiqTKngyy-w6ikVWUurVJ4VdUK7MwHEV');
+localStorage.setItem('token', 'HhY1BeguNRvnSdZO1Df-c-rW4XX8zGK7VvTgY-OGZQxg70yk7NC_mCAx-lqGIRVKQK2PggpjMxVVITKsrl8Y-QXf0tnbbrOcbr4UPVbrkPN8jVtes34gDhmDrIoB60lBXISEV9o4z1E5jFNLa-x0u0qcTf8_DQStuk3rXIzj-idzGNJex1WpV2HSyjuysOdmrBUmSr2B_8ghm3YVpimVxyn5dzHXXZzt2JrZfxDIhvTHuJRyrbd32M2WMF_zn_yitcn2eRcCAlg08j3rKpmkJcwjhHEtam0ySxKkZ3bzzf-IvVAz3FE5TsyMrBUnq38qLHNZfBRJcClZDfZyKKcYdvj0enB8STXohwEjQIwFMVmzs-phiTYW2NTXRSu3d74q9mft3jvMkW6j_r4Bm0Iwzxn16NAVW9a5W5CYmlJUR-V-yEnr0ICX7_srIKUUQvlysIfa8GdRdjiuB-VdKvVKAkXZwV1sPpyxlQsDzF1NFMNdV10UDfa9sVLuge9g9AQb7Bzq02uRIaQrmNMqcx_0tr1XwDAHE0C-TVjj1CFkp1AWafCNX0Le4vzZ5ZKQa0Tt9qI3Iakeimrys1FOs58GKjcfwT1sMqG62kwECKHnQiVdTUzkXrABSM5Qhz4d2RCUn-sUXQTocbbmLHxlEayXrDXYy_Ndwy1LyZCXqh8jz0YcifKV5wrmmS0vAiRSCClmbtMz83T8BKFe8hCYGChTzo9rRtvKNw14DF4IUxZ4k2sVjdsvACBap98NIRvILfGU3BfnPMHyNIekMs1WFq6lr0Kn1oS7vkKHReWNOlwQlgjc1YdqwFOa_NLB2Cu0ShVdMwhOBsP8fia_ZfaLgT7ioaSV13y8Z1_y_4k2Zzv2451SFglC5W07GeC_PMFPqT0ghXv59trLkJq3EIAoJL5hvUd_97MQcZ8HuNoMfuvACSjJLpKHDKk3gVmZBHZQRqxMGbmgEzordRkjJdPGvVEQp4APQtLSQTRtRtUzCzZANz55OPkilSnzFbXFv3vufRkltRfrzFarSwqST70bmnRF40oLtfrWOmImbdOlVqEQ-x5HdF6JnmTNynmJI1_LMVZCMbgw_H_WMktmbjLiWntzP421NMU7MmvUm7JxS1Tte1mm0qVs5cASJ9vMhwnGZE9WSvgooBE7wSpgKEJakYfZM6dAfZeoXhZBzJzM6D2nGh6wF2jSOsJMVYpkNHF4Y7aufqmYNAbKyWb20HxEkhnCOB-neBjwvcBpukHXcytWrArtE0E7CXcYBIRvWEgkyc4CIXCVbdzUG28qsO6AcVVrpBpiSZPIu1MU-qraZT8jIjgf7ZizVV6G89GfF2CT0tcDqX967pWSXvFrhDYhfDxy0NHmCPaQsM6Lp0ML9o4ToZLEQ1ORFRYJAJwJPFb5OUSGA_uDBgQkCP1iYggC0SinOQ0j3-6l1Jlmino3T5pVseLpUQ9tzcYFzr7Fzf9T3V3-K3Sy5AUPyKOEgUwOWxELVzzc1NHqeL3Y58COngy-qKn2XQ6jd0Ot5vutBlw2QsLDOE9gmGaUDdZNvxd_XAeoD8pjrJqtH-nDYNVMuDOtwubnDjjTW-ZV3jo4xM-gUAJF');
 
 const routes = {
-    path: '/',
-    component: require('./components/shell'),
-    indexRoute: {
-        onEnter: (nextState, replace) => replace('/home/dashboard')
-    },
-    childRoutes: [
-        require('./components/routes/home'),
-        require('./components/routes/admin'),
-        require('./components/routes/settings')
-    ]
+  path: '/',
+  component: require('./components/shell'),
+  indexRoute: {
+    onEnter: (nextState, replace) => replace('/home/dashboard')
+  },
+  childRoutes: [
+    require('./components/routes/home'),
+    require('./components/routes/admin'),
+    require('./components/routes/settings')
+  ]
 };
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
-    </Provider>,
-    document.getElementById('app')
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
 );

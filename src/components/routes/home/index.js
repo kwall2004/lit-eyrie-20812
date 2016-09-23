@@ -1,28 +1,28 @@
 module.exports = {
-    path: 'home',
+  path: 'home',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Home'));
-        });
-    },
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Home'));
+    });
+  },
 
-    getIndexRoute(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, {
-                onEnter: (nextState, replace) => replace('/home/dashboard')
-            });
-        });
-    },
+  getIndexRoute(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, {
+        onEnter: (nextState, replace) => replace('/home/dashboard')
+      });
+    });
+  },
 
-    getChildRoutes(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, [
-                require('./dashboard'),
-                require('./trips'),
-                require('./vehicleDeviceInfo'),
-                require('./data')
-            ]);
-        });
-    }
+  getChildRoutes(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, [
+        require('./dashboard'),
+        require('./trips'),
+        require('./vehicleDeviceInfo'),
+        require('./data')
+      ]);
+    });
+  }
 };

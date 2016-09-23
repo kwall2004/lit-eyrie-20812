@@ -1,20 +1,20 @@
 {
-    "name": "webpack-demo",
-    "description": "",
-    "main": "index.js",
-    "authors": [
-        "kwall2004 <kwall2004@gmail.com>"
-    ],
-    "license": "ISC",
-    "homepage": "https://github.com/kwall2004/webpack-demo",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "kendo-ui-web": "^2014.1.318"
-    }
+  "name": "webpack-demo",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "kwall2004 <kwall2004@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/kwall2004/webpack-demo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kendo-ui-web": "^2014.1.318"
+  }
 }

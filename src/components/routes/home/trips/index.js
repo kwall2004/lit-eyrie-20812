@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'trips',
+  path: 'trips',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Trips'));
-        });
-    }
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Trips'));
+    });
+  }
 };

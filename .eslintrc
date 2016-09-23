@@ -1,6 +1,6 @@
 {
-    "parser": "babel-eslint",
-    "plugins": [
-        "immutablejs"
-    ]
+  "parser": "babel-eslint",
+  "plugins": [
+    "immutablejs"
+  ]
 }

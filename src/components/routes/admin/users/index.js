@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'users',
+  path: 'users',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Users'));
-        });
-    },
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Users'));
+    });
+  },
 };

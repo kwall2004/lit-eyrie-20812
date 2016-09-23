@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'vehicles',
+  path: 'vehicles',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Vehicles'));
-        });
-    },
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Vehicles'));
+    });
+  },
 };

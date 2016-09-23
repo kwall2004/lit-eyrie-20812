@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'settings',
+  path: 'settings',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Settings'));
-        });
-    }
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Settings'));
+    });
+  }
 };

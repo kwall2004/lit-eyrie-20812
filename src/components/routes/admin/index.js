@@ -1,28 +1,28 @@
 module.exports = {
-    path: 'admin',
+  path: 'admin',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Admin'));
-        });
-    },
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Admin'));
+    });
+  },
 
-    getIndexRoute(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, {
-                onEnter: (nextState, replace) => replace('/admin/clients')
-            });
-        });
-    },
+  getIndexRoute(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, {
+        onEnter: (nextState, replace) => replace('/admin/clients')
+      });
+    });
+  },
 
-    getChildRoutes(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, [
-                require('./clients'),
-                require('./vehicles'),
-                require('./devices'),
-                require('./users'),
-            ]);
-        });
-    }
+  getChildRoutes(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, [
+        require('./clients'),
+        require('./vehicles'),
+        require('./devices'),
+        require('./users'),
+      ]);
+    });
+  }
 };

@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'data',
+  path: 'data',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Data'));
-        });
-    }
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Data'));
+    });
+  }
 };

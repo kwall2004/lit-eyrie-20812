@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'devices',
+  path: 'devices',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Devices'));
-        });
-    },
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Devices'));
+    });
+  },
 };

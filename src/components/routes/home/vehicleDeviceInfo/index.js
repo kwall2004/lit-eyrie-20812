@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'vehicleDeviceInfo',
+  path: 'vehicleDeviceInfo',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./VehicleDeviceInfo'));
-        });
-    }
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./VehicleDeviceInfo'));
+    });
+  }
 };

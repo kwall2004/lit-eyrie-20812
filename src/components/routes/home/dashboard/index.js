@@ -1,9 +1,9 @@
 module.exports = {
-    path: 'dashboard',
+  path: 'dashboard',
 
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./Dashboard'));
-        });
-    }
+  getComponent(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./Dashboard'));
+    });
+  }
 };

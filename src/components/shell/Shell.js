@@ -111,7 +111,7 @@ const Shell = React.createClass({
         <footer className="footer">
           <Navbar inverse className="navbar-bottom">
             <p className="navbar-text">
-              Copyright &copy; <span>{new moment().format('YYYY')}</span> test All Rights Reserved.
+              Copyright &copy; <span>{new moment().format('YYYY')}</span> All Rights Reserved.
             </p>
           </Navbar>
         </footer>

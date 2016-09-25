@@ -47,9 +47,7 @@ const Shell = React.createClass({
                     <LinkContainer to="/admin/clients">
                       <MenuItem>Client Setup</MenuItem>
                     </LinkContainer>
-                    <LinkContainer to="/admin/users">
-                      <MenuItem>User Setup</MenuItem>
-                    </LinkContainer>
+                    <MenuItem>User Setup</MenuItem>
                     <LinkContainer to="/admin/vehicles">
                       <MenuItem>Vehicle Setup</MenuItem>
                     </LinkContainer>
@@ -113,7 +111,7 @@ const Shell = React.createClass({
         <footer className="footer">
           <Navbar inverse className="navbar-bottom">
             <p className="navbar-text">
-              Copyright &copy; <span>{new moment().format('YYYY')}</span> Danlaw Inc. All Rights Reserved.
+              Copyright &copy; <span>{new moment().format('YYYY')}</span> All Rights Reserved.
             </p>
           </Navbar>
         </footer>

@@ -21,7 +21,6 @@ module.exports = {
         require('./clients'),
         require('./vehicles'),
         require('./devices'),
-        require('./users'),
       ]);
     });
   }

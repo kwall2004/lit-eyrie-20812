@@ -124,7 +124,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
     ),
     new ExtractTextWebpackPlugin('[name].css', {
       allChunks: true
@@ -138,8 +138,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'apiBaseUrl': "'https://visiontest.danlawinc.com'",
-        'apiBaseUrl2': "'https://hidden-ravine-51571.herokuapp.com'"
+        'apiBaseUrl': '"https://visiontest.danlawinc.com"',
+        'apiBaseUrl2': '"https://hidden-ravine-51571.herokuapp.com"',
+        // 'apiBaseUrl2': '"//localhost:5000"',
       }
     }),
   ]

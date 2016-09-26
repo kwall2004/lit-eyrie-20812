@@ -116,7 +116,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
     ),
     new ExtractTextWebpackPlugin('[name].[contenthash].css', {
       allChunks: true
@@ -130,10 +130,10 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': "'production'",
-        'apiBaseUrl': "'https://visiontest.danlawinc.com'",
+        'NODE_ENV': '"production"',
+        'apiBaseUrl': '"https://visiontest.danlawinc.com"',
+        'apiBaseUrl2': '"https://hidden-ravine-51571.herokuapp.com"',
         // 'apiBaseUrl2': "'//localhost:5000'",
-        'apiBaseUrl2': "'https://hidden-ravine-51571.herokuapp.com'"
       }
     }),
     new webpack.optimize.UglifyJsPlugin({

@@ -2,7 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import 'leaflet-spin';
+import Spinner from 'spin.js';
 import L from 'mapbox.js';
 import tripGeoJsonLayer from './tripGeoJsonLayer';
 import diff from 'deep-diff';
@@ -21,23 +21,30 @@ const TripMap = React.createClass({
       this.tripGeoJsonLayer = new tripGeoJsonLayer(this.map, null, null);
 
       L.control.layers({
-        "Streets": styleLayer,
-        "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
+        'Streets': styleLayer,
+        'Satellite': L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
       }).addTo(this.map);
     });
   },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tripJsonData.get('loading') !== this.props.tripJsonData.get('loading')) {
+      var element = ReactDOM.findDOMNode(this.refs.map);
+
       if (nextProps.tripJsonData.get('loading')) {
+        if (this.tripGeoJsonLayer) {
         this.tripGeoJsonLayer.remove();
-        this.map.spin(true, {
+        }
+
+        this.spinner = new Spinner({
           scale: 2,
           top: '48%'
-        });
+        }).spin(element);
       }
       else {
-        this.map.spin(false);
+        if (this.spinner) {
+          this.spinner.stop();
+        }
       }
     }
 
@@ -54,7 +61,9 @@ const TripMap = React.createClass({
       }
     }
     else {
-      this.tripGeoJsonLayer.remove();
+      if (this.tripGeoJsonLayer) {
+        this.tripGeoJsonLayer.remove();
+      }
       this.map.setView([20, 0], 2);
     }
   },
@@ -75,7 +84,7 @@ const TripMap = React.createClass({
           <div
             ref="map"
             className="trip-map-map"
-            style={{height: "100%"}}
+            style={{height: '100%'}}
           />
         </div>
       </section>
@@ -84,16 +93,16 @@ const TripMap = React.createClass({
 
   processDataForGps(data) {
     var featureCollection = {
-      "type": "FeatureCollection",
-      "features": [{ // Trip Path
-        "type": "Feature",
-        "properties": {
-          "eventType": "TripPath",
-          "properties": data.TripProperties
+      'type': 'FeatureCollection',
+      'features': [{ // Trip Path
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'TripPath',
+          'properties': data.TripProperties
         },
-        "geometry": {
-          "type": "LineString",
-          "coordinates": data.TripPath
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': data.TripPath
         }
       }]
     };
@@ -106,26 +115,26 @@ const TripMap = React.createClass({
     ///////////////////////////////
     if (data.TripPath.length > 0) {
       featureCollection.features.push({ // Trip Start
-        "type": "Feature",
-        "properties": {
-          "eventType": "Trip Start",
-          "properties": data.TripProperties[0]
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Trip Start',
+          'properties': data.TripProperties[0]
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": data.TripPath[0]
+        'geometry': {
+          'type': 'Point',
+          'coordinates': data.TripPath[0]
         }
       });
 
       featureCollection.features.push({ // Trip Stop
-        "type": "Feature",
-        "properties": {
-          "eventType": "Trip Stop",
-          "properties": data.TripProperties[data.TripProperties.length - 1]
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Trip Stop',
+          'properties': data.TripProperties[data.TripProperties.length - 1]
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": data.TripPath[data.TripPath.length - 1]
+        'geometry': {
+          'type': 'Point',
+          'coordinates': data.TripPath[data.TripPath.length - 1]
         }
       });
     }

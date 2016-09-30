@@ -21,8 +21,7 @@ const Devices = React.createClass({
             pageSizes: true,
             buttonCount: 5
           },
-          columns: [
-          {
+          columns: [{
             field: 'ClientName',
             editor: clientEditor,
             title: 'Client Name',
@@ -31,38 +30,38 @@ const Devices = React.createClass({
             sortable: true
           },
           {
-            field: "IMEI",
-            title: "IMEI",
-            width: "160px",
+            field: 'IMEI',
+            title: 'IMEI',
+            width: '160px',
             filterable: true,
             sortable: true
           },
           {
-            field: "FirmwareVersion",
-            title: "FW Version",
-            width: "160px",
+            field: 'FirmwareVersion',
+            title: 'FW Version',
+            width: '160px',
             filterable: true,
             sortable: true
           },
           {
-            field: "ConfigVersion",
-            title: "Config Version",
-            width: "160px",
+            field: 'ConfigVersion',
+            title: 'Config Version',
+            width: '160px',
             filterable: true,
             sortable: true
           },
           {
-            field: "GroupId",
-            title: "Group ID",
-            format: "{0:n0}",
-            width: "85px",
+            field: 'GroupId',
+            title: 'Group ID',
+            format: '{0:n0}',
+            width: '85px',
             filterable: true,
             sortable: true
           },
           {
-            field: "SerialNumber",
-            title: "Serial Number",
-            width: "160px",
+            field: 'SerialNumber',
+            title: 'Serial Number',
+            width: '160px',
             filterable: true,
             sortable: true
           },

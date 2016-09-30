@@ -27,7 +27,6 @@ module.exports = {
       'kendo-ui-web/scripts/kendo.datepicker.min',
       'kendo-ui-web/scripts/kendo.tooltip.min',
       'kendo-ui-web/scripts/kendo.data.min',
-      'leaflet-spin',
       'leaflet-textpath',
       'mapbox.js',
       'moment',
@@ -62,10 +61,6 @@ module.exports = {
       {
         test: require.resolve('leaflet-textpath'),
         loader: 'imports?L=mapbox.js',
-      },
-      {
-        test: require.resolve('leaflet-spin'),
-        loader: 'imports?L=mapbox.js,Spinner=spin.js',
       },
       {
         test: /\.css$/,
@@ -116,7 +111,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
     ),
     new ExtractTextWebpackPlugin('[name].[contenthash].css', {
       allChunks: true
@@ -130,10 +125,10 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': "'production'",
-        'apiBaseUrl': "'https://visiontest.danlawinc.com'",
-        // 'apiBaseUrl2': "'//localhost:5000'",
-        'apiBaseUrl2': "'https://hidden-ravine-51571.herokuapp.com'"
+        'NODE_ENV': '"production"',
+        'apiBaseUrl': '"https://visiontest.danlawinc.com"',
+        // 'apiBaseUrl2': '"//localhost:5000"',
+        'apiBaseUrl2': '"https://hidden-ravine-51571.herokuapp.com"'
       }
     }),
     new webpack.optimize.UglifyJsPlugin({

@@ -21,8 +21,7 @@ const Clients = React.createClass({
             pageSizes: true,
             buttonCount: 5
           },
-          columns: [
-          {
+          columns: [{
             field: 'Name',
             title: 'Client Name',
             filterable: true,
@@ -83,8 +82,7 @@ const Clients = React.createClass({
             title: ' ',
             width: 90,
             resizable: false
-          }
-          ]
+          }]
         }} />
       </section>
     )

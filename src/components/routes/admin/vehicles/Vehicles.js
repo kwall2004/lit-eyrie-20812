@@ -21,8 +21,7 @@ const Vehicles = React.createClass({
             pageSizes: true,
             buttonCount: 5
           },
-          columns: [
-          {
+          columns: [{
             field: 'ClientName',
             editor: clientEditor,
             title: 'Client Name',

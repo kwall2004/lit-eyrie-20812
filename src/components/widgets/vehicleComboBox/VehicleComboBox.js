@@ -14,12 +14,12 @@ const VehicleComboBox = React.createClass({
       },
       _filterSource: function() {
         this.dataSource.filter({
-          logic: "or",
+          logic: 'or',
           filters: [
-            { field: "name", operator: "contains", value: this.text() },
-            { field: "imei", operator: "contains", value: this.text() },
-            { field: "userId", operator: "contains", value: this.text() },
-            { field: "userName", operator: "contains", value: this.text() }
+            { field: 'name', operator: 'contains', value: this.text() },
+            { field: 'imei', operator: 'contains', value: this.text() },
+            { field: 'userId', operator: 'contains', value: this.text() },
+            { field: 'userName', operator: 'contains', value: this.text() }
           ]
         });
       }

@@ -6,18 +6,18 @@ const vehicles = new kendo.data.DataSource({
     read: {
       url: process.env.apiBaseUrl2 + '/vehicles',
       dataType: 'json',
-      // beforeSend: function(xhr) {
+      // beforeSend: (xhr) => {
       //     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
       // }
     },
     update: {
-      url: function (data) {
+      url: (data) => {
         return process.env.apiBaseUrl2 + '/vehicles/' + data.id;
       },
       type: 'PUT'
     },
     destroy: {
-      url: function (data) {
+      url: (data) => {
         return process.env.apiBaseUrl2 + '/vehicles/' + data.id;
       },
       dataType: 'json',
@@ -28,7 +28,7 @@ const vehicles = new kendo.data.DataSource({
       dataType: 'json',
       type: 'POST'
     },
-    parameterMap: function (kendoParams, type) {
+    parameterMap: (kendoParams, type) => {
       switch (type) {
         case 'read':
         return getSailsParams(kendoParams);
@@ -66,8 +66,8 @@ const vehicles = new kendo.data.DataSource({
             required: {
               message: 'Make is required.'
             },
-            minLength: function (input) { if (!input[0] || input[0].name != 'Make') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Make') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            minLength: (input) => { if (!input[0] || input[0].name != 'Make') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Make') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         Model: {
@@ -78,8 +78,8 @@ const vehicles = new kendo.data.DataSource({
             required: {
               message: 'Model is required.'
             },
-            minLength: function (input) { if (!input[0] || input[0].name != 'Model') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Model') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            minLength: (input) => { if (!input[0] || input[0].name != 'Model') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Model') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         ModelYear: {
@@ -90,8 +90,8 @@ const vehicles = new kendo.data.DataSource({
             required: {
               message: 'Model Year is required.'
             },
-            minLength: function (input) { if (!input[0] || input[0].name != 'ModelYear') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'ModelYear') return true; if (input.val().length > 4) { input.attr('data-maxLength-msg', 'Max length is 4'); return false; } return true; }
+            minLength: (input) => { if (!input[0] || input[0].name != 'ModelYear') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
+            maxLength: (input) => { if (!input[0] || input[0].name != 'ModelYear') return true; if (input.val().length > 4) { input.attr('data-maxLength-msg', 'Max length is 4'); return false; } return true; }
           }
         },
         Alias: {
@@ -102,8 +102,8 @@ const vehicles = new kendo.data.DataSource({
             required: {
               message: 'Alias is required.'
             },
-            minLength: function (input) { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            minLength: (input) => { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Alias') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         Odometer: {
@@ -117,10 +117,10 @@ const vehicles = new kendo.data.DataSource({
         },
       }
     },
-    data: function (data) {
+    data: (data) => {
       return data.data; // <-- The result is just the data, it doesn't need to be unpacked.
     },
-    total: function (data) {
+    total: (data) => {
       return data.count; // <-- The total items count is the data length, there is no .Count to unpack.
     }
   },

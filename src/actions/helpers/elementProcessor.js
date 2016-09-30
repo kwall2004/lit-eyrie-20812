@@ -2,7 +2,6 @@ import Processor from './dataProcessor';
 
 var ElementProcessor = function (id, elementProcessor) {
   Processor.call(this, id);
-  var self = this;
 
   this.registerElementProcessor(elementProcessor);
 };
@@ -18,7 +17,7 @@ ElementProcessor.prototype.processData = function (element, index, data) {
 
 // Override the registerElementProcessor prototype to only handle a single elementProcessor
 ElementProcessor.prototype.registerElementProcessor = function (elementProcessor) {
-  if (typeof elementProcessor === "function") {
+  if (typeof elementProcessor === 'function') {
     if (this.elementProcessors.length == 0) {
       this.elementProcessors.push(elementProcessor);
       this.elementProcessorRegistrations[this.processorId] = true;
@@ -31,7 +30,7 @@ ElementProcessor.prototype.registerElementProcessor = function (elementProcessor
     }
   }
   else {
-    throw "elementProcessor must be a function.";
+    throw 'elementProcessor must be a function.';
   }
 };
 
@@ -42,7 +41,7 @@ ElementProcessor.prototype.processElement = function (element, index, data) {
     return this.elementProcessors[0](element, index, data);
   }
   else {
-    throw "There is no element processor associated to this element processor.";
+    throw 'There is no element processor associated to this element processor.';
   }
 };
 
@@ -51,8 +50,7 @@ ElementProcessor.prototype.processElement = function (element, index, data) {
 /////////////////////////////////////////
 var LookBehindElementProcessor = function (id, elementProcessor) {
   ElementProcessor.call(this, id, elementProcessor);
-  var self = this;
-  self.lookBehind = {};
+  this.lookBehind = {};
 };
 
 LookBehindElementProcessor.prototype = Object.create(ElementProcessor.prototype);
@@ -66,7 +64,7 @@ LookBehindElementProcessor.prototype.processData = function (element, index, dat
 /////////////////////////////////////////
 // Event Processor
 /////////////////////////////////////////
-var eventProcessor = new ElementProcessor("Events", processEvent);
+var eventProcessor = new ElementProcessor('Events', processEvent);
 eventProcessor.discardUndefinedResults = true;
 
 function processEvent(element, index, data) {
@@ -76,7 +74,7 @@ function processEvent(element, index, data) {
 /////////////////////////////////////////
 // Vehicle Data Processor
 /////////////////////////////////////////
-var vehicleDataProcessor = new ElementProcessor("VehicleData", processVehicleData);
+var vehicleDataProcessor = new ElementProcessor('VehicleData', processVehicleData);
 vehicleDataProcessor.discardUndefinedResults = true;
 
 function processVehicleData(element) {
@@ -86,7 +84,7 @@ function processVehicleData(element) {
 /////////////////////////////////////////
 // Trip Path Processor
 /////////////////////////////////////////
-var tripPathProcessor = new ElementProcessor("TripPath", processTripPath);
+var tripPathProcessor = new ElementProcessor('TripPath', processTripPath);
 tripPathProcessor.discardUndefinedResults = true;
 
 function processTripPath(element, index, data) {
@@ -98,7 +96,7 @@ function processTripPath(element, index, data) {
 /////////////////////////////////////////
 // Trip Properties Processor
 /////////////////////////////////////////
-var tripPropertiesProcessor = new ElementProcessor("TripProperties", processTripProperties);
+var tripPropertiesProcessor = new ElementProcessor('TripProperties', processTripProperties);
 tripPropertiesProcessor.discardUndefinedResults = true;
 
 function processTripProperties(element, index, data) {
@@ -117,7 +115,7 @@ function processTripProperties(element, index, data) {
 /////////////////////////////////////////
 // Speeding Path Processor
 /////////////////////////////////////////
-var speedingPathProcessor = new ElementProcessor("SpeedingPath", processSpeedingPath);
+var speedingPathProcessor = new ElementProcessor('SpeedingPath', processSpeedingPath);
 speedingPathProcessor.discardUndefinedResults = true;
 
 function processSpeedingPath(element, index, data) {
@@ -125,14 +123,14 @@ function processSpeedingPath(element, index, data) {
   if (element.s && element.s === 1) {
     this.speeding = true;
     this.speedingEventStart = {
-      "type": "Feature",
-      "properties": {
-        "eventType": "Speeding",
-        "properties": []
+      'type': 'Feature',
+      'properties': {
+        'eventType': 'Speeding',
+        'properties': []
       },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": []
+      'geometry': {
+        'type': 'LineString',
+        'coordinates': []
       }
     };
   }
@@ -165,7 +163,7 @@ function processSpeedingPath(element, index, data) {
 /////////////////////////////////////////
 // Trip Path Behavior Processor
 /////////////////////////////////////////
-var tripPathBehaviorProcessor = new ElementProcessor("TripPathBehavior", processTripPathBehavior);
+var tripPathBehaviorProcessor = new ElementProcessor('TripPathBehavior', processTripPathBehavior);
 tripPathBehaviorProcessor.discardUndefinedResults = true;
 
 function processTripPathBehavior(element, index, data) {
@@ -183,50 +181,50 @@ function processTripPathBehavior(element, index, data) {
     switch (element.e) {
       case 1:
       return {
-        "type": "Feature",
-        "properties": {
-          "eventType": "Hard Acceleration",
-          "properties": property
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Hard Acceleration',
+          'properties': property
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": coordinatePair
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinatePair
         }
       };
       case 2:
       return {
-        "type": "Feature",
-        "properties": {
-          "eventType": "Extreme Acceleration",
-          "properties": property
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Extreme Acceleration',
+          'properties': property
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": coordinatePair
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinatePair
         }
       };
       case 3:
       return {
-        "type": "Feature",
-        "properties": {
-          "eventType": "Hard Braking",
-          "properties": property
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Hard Braking',
+          'properties': property
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": coordinatePair
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinatePair
         }
       };
       case 4:
       return {
-        "type": "Feature",
-        "properties": {
-          "eventType": "Extreme Braking",
-          "properties": property
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Extreme Braking',
+          'properties': property
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": coordinatePair
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinatePair
         }
       };
       default:
@@ -238,7 +236,7 @@ function processTripPathBehavior(element, index, data) {
 /////////////////////////////////////////
 // Behavior Processor
 /////////////////////////////////////////
-var behaviorProcessor = new ElementProcessor("Behavior", processBehavior);
+var behaviorProcessor = new ElementProcessor('Behavior', processBehavior);
 behaviorProcessor.discardUndefinedResults = true;
 
 function processBehavior(element, index, data) {
@@ -293,7 +291,7 @@ function processBehavior(element, index, data) {
 /////////////////////////////////////////
 // Speeding Behavior Processor
 /////////////////////////////////////////
-var speedingBehaviorProcessor = new LookBehindElementProcessor("SpeedingBehavior", processSpeedingBehavior);
+var speedingBehaviorProcessor = new LookBehindElementProcessor('SpeedingBehavior', processSpeedingBehavior);
 speedingBehaviorProcessor.discardUndefinedResults = true;
 
 function processSpeedingBehavior(element, index, data) {
@@ -321,7 +319,7 @@ function processSpeedingBehavior(element, index, data) {
   }
 }
 
-var jsonProcessor = new Processor("JsonProcessor");
+var jsonProcessor = new Processor('JsonProcessor');
 jsonProcessor.registerElementProcessor(eventProcessor);
 jsonProcessor.registerElementProcessor(tripPathProcessor);
 jsonProcessor.registerElementProcessor(tripPropertiesProcessor);

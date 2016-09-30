@@ -6,18 +6,18 @@ const clients = new kendo.data.DataSource({
     read: {
       url: process.env.apiBaseUrl2 + '/clients',
       dataType: 'json',
-      // beforeSend: function(xhr) {
+      // beforeSend: (xhr) => {
       //     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
       // }
     },
     update: {
-      url: function (data) {
+      url: (data) => {
         return process.env.apiBaseUrl2 + '/clients/' + data.id;
       },
       type: 'PUT'
     },
     destroy: {
-      url: function (data) {
+      url: (data) => {
         return process.env.apiBaseUrl2 + '/clients/' + data.id;
       },
       dataType: 'json',
@@ -28,7 +28,7 @@ const clients = new kendo.data.DataSource({
       dataType: 'json',
       type: 'POST'
     },
-    parameterMap: function (kendoParams, type) {
+    parameterMap: (kendoParams, type) => {
       switch (type) {
         case 'read':
         return getSailsParams(kendoParams);
@@ -56,8 +56,8 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'Client Name is required.'
             },
-            minLength: function (input) { if (!input[0] || input[0].name != 'Name') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Name') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            minLength: (input) => { if (!input[0] || input[0].name != 'Name') return true; if (input.val().length < 1) { input.attr('data-minLength-msg', 'Min length is 1'); return false; } return true; },
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Name') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         Address1: {
@@ -68,7 +68,7 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'Address is required'
             },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Address1') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Address1') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         Address2: {
@@ -77,7 +77,7 @@ const clients = new kendo.data.DataSource({
           nullable: true,
           validation: {
             required: false,
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Address2') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Address2') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         City: {
@@ -88,7 +88,7 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'City is required'
             },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'City') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'City') return true; if (input.val().length > 50) { input.attr('data-maxLength-msg', 'Max length is 50'); return false; } return true; }
           }
         },
         State: {
@@ -99,7 +99,7 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'State is required'
             },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'State') return true; if (input.val().length > 3) { input.attr('data-maxLength-msg', 'Max length is 3'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'State') return true; if (input.val().length > 3) { input.attr('data-maxLength-msg', 'Max length is 3'); return false; } return true; }
           }
         },
         Country: {
@@ -110,7 +110,7 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'Country is required'
             },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Country') return true; if (input.val().length > 30) { input.attr('data-maxLength-msg', 'Max length is 30'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Country') return true; if (input.val().length > 30) { input.attr('data-maxLength-msg', 'Max length is 30'); return false; } return true; }
           }
         },
         Zip: {
@@ -121,7 +121,7 @@ const clients = new kendo.data.DataSource({
             required: {
               message: 'Zip is required'
             },
-            maxLength: function (input) { if (!input[0] || input[0].name != 'Zip') return true; if (input.val().length > 10) { input.attr('data-maxLength-msg', 'Max length is 10'); return false; } return true; }
+            maxLength: (input) => { if (!input[0] || input[0].name != 'Zip') return true; if (input.val().length > 10) { input.attr('data-maxLength-msg', 'Max length is 10'); return false; } return true; }
           }
         },
         Phone: {
@@ -134,10 +134,10 @@ const clients = new kendo.data.DataSource({
         },
       }
     },
-    data: function (data) {
+    data: (data) => {
       return data.data; // <-- The result is just the data, it doesn't need to be unpacked.
     },
-    total: function (data) {
+    total: (data) => {
       return data.count; // <-- The total items count is the data length, there is no .Count to unpack.
     }
   },

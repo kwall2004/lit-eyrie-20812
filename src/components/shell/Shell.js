@@ -93,7 +93,7 @@ const Shell = React.createClass({
               </Navbar.Collapse>
             </Navbar>
           </header>
-          <section>
+          <section className="shell-routed-content">
             {this.props.children && React.cloneElement(
               this.props.children,
               {

@@ -1,29 +1,26 @@
 import Q from 'q';
 
 var Processor = function (id) {
-  var self = this;
+  this.processorId = id;
 
-  // An identifier for this processor
-  self.processorId = id;
+  this.results = {};
 
-  self.results = {};
-
-  self.elementProcessorRegistrations = {};
-  self.elementProcessors = [];
+  this.elementProcessorRegistrations = {};
+  this.elementProcessors = [];
 };
 
 Processor.prototype.registerElementProcessor = function (elementProcessor) {
   if (elementProcessor instanceof Processor) {
-    if (typeof this.elementProcessorRegistrations[elementProcessor.processorId] === "undefined") {
+    if (typeof this.elementProcessorRegistrations[elementProcessor.processorId] === 'undefined') {
       this.elementProcessors.push(elementProcessor);
       this.elementProcessorRegistrations[elementProcessor.processorId] = true;
     }
     else {
-      throw "This processor has already been registered.";
+      throw 'This processor has already been registered.';
     }
   }
   else {
-    throw "elementProcessor must be an instance of ElementProcessor.";
+    throw 'elementProcessor must be an instance of ElementProcessor.';
   }
 };
 
@@ -55,14 +52,14 @@ Processor.prototype.iterate = function (data) {
 
   return Q.allSettled(promises).then(function (allResults) {
     allResults.forEach(function (result, index) {
-      if (result.state === "fulfilled") {
+      if (result.state === 'fulfilled') {
         for (var i = 0; i < this.elementProcessors.length; i++) {
           var processor = this.elementProcessors[i];
           var value = result.value[processor.processorId];
           // An element processor may return undefined when processing.
           // If the element processor has discardUndefinedResults set to
           // true, the undefined elements are not added to the result set.
-          if (typeof value !== "undefined" && processor.discardUndefinedResults) {
+          if (typeof value !== 'undefined' && processor.discardUndefinedResults) {
             dataResult[processor.processorId].push(value);
           }
         }
@@ -97,7 +94,7 @@ Processor.prototype.processElement = function (element, index, data) {
 
   return Q.allSettled(promises).then(function (results) {
     results.forEach(function (result, index) {
-      if (result.state === "fulfilled") {
+      if (result.state === 'fulfilled') {
         var processor = this.elementProcessors[index];
         var value = result.value;
         elementResult[processor.processorId] = value;

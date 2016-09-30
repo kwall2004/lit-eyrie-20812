@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import TripList from '../../../widgets/tripList';
 import TripDetails from '../../../widgets/tripDetails';
 import TripMap from '../../../widgets/tripMap';
+import TripChart from '../../../widgets/tripChart';
 
 const Trips = React.createClass({
   render() {
@@ -20,9 +21,13 @@ const Trips = React.createClass({
               <div className="trips-map">
                 <TripMap {...this.props} />
               </div>
+              <div className="trips-rpm">
+                <TripChart {...this.props} />
+              </div>
             </Col>
           </Row>
         </Grid>
+        <div style={{height: 35}} />
       </section>
     )
   }

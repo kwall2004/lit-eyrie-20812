@@ -5,7 +5,7 @@ import kendo from 'kendo-ui-web/scripts/kendo.combobox.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './moment-timezone-meta.json';
-import Center from './Center';
+import Center from './center';
 
 const TimeZoneMap = React.createClass({
   componentDidMount() {

@@ -24,21 +24,14 @@ const TimeZoneMap = React.createClass({
 
     $(window).resize(this.resizer);
 
-    this.$map.mousemove(this.mouseMove);
-    this.$map.mouseout(this.mouseOut);
-    this.$map.click(this.mouseClick);
+    this.$map.mousemove(this.mousemove);
+    this.$map.mouseleave(this.mouseleave);
+    this.$map.click(this.mouseclick);
 
     for (var i = 0; i < data.length; i++) {
       this.centers.push(new Center(this, data[i]));
       this.names.push(data[i].name);
     }
-
-    // if (self.selectedTimeZone()) {
-    //     var center = findCenterByName(self.selectedTimeZone())
-    //     if (typeof center !== 'undefined') {
-    //         changeCenter(center);
-    //     }
-    // }
 
     var element = ReactDOM.findDOMNode(this.refs.selectedTimeZoneComboBox);
 
@@ -46,8 +39,8 @@ const TimeZoneMap = React.createClass({
       dataSource: {
         data: this.names
       },
-      filter: "contains",
-      // value: self.selectedTimeZone(),
+      filter: 'contains',
+      value: this.props.settings.selectedTimeZone,
       change: (e) => {
         var name = e.sender.value();
         var center = this.findCenterByName(name);
@@ -55,9 +48,20 @@ const TimeZoneMap = React.createClass({
           this.changeCenter(center);
         }
 
-        // self.updatedTimeZone(name);
+        this.props.selectTimeZone(e.sender.value());
       }
     });
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.settings.get('selectedTimeZone') !== this.props.settings.get('selectedTimeZone')) {
+      this.comboBox.value(nextProps.settings.get('selectedTimeZone'));
+
+      var center = this.findCenterByName(nextProps.settings.get('selectedTimeZone'));
+      if (typeof center !== 'undefined') {
+          this.changeCenter(center);
+      }
+    }
   },
 
   //don't run render again, create widget once, then leave it alone
@@ -68,9 +72,9 @@ const TimeZoneMap = React.createClass({
   componentWillUnmount() {
     $(window).off('resize', this.resizer);
 
-    this.$map.off("mousemove", this.mouseMove);
-    this.$map.off("click", this.mouseClick);
-    this.$map.off("mouseout", this.mouseOut);
+    this.$map.off('mousemove', this.mouseMove);
+    this.$map.off('click', this.mouseClick);
+    this.$map.off('mouseout', this.mouseOut);
   },
 
   render() {
@@ -519,14 +523,14 @@ const TimeZoneMap = React.createClass({
     this.height = this.$map.outerHeight();
   },
 
-  // mouseOut(e) {
-  //   var center = this.findCenterByName(self.selectedTimeZone())
-  //   if (typeof center !== 'undefined') {
-  //     changeCenter(center);
-  //   }
-  // },
+  mouseleave(e) {
+    var center = this.findCenterByName(this.props.settings.get('selectedTimeZone'));
+    if (typeof center !== 'undefined') {
+      this.changeCenter(center);
+    }
+  },
 
-  mouseMove(e) {
+  mousemove(e) {
     var offset = $(this.$map).offset(),
     x = e.pageX - offset.left,
     y = e.pageY - offset.top,
@@ -550,7 +554,7 @@ const TimeZoneMap = React.createClass({
     }
   },
 
-  mouseClick(e) {
+  mouseclick(e) {
     var offset = $(this.$map).offset(),
     x = e.pageX - offset.left,
     y = e.pageY - offset.top,
@@ -571,9 +575,7 @@ const TimeZoneMap = React.createClass({
 
     if (closestCenter) {
       this.changeCenter(closestCenter);
-      this.updatedTimeZone(this.lastCenter.name);
-      //usersettings.set('TimeZone', self.selectedVehicle().vehicleId, self.lastCenter.name);
-      this.comboBox.value(this.lastCenter.name);
+      this.props.selectTimeZone(closestCenter.name);
     }
   },
 

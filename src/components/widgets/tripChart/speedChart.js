@@ -46,16 +46,16 @@ export default function (element, data, timeZone) {
 
   var myTimeFormatter = function (date) {
     // Do the time zone conversion here.
-    return moment(date).format("h:mm");
+    return moment(date).format('h:mm');
   };
 
   // Axis
-  var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(myTimeFormatter);
-  var xAxisBrush = d3.svg.axis().scale(xScaleBrush).orient("bottom").tickFormat(myTimeFormatter);
-  var yAxisSpeed = d3.svg.axis().scale(yScaleSpeed).orient("left");
-  var yAxisRpm = d3.svg.axis().scale(yScaleRpm).orient("right");
-  var yAxisBrushSpeed = d3.svg.axis().scale(yScaleBrushSpeed).orient("left");
-  var yAxisBrushRpm = d3.svg.axis().scale(yScaleBrushRpm).orient("right");
+  var xAxis = d3.svg.axis().scale(xScale).orient('bottom').tickFormat(myTimeFormatter);
+  var xAxisBrush = d3.svg.axis().scale(xScaleBrush).orient('bottom').tickFormat(myTimeFormatter);
+  var yAxisSpeed = d3.svg.axis().scale(yScaleSpeed).orient('left');
+  var yAxisRpm = d3.svg.axis().scale(yScaleRpm).orient('right');
+  var yAxisBrushSpeed = d3.svg.axis().scale(yScaleBrushSpeed).orient('left');
+  var yAxisBrushRpm = d3.svg.axis().scale(yScaleBrushRpm).orient('right');
 
   // Reduce the number of ticks directly with div size
   var xNumTicks = Math.max(graphWidth / 80.0, 2);
@@ -72,13 +72,13 @@ export default function (element, data, timeZone) {
   // Brush
   var brush = d3.svg.brush()
     .x(xScaleBrush)
-    .on("brush", brushed);
+    .on('brush', brushed);
 
   function brushed() {
     xScale.domain(brush.empty() ? xScaleBrush.domain() : brush.extent());
-    mainGraph.select(".area.speed").attr("d", areaSpeed);
-    mainGraph.select(".area.rpm").attr("d", areaRpm);
-    mainGraph.select(".x.axis").call(xAxis);
+    mainGraph.select('.area.speed').attr('d', areaSpeed);
+    mainGraph.select('.area.rpm').attr('d', areaRpm);
+    mainGraph.select('.x.axis').call(xAxis);
   }
 
   // Provide the domains for each scale
@@ -95,7 +95,7 @@ export default function (element, data, timeZone) {
 
   // Main Chart Areas
   var areaSpeed = d3.svg.area()
-    .interpolate("linear")
+    .interpolate('linear')
     .x(function (d) {
       return xScale(d.date);
     })
@@ -105,7 +105,7 @@ export default function (element, data, timeZone) {
     });
 
   var areaRpm = d3.svg.area()
-    .interpolate("linear")
+    .interpolate('linear')
     .x(function (d) {
       return xScale(d.date);
     })
@@ -116,7 +116,7 @@ export default function (element, data, timeZone) {
 
   // Brush Areas
   var brushAreaSpeed = d3.svg.area()
-    .interpolate("monotone")
+    .interpolate('monotone')
     .x(function (d) {
       return xScaleBrush(d.date);
     })
@@ -126,7 +126,7 @@ export default function (element, data, timeZone) {
     });
 
   var brushAreaRpm = d3.svg.area()
-    .interpolate("monotone")
+    .interpolate('monotone')
     .x(function (d) {
       return xScaleBrush(d.date);
     })
@@ -136,95 +136,95 @@ export default function (element, data, timeZone) {
     });
 
   // Attach the SVG to the DOM element
-  var svg = d3.select(element).append("svg")
-    .attr("width", elmWidth)
-    .attr("height", elmHeight);
+  var svg = d3.select(element).append('svg')
+    .attr('width', elmWidth)
+    .attr('height', elmHeight);
 
   // A clipping box around the margined area of the chart.
-  svg.append("defs")
-    .append("clipPath")
-    .attr("id", "clip")
-    .append("rect")
-    .attr("width", graphWidth)
-    .attr("height", graphHeight);
+  svg.append('defs')
+    .append('clipPath')
+    .attr('id', 'clip')
+    .append('rect')
+    .attr('width', graphWidth)
+    .attr('height', graphHeight);
 
   // The portion of the chart inside the margins
-  var margins = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var margins = svg.append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   // The portion of the chart that
-  var mainGraph = margins.append("g")
-    .attr("class", "main");
+  var mainGraph = margins.append('g')
+    .attr('class', 'main');
 
   // Add the x Axis
-  mainGraph.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + graphHeight + ")")
+  mainGraph.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + graphHeight + ')')
     .call(xAxis);
 
   // Add the y axis for speed
-  mainGraph.append("g")
-    .attr("class", "y axis speed")
+  mainGraph.append('g')
+    .attr('class', 'y axis speed')
     .call(yAxisSpeed)
-    .append("text")
-    .attr("class", "axisLabel")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Speed (MPH)");
+    .append('text')
+    .attr('class', 'axisLabel')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', 6)
+    .attr('dy', '.71em')
+    .style('text-anchor', 'end')
+    .text('Speed (MPH)');
 
   // Add the y axis for rpm
-  mainGraph.append("g")
-    .attr("class", "y axis rpm")
-    .attr("transform", "translate(" + graphWidth + ",0)")
+  mainGraph.append('g')
+    .attr('class', 'y axis rpm')
+    .attr('transform', 'translate(' + graphWidth + ',0)')
     .call(yAxisRpm)
-    .append("text")
-    .attr("class", "axisLabel")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -12)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("RPM");
+    .append('text')
+    .attr('class', 'axisLabel')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', -12)
+    .attr('dy', '.71em')
+    .style('text-anchor', 'end')
+    .text('RPM');
 
   // The main portion of the chart needs to be clipped when brushed.
   // Add a clipping path to the plot.
-  var plot = mainGraph.append("g")
-    .attr("clip-path", "url(#clip)");
+  var plot = mainGraph.append('g')
+    .attr('clip-path', 'url(#clip)');
 
   // Plot the Speed Data
-  plot.append("path")
+  plot.append('path')
     .datum(data)
-    .attr("class", "area speed")
-    .attr("d", areaSpeed);
+    .attr('class', 'area speed')
+    .attr('d', areaSpeed);
 
   // Plot the RPM data
-  plot.append("path")
+  plot.append('path')
     .datum(data)
-    .attr("class", "area rpm")
-    .attr("d", areaRpm);
+    .attr('class', 'area rpm')
+    .attr('d', areaRpm);
 
-  var line = plot.append("line")
-    .attr("class", "speedlimit")
-    .attr("x1", 0)
-    .attr("y1", yScaleSpeed(80))
-    .attr("x2", graphWidth)
-    .attr("y2", yScaleSpeed(80));
+  var line = plot.append('line')
+    .attr('class', 'speedlimit')
+    .attr('x1', 0)
+    .attr('y1', yScaleSpeed(80))
+    .attr('x2', graphWidth)
+    .attr('y2', yScaleSpeed(80));
 
   // Add the mouseover overlay
-  var overlay = mainGraph.append("rect")
-    .attr("class", "overlay")
-    .attr("width", graphWidth)
-    .attr("height", graphHeight)
-    .on("mouseover", function () {
-      rpmFocus.style("display", null);
-      speedFocus.style("display", null);
+  var overlay = mainGraph.append('rect')
+    .attr('class', 'overlay')
+    .attr('width', graphWidth)
+    .attr('height', graphHeight)
+    .on('mouseover', function () {
+      rpmFocus.style('display', null);
+      speedFocus.style('display', null);
     })
-    .on("mouseout", function () {
-      rpmFocus.style("display", "none");
-      speedFocus.style("display", "none");
+    .on('mouseout', function () {
+      rpmFocus.style('display', 'none');
+      speedFocus.style('display', 'none');
     })
-    .on("mousemove", mousemove);
+    .on('mousemove', mousemove);
 
   function mousemove() {
     var x0 = xScale.invert(d3.mouse(this)[0]),
@@ -232,46 +232,46 @@ export default function (element, data, timeZone) {
     d0 = data[i - 1],
     d1 = data[i],
     d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-    rpmFocus.attr("transform", "translate(" + xScale(d.date) + "," + yScaleRpm(d.rpm) + ")");
-    rpmFocus.select("text").text("RPM: " + d.rpm);
-    speedFocus.attr("transform", "translate(" + xScale(d.date) + "," + yScaleSpeed(d.speed) + ")");
-    speedFocus.select("text").text("Speed: " + d.speed);
+    rpmFocus.attr('transform', 'translate(' + xScale(d.date) + ',' + yScaleRpm(d.rpm) + ')');
+    rpmFocus.select('text').text('RPM: ' + d.rpm);
+    speedFocus.attr('transform', 'translate(' + xScale(d.date) + ',' + yScaleSpeed(d.speed) + ')');
+    speedFocus.select('text').text('Speed: ' + d.speed);
   }
 
   // Add the mouse over info
-  var rpmFocus = mainGraph.append("g")
-    .attr("class", "rpmfocus")
-    .style("display", "none");
+  var rpmFocus = mainGraph.append('g')
+    .attr('class', 'rpmfocus')
+    .style('display', 'none');
 
-  rpmFocus.append("circle")
-    .attr("r", 4.5);
+  rpmFocus.append('circle')
+    .attr('r', 4.5);
 
-  rpmFocus.append("rect")
-    .attr("x", 8)
-    .attr("y", "-9")
-    .attr("width", 80)
-    .attr("height", "18");
+  rpmFocus.append('rect')
+    .attr('x', 8)
+    .attr('y', '-9')
+    .attr('width', 80)
+    .attr('height', '18');
 
-  var rpmtext = rpmFocus.append("text")
-    .attr("x", 10)
-    .attr("dy", ".35em");
+  var rpmtext = rpmFocus.append('text')
+    .attr('x', 10)
+    .attr('dy', '.35em');
 
-  var speedFocus = mainGraph.append("g")
-    .attr("class", "speedfocus")
-    .style("display", "none");
+  var speedFocus = mainGraph.append('g')
+    .attr('class', 'speedfocus')
+    .style('display', 'none');
 
-  speedFocus.append("circle")
-    .attr("r", 4.5);
+  speedFocus.append('circle')
+    .attr('r', 4.5);
 
-  speedFocus.append("rect")
-    .attr("x", 8)
-    .attr("y", "-9")
-    .attr("width", 80)
-    .attr("height", "18");
+  speedFocus.append('rect')
+    .attr('x', 8)
+    .attr('y', '-9')
+    .attr('width', 80)
+    .attr('height', '18');
 
-  var speedtext = speedFocus.append("text")
-    .attr("x", 10)
-    .attr("dy", ".35em");
+  var speedtext = speedFocus.append('text')
+    .attr('x', 10)
+    .attr('dy', '.35em');
 
   // Brush handles
   var arc = d3.svg.arc()
@@ -280,40 +280,40 @@ export default function (element, data, timeZone) {
     .endAngle(function (d, i) { return i ? -Math.PI : Math.PI; });
 
   // The brush portion of the chart
-  var brushControls = margins.append("g")
-    .attr("class", "brushcontrols")
-    .attr("transform", "translate(0," + (graphHeight + margin.top + margin.bottom) + ")");
+  var brushControls = margins.append('g')
+    .attr('class', 'brushcontrols')
+    .attr('transform', 'translate(0,' + (graphHeight + margin.top + margin.bottom) + ')');
 
   // Plot the speed data for the brush
-  brushControls.append("path")
+  brushControls.append('path')
     .datum(data)
-    .attr("class", "areaBrush speed")
-    .attr("d", brushAreaSpeed);
+    .attr('class', 'areaBrush speed')
+    .attr('d', brushAreaSpeed);
 
   // Plot the rpm data for the brush
-  brushControls.append("path")
+  brushControls.append('path')
     .datum(data)
-    .attr("class", "areaBrush rpm")
-    .attr("d", brushAreaRpm);
+    .attr('class', 'areaBrush rpm')
+    .attr('d', brushAreaRpm);
 
   // Add the x axis for the brush
-  brushControls.append("g")
-    .attr("class", "x axisBrush")
-    .attr("transform", "translate(0," + brushHeight + ")")
+  brushControls.append('g')
+    .attr('class', 'x axisBrush')
+    .attr('transform', 'translate(0,' + brushHeight + ')')
     .call(xAxisBrush);
 
   // Add the brush path to the context
-  brushControls.append("g")
-    .attr("class", "x brush")
+  brushControls.append('g')
+    .attr('class', 'x brush')
     .call(brush)
-    .selectAll("rect")
-    .attr("y", -7)
-    .attr("height", brushHeight + 7);
+    .selectAll('rect')
+    .attr('y', -7)
+    .attr('height', brushHeight + 7);
 
   // Add the brush handles
-  brushControls.selectAll(".resize").append("path")
-    .attr("transform", "translate(0," + (brushHeight / 2 - 3) + ")")
-    .attr("d", arc);
+  brushControls.selectAll('.resize').append('path')
+    .attr('transform', 'translate(0,' + (brushHeight / 2 - 3) + ')')
+    .attr('d', arc);
 
   function remove() {
     svg.remove();
@@ -323,8 +323,8 @@ export default function (element, data, timeZone) {
     elmWidth = $(element).outerWidth();
     elmHeight = $(element).outerHeight();
 
-    svg.attr("width", elmWidth)
-      .attr("height", elmHeight);
+    svg.attr('width', elmWidth)
+      .attr('height', elmHeight);
 
     brushHeight = 40 - margin.top - margin.bottom;
     graphWidth = elmWidth - margin.left - margin.right;
@@ -335,9 +335,9 @@ export default function (element, data, timeZone) {
     }
 
     // Update the bounds of the clipping box
-    var clip = svg.select("#clip rect");
-    clip.attr("width", graphWidth);
-    clip.attr("height", graphHeight);
+    var clip = svg.select('#clip rect');
+    clip.attr('width', graphWidth);
+    clip.attr('height', graphHeight);
 
     // Plot Scale Resize
     xScale.range([0, graphWidth]);
@@ -367,59 +367,59 @@ export default function (element, data, timeZone) {
     areaRpm.y0(graphHeight);
 
     // Redraw the areas
-    plot.select(".area.speed")
+    plot.select('.area.speed')
       .datum(data)
-      .attr("d", areaSpeed);
+      .attr('d', areaSpeed);
 
-    plot.select(".area.rpm")
+    plot.select('.area.rpm')
       .datum(data)
-      .attr("d", areaRpm);
+      .attr('d', areaRpm);
 
     // Translate the axis and redraw
-    mainGraph.select(".x.axis")
-      .attr("transform", "translate(0," + graphHeight + ")")
+    mainGraph.select('.x.axis')
+      .attr('transform', 'translate(0,' + graphHeight + ')')
       .call(xAxis);
 
-    mainGraph.select(".y.axis.speed")
+    mainGraph.select('.y.axis.speed')
       .call(yAxisSpeed);
 
-    mainGraph.select(".y.axis.rpm")
-      .attr("transform", "translate(" + graphWidth + ", 0)")
+    mainGraph.select('.y.axis.rpm')
+      .attr('transform', 'translate(' + graphWidth + ', 0)')
       .call(yAxisRpm);
 
     // Translate the brush x axis and redraw
-    brushControls.select(".x.axisBrush")
-      .attr("transform", "translate(0," + brushHeight + ")")
+    brushControls.select('.x.axisBrush')
+      .attr('transform', 'translate(0,' + brushHeight + ')')
       .call(xAxisBrush);
 
     brushAreaSpeed.y0(brushHeight);
     brushAreaRpm.y0(brushHeight);
 
     // Redraw the areas in the brush
-    brushControls.select(".areaBrush.speed")
+    brushControls.select('.areaBrush.speed')
       .datum(data)
-      .attr("d", brushAreaSpeed);
+      .attr('d', brushAreaSpeed);
 
-    brushControls.select(".areaBrush.rpm")
+    brushControls.select('.areaBrush.rpm')
       .datum(data)
-      .attr("d", brushAreaRpm);
+      .attr('d', brushAreaRpm);
 
     // Resize and redraw the brush
     brush.x(xScaleBrush);
     brush.extent(xScaleBrush.domain());
 
-    brushControls.select(".brush")
+    brushControls.select('.brush')
       .call(brush);
 
     // Resize overlay
-    overlay.attr("width", graphWidth)
-      .attr("height", graphHeight);
+    overlay.attr('width', graphWidth)
+      .attr('height', graphHeight);
 
     // Resize line
-    line.attr("x1", 0)
-      .attr("y1", yScaleSpeed(80))
-      .attr("x2", graphWidth)
-      .attr("y2", yScaleSpeed(80));
+    line.attr('x1', 0)
+      .attr('y1', yScaleSpeed(80))
+      .attr('x2', graphWidth)
+      .attr('y2', yScaleSpeed(80));
   }
 
   return {

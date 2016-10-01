@@ -213,3 +213,10 @@ function storeTripJsonData(data) {
     data
   }
 }
+
+export function selectTimeZone(timeZone) {
+  return {
+    type: 'SELECT_TIME_ZONE',
+    timeZone
+  }
+}

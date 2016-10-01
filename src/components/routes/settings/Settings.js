@@ -1,9 +1,16 @@
 import React from 'react';
 import { Grid, Row, Col, ButtonToolbar, Button, Alert } from 'react-bootstrap';
+import Spinner from 'react-spin';
 import TimeZoneMap from '../../widgets/timeZoneMap';
 import VehicleSettings from '../../widgets/vehicleSettings';
 
 const Settings = React.createClass({
+  componentDidMount() {
+    if (this.props.vehicles.get('list').size === 0) {
+      this.props.getVehicles();
+    }
+  },
+
   render() {
     return (
       <section>
@@ -46,22 +53,37 @@ const Settings = React.createClass({
                       <Alert bsStyle="success">
                         This page configures vehicle specific settings. Changing these settings will not impact other users' settings.
                       </Alert>
-                      <div className="settings-time-zones-vehicle-list">
-                        {this.props.vehicles.get('list').map(vehicle => {
-                          return (
-                            <div key={vehicle.get('vehicleId')} className="vehicle-row">
-                              <div>
-                                <h4><span>{vehicle.get('name')}</span><br /><small>{vehicle.get('year') + ' ' + vehicle.get('make') + ' ' + vehicle.get('model')}</small></h4>
-                              </div>
-                            </div>
-                          )
-                        })}
-                      </div>
                       {(() => {
-                        if (this.props.vehicles.get('list').size === 0) {
+                        if (this.props.vehicles.get('loading')) {
                           return (
-                            <Alert bsStyle="danger">There are no vehicles in this list.</Alert>
-                          )
+                            <div style={{height: '250px'}}>
+                              <Spinner config={{
+                                scale: 1.5
+                              }}/>
+                            </div>
+                          );
+                        }
+                        else {
+                          if (this.props.vehicles.get('list').size > 0) {
+                            return (
+                              <div className="settings-time-zones-vehicle-list">
+                                {this.props.vehicles.get('list').map(vehicle => {
+                                  return (
+                                    <div key={vehicle.get('vehicleId')} className="vehicle-row">
+                                      <div>
+                                        <h4><span>{vehicle.get('name')}</span><br /><small>{vehicle.get('year') + ' ' + vehicle.get('make') + ' ' + vehicle.get('model')}</small></h4>
+                                      </div>
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                            )
+                          }
+                          else {
+                            return (
+                              <Alert bsStyle="danger">There are no vehicles in this list.</Alert>
+                            )
+                          }
                         }
                       })()}
                     </Col>
@@ -72,14 +94,14 @@ const Settings = React.createClass({
                 <Row>
                   <Col md={12}>
                     <span>
-                      <TimeZoneMap></TimeZoneMap>
+                      <TimeZoneMap {...this.props} />
                     </span>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={12}>
                     <span>
-                      <VehicleSettings></VehicleSettings>
+                      <VehicleSettings />
                     </span>
                   </Col>
                 </Row>

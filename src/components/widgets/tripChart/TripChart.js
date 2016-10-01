@@ -29,7 +29,7 @@ const TripChart = React.createClass({
     var data = nextProps.tripJsonData.get('data');
     if (data) {
       if (diff(data, this.props.tripJsonData.get('data'))) {
-        this.chart = SpeedChart(element, data.Events, "America/Detroit");
+        this.chart = SpeedChart(element, data.Events, 'America/Detroit');
 
         $(window).on('resize', this.chart.resize);
       }

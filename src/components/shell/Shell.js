@@ -104,6 +104,8 @@ const Shell = React.createClass({
                 selectTripDate: this.props.selectTripDate,
                 selectTrip: this.props.selectTrip,
                 tripJsonData: this.props.tripJsonData,
+                settings: this.props.settings,
+                selectTimeZone: this.props.selectTimeZone,
               }
             )}
           </section>
@@ -126,6 +128,7 @@ const Container = connect(
       vehicles: state.vehicles,
       trips: state.trips,
       tripJsonData: state.tripJsonData,
+      settings: state.settings,
     };
   },
   actionCreators

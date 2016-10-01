@@ -6,7 +6,9 @@ import VehicleComboBox from '../vehicleComboBox';
 
 const VehiclePicker = React.createClass({
   componentDidMount() {
-    this.props.getVehicles();
+    if (this.props.vehicles.get('list').size === 0) {
+      this.props.getVehicles();
+    }
   },
 
   render() {
@@ -38,7 +40,7 @@ const VehiclePicker = React.createClass({
                               return (
                                 <div className="vehicle-picker-title-relative">
                                   <span className="accent-number">
-                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
+                                    {this.props.vehicles.get('list').size}
                                   </span>
                                   <span className="accent-description">
                                     {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}

@@ -12,7 +12,12 @@ function vehicles(state = initialState, action) {
       return state.set('loading', action.loading);
 
     case 'STORE_VEHICLES':
-      return state.set('list', fromJS(action.json));
+      // existing API returns duplicates . . .
+      return state.set('list', fromJS(action.json).filter((element, index, list) => {
+        return (list.count(vehicle => {
+          return vehicle.get('vehicleId') == element.get('vehicleId')
+        }) == 1);
+      }));
 
     case 'SELECT_VEHICLE':
       if (state.get('list').size == 0) return state;

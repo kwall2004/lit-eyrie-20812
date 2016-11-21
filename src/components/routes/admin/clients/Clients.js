@@ -1,6 +1,6 @@
 import React from 'react';
 import DataGrid, { filterMenuInit } from '../../../widgets/dataGrid';
-import clients from '../../../../kendoDataSources/clientsDataSource';
+import clients from '../../../../kendo/clientsDataSource';
 
 const Clients = React.createClass({
   render() {
@@ -21,58 +21,57 @@ const Clients = React.createClass({
             pageSizes: true,
             buttonCount: 5
           },
-          columns: [
-          {
-            field: 'Name',
+          columns: [{
+            field: 'name',
             title: 'Client Name',
             filterable: true,
             sortable: true,
             width: 180
           },
           {
-            field: 'Address1',
+            field: 'address1',
             title: 'Address 1',
             filterable: true,
             sortable: true,
             width: 171
           },
           {
-            field: 'Address2',
+            field: 'address2',
             title: 'Address 2',
             filterable: true,
             sortable: true,
             width: 85
           },
           {
-            field: 'City',
+            field: 'city',
             title: 'City',
             filterable: true,
             sortable: true,
             width: 160
           },
           {
-            field: 'State',
+            field: 'state',
             title: 'State',
             filterable: true,
             sortable: true,
             width: 80
           },
           {
-            field: 'Country',
+            field: 'country',
             title: 'Country',
             filterable: true,
             sortable: true,
             width: 95
           },
           {
-            field: 'Zip',
+            field: 'zip',
             title: 'Zip',
             filterable: true,
             sortable: true,
             width: 65
           },
           {
-            field: 'Phone',
+            field: 'phone',
             title: 'Phone',
             filterable: true,
             sortable: true,
@@ -83,8 +82,7 @@ const Clients = React.createClass({
             title: ' ',
             width: 90,
             resizable: false
-          }
-          ]
+          }]
         }} />
       </section>
     )

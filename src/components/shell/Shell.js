@@ -2,11 +2,16 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/actionCreators';
+import EventIndicator from '../widgets/eventIndicator';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import * as settingsActions from '../../store/actions/settings';
 
 const Shell = React.createClass({
+  componentDidMount() {
+    this.props.getSettings();
+  },
+
   render() {
     return (
       <div>
@@ -43,27 +48,31 @@ const Shell = React.createClass({
                         <span className="caret"></span>
                       </div>
                     }
-                    id="admin-menu">
+                    id="admin-menu"
+                    >
                     <LinkContainer to="/admin/clients">
                       <MenuItem>Client Setup</MenuItem>
                     </LinkContainer>
-                    <MenuItem>User Setup</MenuItem>
+                    <LinkContainer to="/admin/users">
+                      <MenuItem>User Setup</MenuItem>
+                    </LinkContainer>
                     <LinkContainer to="/admin/vehicles">
                       <MenuItem>Vehicle Setup</MenuItem>
                     </LinkContainer>
                     <LinkContainer to="/admin/devices">
                       <MenuItem>Device Setup</MenuItem>
                     </LinkContainer>
-                    <MenuItem>User-Vehicle-Device Mapping</MenuItem>
                     <MenuItem>FOTA Setup</MenuItem>
                     <MenuItem>Geo-Fence</MenuItem>
                     <MenuItem>Time-Fence</MenuItem>
                     <MenuItem>User Access Priveleges</MenuItem>
                     <MenuItem>Bulk Upload</MenuItem>
-                    <MenuItem>Trip Data Parser</MenuItem>
-                    <MenuItem>Device Action Settings</MenuItem>
-                    <MenuItem>File Download</MenuItem>
-                    <MenuItem>Config File Upload</MenuItem>
+                    <LinkContainer to="/admin/deviceactions">
+                      <MenuItem>Device Action Settings</MenuItem>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/config-files">
+                      <MenuItem>Config File Upload</MenuItem>
+                    </LinkContainer>
                   </NavDropdown>
                   <NavDropdown
                     noCaret
@@ -77,7 +86,8 @@ const Shell = React.createClass({
                         <span className="caret"></span>
                       </div>
                     }
-                    id="reports-menu">
+                    id="reports-menu"
+                    >
                     <MenuItem>Device Allocations</MenuItem>
                     <MenuItem>Mapping</MenuItem>
                   </NavDropdown>
@@ -89,29 +99,50 @@ const Shell = React.createClass({
                       </span>
                     </NavItem>
                   </LinkContainer>
+                  <NavDropdown
+                    noCaret
+                    className="nav-alerts"
+                    title={
+                      <div className="dropdown-label">
+                        <EventIndicator />
+                      </div>
+                    }
+                    id="event-indicator"
+                    >
+                    <MenuItem className="no-alerts">
+                      <span className="navbar-element">
+                        No new alerts
+                      </span>
+                    </MenuItem>
+                  </NavDropdown>
+                  <NavDropdown
+                    noCaret
+                    className="nav-profile"
+                    title={
+                      <div className="dropdown-label">
+                        <img className="profile-pic" src="https://vision.danlawinc.com/Content/images/abstract.png" />
+                        &nbsp;&nbsp;
+                        <span className="nav-welcome-name">QA FLEET</span>
+                      </div>
+                    }
+                    id="profile"
+                    >
+                    <LinkContainer to="/profile">
+                      <MenuItem className="profile">Profile</MenuItem>
+                    </LinkContainer>
+                  </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
           </header>
-          <section>
-            {this.props.children && React.cloneElement(
-              this.props.children,
-              {
-                vehicles: this.props.vehicles,
-                getVehicles: this.props.getVehicles,
-                selectVehicle: this.props.selectVehicle,
-                trips: this.props.trips,
-                selectTripDate: this.props.selectTripDate,
-                selectTrip: this.props.selectTrip,
-                tripJsonData: this.props.tripJsonData,
-              }
-            )}
+          <section className="shell-routed-content">
+            {this.props.children}
           </section>
         </div>
         <footer className="footer">
           <Navbar inverse className="navbar-bottom">
             <p className="navbar-text">
-              Copyright &copy; <span>{new moment().format('YYYY')}</span> All Rights Reserved.
+              Copyright &copy; <span>{new moment().format('YYYY')}</span> Danlaw Inc. All Rights Reserved.
             </p>
           </Navbar>
         </footer>
@@ -121,14 +152,11 @@ const Shell = React.createClass({
 });
 
 const Container = connect(
-  state => {
-    return {
-      vehicles: state.vehicles,
-      trips: state.trips,
-      tripJsonData: state.tripJsonData,
-    };
+  (state) => {
+    return {};
   },
-  actionCreators
+  Object.assign({},
+    settingsActions)
 )(Shell);
 
 module.exports = Container;

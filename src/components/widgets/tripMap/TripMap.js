@@ -2,12 +2,63 @@ import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import 'leaflet-spin';
+import Spinner from 'spin.js';
 import L from 'mapbox.js';
 import tripGeoJsonLayer from './tripGeoJsonLayer';
 import diff from 'deep-diff';
 
 const TripMap = React.createClass({
+  processDataForGps(data) {
+    var featureCollection = {
+      'type': 'FeatureCollection',
+      'features': [{ // Trip Path
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'TripPath',
+          'properties': data.TripProperties
+        },
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': data.TripPath
+        }
+      }]
+    };
+
+    featureCollection.features = featureCollection.features.concat(data.SpeedingPath);
+    featureCollection.features = featureCollection.features.concat(data.TripPathBehavior);
+
+    ///////////////////////////////
+    // Start / Stop
+    ///////////////////////////////
+    if (data.TripPath.length > 0) {
+      featureCollection.features.push({ // Trip Start
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Trip Start',
+          'properties': data.TripProperties[0]
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': data.TripPath[0]
+        }
+      });
+
+      featureCollection.features.push({ // Trip Stop
+        'type': 'Feature',
+        'properties': {
+          'eventType': 'Trip Stop',
+          'properties': data.TripProperties[data.TripProperties.length - 1]
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': data.TripPath[data.TripPath.length - 1]
+        }
+      });
+    }
+
+    return featureCollection;
+  },
+
   componentDidMount() {
     var element = ReactDOM.findDOMNode(this.refs.map);
 
@@ -21,29 +72,36 @@ const TripMap = React.createClass({
       this.tripGeoJsonLayer = new tripGeoJsonLayer(this.map, null, null);
 
       L.control.layers({
-        "Streets": styleLayer,
-        "Satellite": L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
+        'Streets': styleLayer,
+        'Satellite': L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v9', { maxZoom: 19 })
       }).addTo(this.map);
     });
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.tripJsonData.get('loading') !== this.props.tripJsonData.get('loading')) {
-      if (nextProps.tripJsonData.get('loading')) {
-        this.tripGeoJsonLayer.remove();
-        this.map.spin(true, {
+    if (nextProps.trips.get('loadingJson') !== this.props.trips.get('loadingJson')) {
+      var element = ReactDOM.findDOMNode(this.refs.map);
+
+      if (nextProps.trips.get('loadingJson')) {
+        if (this.tripGeoJsonLayer) {
+          this.tripGeoJsonLayer.remove();
+        }
+
+        this.spinner = new Spinner({
           scale: 2,
           top: '48%'
-        });
+        }).spin(element);
       }
       else {
-        this.map.spin(false);
+        if (this.spinner) {
+          this.spinner.stop();
+        }
       }
     }
 
-    var data = nextProps.tripJsonData.get('data');
+    var data = nextProps.trips.get('json');
     if (data) {
-      if (diff(data, this.props.tripJsonData.get('data'))) {
+      if (diff(data, this.props.trips.get('json'))) {
         try {
           var processedData = this.processDataForGps(data);
           this.tripGeoJsonLayer.updateData(processedData, null);
@@ -54,7 +112,9 @@ const TripMap = React.createClass({
       }
     }
     else {
-      this.tripGeoJsonLayer.remove();
+      if (this.tripGeoJsonLayer) {
+        this.tripGeoJsonLayer.remove();
+      }
       this.map.setView([20, 0], 2);
     }
   },
@@ -75,63 +135,12 @@ const TripMap = React.createClass({
           <div
             ref="map"
             className="trip-map-map"
-            style={{height: "100%"}}
-          />
+            style={{ height: '100%' }}
+            />
         </div>
       </section>
     )
   },
-
-  processDataForGps(data) {
-    var featureCollection = {
-      "type": "FeatureCollection",
-      "features": [{ // Trip Path
-        "type": "Feature",
-        "properties": {
-          "eventType": "TripPath",
-          "properties": data.TripProperties
-        },
-        "geometry": {
-          "type": "LineString",
-          "coordinates": data.TripPath
-        }
-      }]
-    };
-
-    featureCollection.features = featureCollection.features.concat(data.SpeedingPath);
-    featureCollection.features = featureCollection.features.concat(data.TripPathBehavior);
-
-    ///////////////////////////////
-    // Start / Stop
-    ///////////////////////////////
-    if (data.TripPath.length > 0) {
-      featureCollection.features.push({ // Trip Start
-        "type": "Feature",
-        "properties": {
-          "eventType": "Trip Start",
-          "properties": data.TripProperties[0]
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": data.TripPath[0]
-        }
-      });
-
-      featureCollection.features.push({ // Trip Stop
-        "type": "Feature",
-        "properties": {
-          "eventType": "Trip Stop",
-          "properties": data.TripProperties[data.TripProperties.length - 1]
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": data.TripPath[data.TripPath.length - 1]
-        }
-      });
-    }
-
-    return featureCollection;
-  }
 });
 
 module.exports = TripMap;

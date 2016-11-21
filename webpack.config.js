@@ -18,6 +18,7 @@ module.exports = {
   entry: {
     app: PATHS.src,
     vendor: [
+      'd3',
       'deep-diff',
       'immutable',
       'jquery',
@@ -27,20 +28,21 @@ module.exports = {
       'kendo-ui-web/scripts/kendo.datepicker.min',
       'kendo-ui-web/scripts/kendo.tooltip.min',
       'kendo-ui-web/scripts/kendo.data.min',
-      'leaflet-spin',
       'leaflet-textpath',
       'mapbox.js',
       'moment',
+      'moment-timezone',
       'q',
       'react',
-      'react-dom',
-      'react-router',
-      'react-redux',
       'react-bootstrap',
+      'react-dom',
+      'react-redux',
+      'react-router',
       'react-router-bootstrap',
       'react-spin',
       'redux',
       'redux-thunk',
+      'toastr',
     ],
   },
   output: {
@@ -60,12 +62,12 @@ module.exports = {
         loader: 'imports?jQuery=jquery,$=jquery',
       },
       {
-        test: require.resolve('leaflet-textpath'),
-        loader: 'imports?L=mapbox.js',
+        test: /\velocity*.js$/,
+        loader: 'imports?jQuery=jquery,$=jquery,window.jQuery=jquery,root.jQuery=jquery',
       },
       {
-        test: require.resolve('leaflet-spin'),
-        loader: 'imports?L=mapbox.js,Spinner=spin.js',
+        test: require.resolve('leaflet-textpath'),
+        loader: 'imports?L=mapbox.js',
       },
       {
         test: /\.css$/,
@@ -138,9 +140,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'apiBaseUrl': '"https://visiontest.danlawinc.com"',
-        'apiBaseUrl2': '"https://hidden-ravine-51571.herokuapp.com"',
-        // 'apiBaseUrl2': '"//localhost:5000"',
+        'apiBaseUrl': '"//localhost:2222"',
+        'configFilesUrl': '"//localhost:2222/configFiles/"',
       }
     }),
   ]

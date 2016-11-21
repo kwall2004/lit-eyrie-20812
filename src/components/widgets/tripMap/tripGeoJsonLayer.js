@@ -16,11 +16,11 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
   });
 
   var startIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-start2.png' }),
-  endIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-stop2.png' }),
-  haIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ha.png' }),
-  eaIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ea.png' }),
-  hbIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-hb.png' }),
-  ebIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-eb.png' });
+    endIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-stop2.png' }),
+    haIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ha.png' }),
+    eaIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-ea.png' }),
+    hbIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-hb.png' }),
+    ebIcon = new EventIcon({ iconUrl: '../../../../public/images/image_slices/marker-icon-eb.png' });
 
   self.featureLayer = createGeoJsonLayer(geoJsonData);
 
@@ -29,13 +29,13 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
     self.featureLayer.addTo(map);
   }
 
-  self.remove = function() {
+  self.remove = () => {
     if (self.map) {
       self.map.removeLayer(self.featureLayer);
     }
   };
 
-  self.updateData = function (geoJsonData, vehicleId) {
+  self.updateData = (geoJsonData, vehicleId) => {
     self.vehicleId = vehicleId;
 
     if (self.map) {
@@ -53,7 +53,7 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
       }
 
       if (pathLayer && !self.gprfValid) {
-        pathLayer.setStyle({ color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 });
+        pathLayer.setStyle({ color: 'transparent', dashArray: '5, 10', opacity: 1, fillOpacity: 1 });
         pathLayer.setText('\u279C', {
           repeat: true,
           offset: 7,
@@ -65,7 +65,7 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
       }
       else {
         pathLayer.setText(null);
-        pathLayer.setStyle({ color: "#39f", dashArray: null, opacity: 1, fillOpacity: 1 });
+        pathLayer.setStyle({ color: '#39f', dashArray: null, opacity: 1, fillOpacity: 1 });
       }
 
       if (self.map) {
@@ -86,92 +86,92 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
           var feature = e.target.feature;
           var content = '<div class="TripEventPopup"><table>'
 
-          + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
-          + feature.properties.eventType
-          + '</td></tr>'
+            + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
+            + feature.properties.eventType
+            + '</td></tr>'
 
-          + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
-          //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties.TimeStamp, null, false, true) // new moment(feature.properties.properties.TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
-          + '</td></tr>'
+            + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
+            //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties.TimeStamp, null, false, true) // new moment(feature.properties.properties.TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
+            + '</td></tr>'
 
-          + '<tr class="TripEventPopupAddress"><td>Address</td><td>'
-          + addressParts.road + '<br />' + addressParts.city + ', ' + addressParts.state + ' ' + addressParts.postcode
-          + '</td></tr>';
+            + '<tr class="TripEventPopupAddress"><td>Address</td><td>'
+            + addressParts.road + '<br />' + addressParts.city + ', ' + addressParts.state + ' ' + addressParts.postcode
+            + '</td></tr>';
 
           content += '</table></div>';
 
           e.target.bindPopup(content).openPopup();
         }
-      );
+        );
     }
   }
 
   function createGeoJsonLayer(geoJsonData) {
     return L.geoJson(geoJsonData, {
-      style: function (feature) {
+      style: (feature) => {
         switch (feature.properties.eventType) {
           case 'TripPath':
-          if (feature.properties.properties.length > 0) {
-            var gprf = feature.properties.properties[0].GPRF;
-            if (gprf && gprf == 1) {
-              self.gprfValid = false;
-              return { color: "#39f", opacity: 1, fillOpacity: 1 };
+            if (feature.properties.properties.length > 0) {
+              var gprf = feature.properties.properties[0].GPRF;
+              if (gprf && gprf == 1) {
+                self.gprfValid = false;
+                return { color: '#39f', opacity: 1, fillOpacity: 1 };
+              } else {
+                return { color: 'transparent', dashArray: '5, 10', opacity: 1, fillOpacity: 1 };
+              }
             } else {
-              return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
+              return { color: 'transparent', dashArray: '5, 10', opacity: 1, fillOpacity: 1 };
             }
-          } else {
-            return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
-          }
-          case 'Trip Start': return { color: "#ff0000" };
-          case 'Trip Stop': return { color: "#0000ff" };
+          case 'Trip Start': return { color: '#ff0000' };
+          case 'Trip Stop': return { color: '#0000ff' };
           case 'Speeding':
-          if (feature.properties.properties.length > 0) {
-            var gprf = feature.properties.properties[0].GPRF;
-            if (gprf && gprf == 1) {
-              return { color: "#db0022", opacity: 1, fillOpacity: 1 };
+            if (feature.properties.properties.length > 0) {
+              var gprf = feature.properties.properties[0].GPRF;
+              if (gprf && gprf == 1) {
+                return { color: '#db0022', opacity: 1, fillOpacity: 1 };
+              } else {
+                return { color: 'transparent', fillOpacity: 0 };
+              }
             } else {
-              return { color: "transparent", fillOpacity: 0 };
+              return { color: 'transparent', dashArray: '5, 10', opacity: 1, fillOpacity: 1 };
             }
-          } else {
-            return { color: "transparent", dashArray: "5, 10", opacity: 1, fillOpacity: 1 };
-          }
           case 'Hard Acceleration': return {};
           case 'Extreme Acceleration': return {};
           case 'Hard Braking': return {};
           case 'Extreme Braking': return {};
         }
       },
-      pointToLayer: function (feature, latlng) {
+      pointToLayer: (feature, latlng) => {
         switch (feature.properties.eventType) {
           case 'Trip Start':
-          return L.marker(latlng, { icon: startIcon });
+            return L.marker(latlng, { icon: startIcon });
           case 'Trip Stop':
-          return L.marker(latlng, { icon: endIcon });
+            return L.marker(latlng, { icon: endIcon });
           case 'Hard Acceleration':
-          return bindEventPopup(L.marker(latlng, { icon: haIcon }), feature);
+            return bindEventPopup(L.marker(latlng, { icon: haIcon }), feature);
           case 'Extreme Acceleration':
-          return bindEventPopup(L.marker(latlng, { icon: eaIcon }), feature);
+            return bindEventPopup(L.marker(latlng, { icon: eaIcon }), feature);
           case 'Hard Braking':
-          return bindEventPopup(L.marker(latlng, { icon: hbIcon }), feature);
+            return bindEventPopup(L.marker(latlng, { icon: hbIcon }), feature);
           case 'Extreme Braking':
-          return bindEventPopup(L.marker(latlng, { icon: ebIcon }), feature);
+            return bindEventPopup(L.marker(latlng, { icon: ebIcon }), feature);
           default:
-          return L.marker(latlng);
+            return L.marker(latlng);
         }
       },
-      onEachFeature: function (feature, layer) {
+      onEachFeature: (feature, layer) => {
         switch (feature.properties.eventType) {
           case 'Trip Start':
           case 'Trip Stop':
-          layer.on({
-            click: reverseGeoCodeEvent
-          });
-          break;
+            layer.on({
+              click: reverseGeoCodeEvent
+            });
+            break;
           case 'Speeding':
-          bindEventSpeedPopup(layer, feature);
-          break;
+            bindEventSpeedPopup(layer, feature);
+            break;
           default:
-          break;
+            break;
         }
       }
     });
@@ -180,12 +180,12 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
   function bindEventSpeedPopup(marker, feature) {
     if (feature.properties.properties.length > 0) {
       var content = '<div class="TripEventPopup"><table>'
-      + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
-      + feature.properties.eventType
-      + '</td></tr>'
-      + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
-      //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties[0].TimeStamp, null, false, true) //new moment(feature.properties.properties[0].TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
-      + '</td></tr>';
+        + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
+        + feature.properties.eventType
+        + '</td></tr>'
+        + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
+        //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties[0].TimeStamp, null, false, true) //new moment(feature.properties.properties[0].TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
+        + '</td></tr>';
 
       if (feature.properties.properties[0].Speed) {
         // var speed = usersettings.convertDistanceBySetting(self.vehicleId, 'miles', feature.properties.properties[0].Speed);
@@ -204,12 +204,12 @@ var TripGeoJsonLayer = function (map, geoJsonData, vehicleId) {
 
   function bindEventPopup(marker, feature) {
     var content = '<div class="TripEventPopup"><table>'
-    + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
-    + feature.properties.eventType
-    + '</td></tr>'
-    + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
-    //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties.TimeStamp, null, false, true) //new moment(feature.properties.properties.TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
-    + '</td></tr>';
+      + '<tr class="TripEventPopupType"><td>Event Type</td><td>'
+      + feature.properties.eventType
+      + '</td></tr>'
+      + '<tr class="TripEventPopupTime"><td>Local Time</td><td>'
+      //+ usersettings.convertDateTimeFormatBySetting(self.vehicleId, feature.properties.properties.TimeStamp, null, false, true) //new moment(feature.properties.properties.TimeStamp).tz(self.timeZone).format('M/D/YYYY hh:mm A')
+      + '</td></tr>';
 
     if (feature.properties.properties.Speed) {
       // var speed = usersettings.convertDistanceBySetting(self.vehicleId, 'miles', feature.properties.properties.Speed);

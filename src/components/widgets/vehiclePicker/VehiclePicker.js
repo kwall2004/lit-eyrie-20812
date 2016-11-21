@@ -1,16 +1,18 @@
 import React from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-import Spinner from 'react-spin';
+import Loader from '../loader';
 import TripDatePicker from '../tripDatePicker';
 import VehicleComboBox from '../vehicleComboBox';
 
 const VehiclePicker = React.createClass({
   componentDidMount() {
-    this.props.getVehicles();
+    if (this.props.devices.get('list').size === 0) {
+      this.props.getDevices();
+    }
   },
 
   render() {
-    var selectedVehicle = this.props.vehicles.get('selectedVehicle');
+    var selectedDevice = this.props.devices.get('selectedDevice');
 
     return (
       <section>
@@ -24,29 +26,20 @@ const VehiclePicker = React.createClass({
                       <div className="vehicle-picker-left-column">
                         <i className="sprite sprite-icon-main-vehicle"></i>
                         <div className="vehicle-picker-title">
-                          {(() => {
-                            if (this.props.vehicles.get('loading')) {
-                              return (
-                                <div className="vehicle-picker-title-relative">
-                                  <Spinner config={{
-                                    scale: 1.5
-                                  }}/>
-                                </div>
-                              );
-                            }
-                            else {
-                              return (
-                                <div className="vehicle-picker-title-relative">
-                                  <span className="accent-number">
-                                    {this.props.vehicles.get('loading') ? 'loading...' : this.props.vehicles.get('list').size}
-                                  </span>
-                                  <span className="accent-description">
-                                    {this.props.vehicles.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
-                                  </span>
-                                </div>
-                              );
-                            }
-                          })()}
+                          <div className="vehicle-picker-title-relative">
+                            <Loader
+                              loading={this.props.devices.get('loading')}
+                              config={{ scale: 1.5 }}
+                              style={{ height: '105px' }}
+                              >
+                              <span className="accent-number">
+                                {this.props.devices.get('list').size}
+                              </span>
+                              <span className="accent-description">
+                                {this.props.devices.get('list').size === 1 ? 'Vehicle' : 'Vehicles'}
+                              </span>
+                            </Loader>
+                          </div>
                         </div>
                       </div>
                     );
@@ -56,29 +49,19 @@ const VehiclePicker = React.createClass({
                       <div className="vehicle-picker-left-column">
                         <i className="sprite sprite-icon-main-trips"></i>
                         <div className="vehicle-picker-title">
-                          {(() => {
-                            if (this.props.trips.get('loading')) {
-                              return (
-                                <div className="vehicle-picker-title-relative">
-                                  <Spinner config={{
-                                    scale: 1.5
-                                  }}/>
-                                </div>
-                              );
-                            }
-                            else {
-                              return (
-                                <div className="vehicle-picker-title-relative">
-                                  <span className="accent-number">
-                                    {this.props.trips.get('list').size}
-                                  </span>
-                                  <span className="accent-description">
-                                    {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
-                                  </span>
-                                </div>
-                              );
-                            }
-                          })()}
+                          <div className="vehicle-picker-title-relative">
+                            <Loader
+                              loading={this.props.trips.get('loading')}
+                              config={{ scale: 1.5 }}
+                              >
+                              <span className="accent-number">
+                                {this.props.trips.get('list').size}
+                              </span>
+                              <span className="accent-description">
+                                {this.props.trips.get('list').size === 1 ? 'Trip' : 'Trips'}
+                              </span>
+                            </Loader>
+                          </div>
                         </div>
                       </div>
                     );
@@ -100,10 +83,10 @@ const VehiclePicker = React.createClass({
                               value: this.props.trips.get('selectedTripDate'),
                               format: 'MM/dd/yyyy',
                               change: (e) => {
-                                this.props.selectTripDate(e.sender.value());
+                                this.props.storeSelectedTripDate(e.sender.value());
                               }
                             }}
-                          />
+                            />
                         </span>
                       );
                     }
@@ -115,20 +98,29 @@ const VehiclePicker = React.createClass({
                     <VehicleComboBox
                       {...this.props}
                       options={{
-                        dataTextField: 'name',
-                        dataValueField: 'vehicleId',
+                        dataTextField: 'vehicleAlias',
+                        dataValueField: 'id',
                         filter: 'contains',
                         dataSource: {
-                          data: this.props.vehicles.get('list').toJS()
+                          data: this.props.devices.get('list').toJS(),
+                          schema: {
+                            parse: (data) => {
+                              return data.map((d) => {
+                                var device = Object.assign({}, d);
+                                device.vehicleAlias = d.vehicleAlias || 'Unknown';
+                                return device;
+                              })
+                            }
+                          }
                         },
-                        template: '<span class="k-state-default"><h4>#: data.name #</h4><p>#: data.userName # (#: data.userId #)</p></span>',
-                        value: selectedVehicle ? selectedVehicle.get('vehicleId') : '',
-                        text: selectedVehicle ? selectedVehicle.get('name') : '',
+                        template: '<span class="k-state-default"><h4>#: data.vehicleAlias #</h4><p>#: data.imei #</p></span>',
+                        value: selectedDevice ? selectedDevice.get('id') : '',
+                        text: selectedDevice ? (selectedDevice.get('vehicleAlias') ? selectedDevice.get('vehicleAlias') : 'Unknown') : '',
                         change: (e) => {
-                          this.props.selectVehicle(e.sender.value());
+                          this.props.storeSelectedDevice(e.sender.value());
                         }
                       }}
-                    />
+                      />
                   </span>
                 </div>
               </div>
@@ -141,11 +133,11 @@ const VehiclePicker = React.createClass({
               <div className="vehicle-picker-info">
                 <Grid>
                   {(() => {
-                    if (selectedVehicle && selectedVehicle.get('name')) {
+                    if (selectedDevice && selectedDevice.get('vehicleAlias')) {
                       return (
                         <Row>
                           <Col sm={4} md={4} className="vehicle-picker-info-name">
-                            {selectedVehicle.get('name')}
+                            {selectedDevice.get('vehicleAlias')}
                           </Col>
                           <Col sm={8} md={8} className="vehicle-picker-info-table-wrapper">
                             <div className="vehicle-picker-info-table">
@@ -163,22 +155,27 @@ const VehiclePicker = React.createClass({
                                   <tr>
                                     <td>
                                       <span>
-                                        {selectedVehicle.get('make') && selectedVehicle.get('make') !== 'Unknown' ? selectedVehicle.get('make') : '--'}
+                                        {selectedDevice.get('make')}
                                       </span>
                                     </td>
                                     <td>
                                       <span>
-                                        {selectedVehicle.get('model') && selectedVehicle.get('make') !== 'Unknown' ? selectedVehicle.get('model') : '--'}
+                                        {selectedDevice.get('model')}
                                       </span>
                                     </td>
                                     <td className="vehicle-year">
                                       <span>
-                                        {selectedVehicle.get('year') && selectedVehicle.get('year') > 1900 && selectedVehicle.get('year') < 2100 ? selectedVehicle.get('year') : '--'}
+                                        {selectedDevice.get('modelYear')}
                                       </span>
                                     </td>
                                     <td className="vehicle-picker-info-vin">
                                       <span>
-                                        {selectedVehicle.get('vin') && selectedVehicle.get('vin').length == 17 ? selectedVehicle.get('vin') : '--'}
+                                        {selectedDevice.get('vin')}
+                                      </span>
+                                    </td>
+                                    <td className="vehicle-odometer">
+                                      <span>
+                                        {selectedDevice.get('odometer')}
                                       </span>
                                     </td>
                                   </tr>

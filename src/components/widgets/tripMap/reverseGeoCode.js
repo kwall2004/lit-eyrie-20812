@@ -1,5 +1,5 @@
 function reverseGeoCode(latitude, longitude) {
-  return Q($.getJSON("https://nominatim.openstreetmap.org/reverse?format=json&lat=" + latitude + "&lon=" + longitude + "&zoom=18&json_callback=?", function (result) {
+  return Q($.getJSON('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latitude + '&lon=' + longitude + '&zoom=18&json_callback=?', function (result) {
 
     return result;
   }));

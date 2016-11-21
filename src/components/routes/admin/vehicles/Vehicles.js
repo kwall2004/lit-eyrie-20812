@@ -1,6 +1,6 @@
 import React from 'react';
 import DataGrid, { clientEditor, filterMenuInit } from '../../../widgets/dataGrid';
-import vehicles from '../../../../kendoDataSources/vehiclesDataSource';
+import vehicles from '../../../../kendo/vehiclesDataSource';
 
 const Vehicles = React.createClass({
   render() {
@@ -21,9 +21,8 @@ const Vehicles = React.createClass({
             pageSizes: true,
             buttonCount: 5
           },
-          columns: [
-          {
-            field: 'ClientName',
+          columns: [{
+            field: 'clientName',
             editor: clientEditor,
             title: 'Client Name',
             width: '200px',
@@ -31,35 +30,42 @@ const Vehicles = React.createClass({
             sortable: true
           },
           {
-            field: 'Make',
-            title: 'Make',
-            width: '150px',
-            filterable: true,
-            sortable: true
-          },
-          {
-            field: 'Model',
-            title: 'Model',
-            width: '150px',
-            filterable: true,
-            sortable: true
-          },
-          {
-            field: 'ModelYear',
-            title: 'Model Year',
-            width: '150px',
-            filterable: true,
-            sortable: true
-          },
-          {
-            field: 'Alias',
+            field: 'alias',
             title: 'Alias',
             width: '150px',
             filterable: true,
             sortable: true
           },
           {
-            field: 'Odometer',
+            field: 'vin',
+            title: 'VIN',
+            width: '150px',
+            filterable: true,
+            sortable: true
+          },
+          {
+            field: 'make',
+            title: 'Make',
+            width: '150px',
+            filterable: true,
+            sortable: true
+          },
+          {
+            field: 'model',
+            title: 'Model',
+            width: '150px',
+            filterable: true,
+            sortable: true
+          },
+          {
+            field: 'modelYear',
+            title: 'Model Year',
+            width: '150px',
+            filterable: true,
+            sortable: true
+          },
+          {
+            field: 'odometer',
             title: 'Odometer',
             width: '100px',
             filterable: true,
@@ -73,8 +79,8 @@ const Vehicles = React.createClass({
           }]
         }} />
       </section>
-      )
-    },
-  });
+    )
+  },
+});
 
-  module.exports = Vehicles;
+module.exports = Vehicles;

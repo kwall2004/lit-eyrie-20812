@@ -21,6 +21,9 @@ module.exports = {
         require('./clients'),
         require('./vehicles'),
         require('./devices'),
+        require('./users'),
+        require('./deviceActions'),
+        require('./configFiles'),
       ]);
     });
   }

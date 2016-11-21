@@ -41,10 +41,10 @@ const TripDatePicker = React.createClass({
       content: 'go to last trip date',
     });
     lastTripDateButton.on('click', () => {
-      var lastTripDate = this.props.trips.getIn(['lastTripDate', 'timeStamp']);
+      var lastTripDate = this.props.trips.get('lastTripDate');
       if (lastTripDate) {
         this.datePicker.value(new Date(lastTripDate));
-        this.props.selectTripDate(this.datePicker.value());
+        this.props.storeSelectedTripDate(this.datePicker.value());
       }
     })
   },

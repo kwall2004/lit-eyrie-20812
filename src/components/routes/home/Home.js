@@ -2,6 +2,9 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import VehiclePicker from '../../widgets/vehiclePicker';
+import { connect } from 'react-redux';
+import * as devicesActions from '../../../store/actions/devices';
+import * as tripsActions from '../../../store/actions/trips';
 
 const Home = React.createClass({
   render() {
@@ -50,22 +53,23 @@ const Home = React.createClass({
         </Navbar>
         <VehiclePicker {...this.props} />
         <section>
-          {this.props.children && React.cloneElement(
-            this.props.children,
-            {
-              vehicles: this.props.vehicles,
-              getVehicles: this.props.getVehicles,
-              selectVehicle: this.props.selectVehicle,
-              trips: this.props.trips,
-              selectTripDate: this.props.selectTripDate,
-              selectTrip: this.props.selectTrip,
-              tripJsonData: this.props.tripJsonData,
-            }
-          )}
+          {this.props.children}
         </section>
       </section>
     )
   }
 });
 
-module.exports = Home;
+const Container = connect(
+  (state) => {
+    return {
+      devices: state.devices,
+      trips: state.trips,
+    };
+  },
+  Object.assign({},
+    devicesActions,
+    tripsActions)
+)(Home);
+
+module.exports = Container;

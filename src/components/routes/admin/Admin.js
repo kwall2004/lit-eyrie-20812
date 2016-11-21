@@ -11,6 +11,12 @@ const Admin = React.createClass({
         return 'Icon_Title_VehicleSetup.png';
       case '/admin/devices':
         return 'Icon_Title_DeviceSetup.png';
+      case '/admin/users':
+        return 'Icon_Title_UserSetup.png';
+      case '/admin/deviceactions':
+        return 'Icon_Title_DeviceAction.png';
+      case '/admin/config-files':
+        return 'Icon_Title_ConfigFileUpload.png';
     }
   },
 
@@ -22,6 +28,12 @@ const Admin = React.createClass({
         return 'Vehicle Setup';
       case '/admin/devices':
         return 'Device Setup';
+      case '/admin/users':
+        return 'Users Setup';
+      case '/admin/deviceactions':
+        return 'Device Action Settings';
+      case '/admin/config-files':
+        return 'Config File Upload';
     }
   },
 
@@ -58,6 +70,16 @@ const Admin = React.createClass({
                   </span>
                 </NavItem>
               </LinkContainer>
+              <LinkContainer to="/admin/users">
+                <NavItem>
+                  <span className="sidebar-icon">
+                    <i className="icon-UserSetup fa-2x"></i>
+                  </span>
+                  <span className="link-text">
+                    User Setup
+                  </span>
+                </NavItem>
+              </LinkContainer>
               <LinkContainer to="/admin/vehicles">
                 <NavItem>
                   <span className="sidebar-icon">
@@ -78,16 +100,31 @@ const Admin = React.createClass({
                   </span>
                 </NavItem>
               </LinkContainer>
+              <LinkContainer to="/admin/deviceactions">
+                <NavItem>
+                  <span className="sidebar-icon">
+                    <i className="icon-DeviceAction fa-2x"></i>
+                  </span>
+                  <span className="link-text">
+                    Device Action Settings
+                  </span>
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to="/admin/config-files">
+                <NavItem>
+                  <span className="sidebar-icon">
+                    <i className="icon-ConfigFileUpload fa-2x"></i>
+                  </span>
+                  <span className="link-text">
+                    Config File Upload
+                  </span>
+                </NavItem>
+              </LinkContainer>
             </ul>>
           </div>
-
           <div id="page-content-wrapper">
             <section>
-              {this.props.children && React.cloneElement(this.props.children, {
-                vehicles: this.props.vehicles,
-                getVehicles: this.props.getVehicles,
-                selectVehicle: this.props.selectVehicle
-              })}
+              {this.props.children}
             </section>
           </div>
         </div>

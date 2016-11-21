@@ -3,6 +3,9 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import TripList from '../../../widgets/tripList';
 import TripDetails from '../../../widgets/tripDetails';
 import TripMap from '../../../widgets/tripMap';
+import TripChart from '../../../widgets/tripChart';
+import { connect } from 'react-redux';
+import * as tripsActions from '../../../../store/actions/trips';
 
 const Trips = React.createClass({
   render() {
@@ -20,12 +23,26 @@ const Trips = React.createClass({
               <div className="trips-map">
                 <TripMap {...this.props} />
               </div>
+              <div className="trips-rpm">
+                <TripChart {...this.props} />
+              </div>
             </Col>
           </Row>
         </Grid>
+        <div style={{ height: 35 }} />
       </section>
     )
   }
 });
 
-module.exports = Trips;
+const Container = connect(
+  (state) => {
+    return {
+      trips: state.trips,
+    };
+  },
+  Object.assign({},
+    tripsActions)
+)(Trips);
+
+module.exports = Container;

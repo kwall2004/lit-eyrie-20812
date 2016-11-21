@@ -7,19 +7,21 @@ import ReactDOM from 'react-dom';
 import diff from 'deep-diff';
 
 const VehicleComboBox = React.createClass({
+  open() {
+    $('.k-list-container').css('font-size', '14px');
+  },
+
   componentWillMount() {
     kendo.ui.plugin(kendo.ui.ComboBox.extend({
       options: {
         name: 'VehicleComboBox'
       },
-      _filterSource: function() {
+      _filterSource: function () {
         this.dataSource.filter({
-          logic: "or",
+          logic: 'or',
           filters: [
-            { field: "name", operator: "contains", value: this.text() },
-            { field: "imei", operator: "contains", value: this.text() },
-            { field: "userId", operator: "contains", value: this.text() },
-            { field: "userName", operator: "contains", value: this.text() }
+            { field: 'vehicleAlias', operator: 'contains', value: this.text() },
+            { field: 'imei', operator: 'contains', value: this.text() }
           ]
         });
       }
@@ -46,12 +48,11 @@ const VehicleComboBox = React.createClass({
       this.comboBox.value(nextProps.options.value);
     }
 
-    var differs = diff(nextProps.options.dataSource.data, this.props.options.dataSource.data);
-    if (this.comboBox.setDataSource && nextProps.options.dataSource && differs) {
+    if (this.comboBox.setDataSource && nextProps.options.dataSource && diff(nextProps.options.dataSource.data, this.props.options.dataSource.data)) {
       this.comboBox.setDataSource(nextProps.options.dataSource);
     }
 
-    if (nextProps.vehicles.get('loading')) {
+    if (nextProps.devices.get('loading')) {
       $(this.comboBox.wrapper).find('.k-i-arrow-s').addClass('k-loading');
     }
     else {
@@ -73,10 +74,6 @@ const VehicleComboBox = React.createClass({
 
   render() {
     return <input />;
-  },
-
-  open() {
-    $('.k-list-container').css('font-size', '14px');
   },
 });
 

@@ -20,7 +20,7 @@ const TripDetails = React.createClass({
                       if (selectedTrip) {
                         return (
                           <div className="trip-details-row-number">
-                            {this.props.trips.getIn(['selectedTrip', 'rowNumber']) + 1}
+                            {this.props.trips.getIn(['selectedTrip', 'rowNumber'])}
                           </div>
                         );
                       }
@@ -43,7 +43,7 @@ const TripDetails = React.createClass({
                     {(() => {
                       if (selectedTrip) {
                         return (
-                          <span>{new moment(selectedTrip.get('localStartTime')).format('hh:mm A')}</span>
+                          <span>{new moment(selectedTrip.get('startTime')).format('hh:mm A')}</span>
                         )
                       }
                       else {
@@ -57,7 +57,7 @@ const TripDetails = React.createClass({
                     {(() => {
                       if (selectedTrip) {
                         return (
-                          <span>{new moment(selectedTrip.get('localEndTime')).format('hh:mm A')}</span>
+                          <span>{new moment(selectedTrip.get('endTime')).format('hh:mm A')}</span>
                         )
                       }
                       else {
@@ -71,7 +71,7 @@ const TripDetails = React.createClass({
                     {(() => {
                       if (selectedTrip) {
                         return (
-                          <span>{selectedTrip.getIn(['trip', 'tripMileage'])}</span>
+                          <span>{selectedTrip.get('tripMileage')}</span>
                         )
                       }
                       else {

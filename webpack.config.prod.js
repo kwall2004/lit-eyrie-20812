@@ -129,8 +129,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': '"production"',
-        'apiBaseUrl': '"//localhost:2222"',
-        'configFilesUrl': '"//localhost:2222/configFiles/"',
+        'apiBaseUrl': '"https://hidden-ravine-51571.herokuapp.com"',
+        'configFilesUrl': '"https://hidden-ravine-51571.herokuapp.com/configFiles/"',
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
